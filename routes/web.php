@@ -37,7 +37,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/dashboard', function () {
     return view('dash.index');
-});
+})->name('dashboard');
 Route::get('/dashboard/test', function () {
     return view('dash.jquery-datatable');
 });

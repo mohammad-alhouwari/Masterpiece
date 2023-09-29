@@ -62,7 +62,7 @@
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
                 <li @yield('home')>
-                    <a href="index.html">
+                    <a href="{{route('dashboard')}}">
                         <i class="material-icons">home</i>
                         <span>Home</span>
                     </a>
@@ -109,17 +109,17 @@
 
 
 
-                <li @yield('users')>
+                <li @yield('products')>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="fa-solid fa-box"></i>
                         <span>Products Information</span>
                     </a>
                     <ul class="ml-menu">
-                        <li @yield('usersView')>
-                            <a href="{{ url('dashboard/user') }}">View All Products</a>
+                        <li @yield('productsView')>
+                            <a href="{{ url('dashboard/product') }}">View All Products</a>
                         </li>
-                        <li @yield('usersAdd')>
-                            <a href="{{ url('dashboard/user/create') }}">Add New Product</a>
+                        <li @yield('productsAdd')>
+                            <a href="{{ url('dashboard/product/create') }}">Add New Product</a>
                         </li>
                     </ul>
                 </li>
@@ -131,7 +131,7 @@
         <!-- Footer -->
         <div class="legal">
             <div class="copyright">
-                &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                &copy; 2023 <a href="javascript:void(0);">Alhouwari-</a>.
             </div>
             <div class="version">
                 <b>Version: </b> 1.0.5

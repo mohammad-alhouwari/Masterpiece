@@ -88,13 +88,7 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->description = $request->input('description');
 
-        // Handle file upload if a new video is provided
-        // if ($request->hasFile('video')) {
-        //     $file = $request->file('video');
-        //     $fileName = time() . '_' . $file->getClientOriginalName();
-        //     $file->storeAs('videos', $fileName, 'public');
-        //     $category->video = $fileName;
-        // }
+    
         if ($video = $request->file('video')) {
             $destinationPath = 'videos/';
             $fileName = time() . '_' . $video->getClientOriginalName();

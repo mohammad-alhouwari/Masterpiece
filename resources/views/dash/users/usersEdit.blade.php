@@ -375,7 +375,7 @@
 
 @section('JS')
     <!-- Jquery Validation Plugin Js -->
-    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="{{ asset('plugins/jquery-validation/jquery.validate.js')}}"></script>
 
     <!-- JQuery Steps Plugin Js -->
     <script src="../../plugins/jquery-steps/jquery.steps.js"></script>

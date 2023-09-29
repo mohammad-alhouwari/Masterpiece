@@ -41,7 +41,7 @@
                             <form action="{{ route('dashboard.category.store') }}" id="wizard_with_validation" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <h3> Category Information</h3>
+                                <h3>Category Information</h3>
                                 <fieldset>
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -58,7 +58,7 @@
                                     </div>
                                 </fieldset>
 
-                                <h3>Add Image</h3>
+                                <h3>Add Video*</h3>
                                 <fieldset>
                                     <div class="d-flex flex-wrap ">
                                         <div class="w-50 p-1">
