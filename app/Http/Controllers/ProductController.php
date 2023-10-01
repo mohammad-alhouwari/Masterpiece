@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $products = product::all();
-        $categories = Category::all();
-        return view('dash.products.productView', compact('products', 'categories'));
+        $products = Product::with('category')->get();
+        return view('dash.products.productView', compact('products'));
     }
 
     /**
@@ -164,4 +166,39 @@ class ProductController extends Controller
 
         return redirect()->route('dashboard.product.index')->with('success', 'Product deleted successfully.');
     }
+
+
+
+    //------------------------------- home page -------------------------------
+
+    public function home(){
+        $categories = Category::all();
+        return view('pages.index' ,compact('categories'));
+    }
+
+
+    public function shop($category_id)
+    {
+        $products = product::where('category_id', $category_id)->get();
+        $categories = Category::all();
+        $categoryName = Category::where('id', $category_id)->first();
+        return view('pages.shop',compact('products','categories','categoryName'));
+    }
+
+    public function product($product_id)
+    {
+        $products = product::where('id', $product_id)->first();
+        return view('pages.single-product',compact('products'));
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

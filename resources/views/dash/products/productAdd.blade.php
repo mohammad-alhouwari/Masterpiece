@@ -39,34 +39,7 @@
                         </div>
                         <div class="body">
 
-                            {{-- <form action="{{ route('dashboard.product.store') }}" id="" method="POST"
-                                    enctype="multipart/form-data">
-                                    <h3>Add Images (Optional)</h3>
-                                    <fieldset>
-                                        <div class="d-flex flex-wrap ">
-
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input id="drop" type="file" name="images[]" accept="image/*"
-                                                        multiple max="5">
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form> --}}
-                            {{-- 
-                            <div class="drop-area" id="dropArea">
-                                <p>Drag & drop images here or click to select</p>
-                                <input type="file" id="fileInput" accept="image/*" multiple max="5">
-                            </div>
-
-                            <div class="slider-container" id="imageContainer"></div>
- --}}
-
-
-
+                            
 
 
                             <div class="row clearfix">

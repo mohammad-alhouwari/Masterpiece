@@ -111,7 +111,7 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td>{{ $product->category_id }}</td>
+                                                <td>{{ $product->category->name }}</td>
                                                 <td>{{ $product->description }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>{{ $product->stock_quantity }}</td>

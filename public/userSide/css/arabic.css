@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'arabic';
+    /* src:url(../fonts/amiri-quran.ttf); */
+    /* src:url(../fonts/aref-ruqaa.ttf); */
+    src:url(../fonts/Marhey-VariableFont_wght.ttf);
+    /* src:url(../fonts/ReemKufi-VariableFont_wght.ttf); */
+  }
+  html * {
+    font-family: arabic;
+    font-size: 1.03em;
+  }

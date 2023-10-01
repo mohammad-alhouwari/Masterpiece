@@ -32,9 +32,49 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
+
+//---------------------main --------------------
+
+Route::get('/Islamiyat', [ProductController::class, 'home'])->name('home');
+Route::get('/Islamiyat/shop/{category_id}', [ProductController::class, 'shop'])->name('shop');
+Route::get('/Islamiyat/product/{product_id}', [ProductController::class, 'product'])->name('product');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------- dashboard -------------
 Route::get('/dashboard', function () {
     return view('dash.index');
 })->name('dashboard');
