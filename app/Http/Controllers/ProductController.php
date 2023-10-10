@@ -187,8 +187,9 @@ class ProductController extends Controller
 
     public function product($product_id)
     {
-        $products = product::where('id', $product_id)->first();
-        return view('pages.single-product',compact('products'));
+        $product = product::where('id', $product_id)->first();
+        $category = Category::where('id', $product->category_id)->first();
+        return view('pages.single-product',compact('product','category'));
     }
 
 

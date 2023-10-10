@@ -35,7 +35,7 @@
 
 
                                 <div class="carousel-item">
-                                    <img src="img/banner/banner-img.png" class="d-block w-50 mx-auto mt-5" alt="...">
+                                    <img src="userSide/img/banner/banner-img.png" class="d-block w-50 mx-auto mt-5" alt="...">
                                     <div class=" text-center d-none d-md-block">
                                         <h3 style=" color: orangered; text-shadow: 0 0 3px white, 0 0 5px black;">اعوذ بالله
                                             من الشيطان الرجيم</h3>
@@ -54,13 +54,13 @@
                             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button"
                                 data-slide="prev">
                                 <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-                                <img height="60px" src="img/banner/prev.png" alt="">
+                                <img height="60px" src="userSide/img/banner/prev.png" alt="">
                                 <span class="sr-only">Previous</span>
                             </a>
                             <a class="carousel-control-next" href="#carouselExampleCaptions" role="button"
                                 data-slide="next">
                                 <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-                                <img height="60px" src="img/banner/next.png" alt="">
+                                <img height="60px" src="userSide/img/banner/next.png" alt="">
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>

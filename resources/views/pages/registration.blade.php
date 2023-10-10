@@ -108,9 +108,6 @@
 	</section>
 	<!-- End Banner Area -->
 	<style>
-		.login_form_inner{
-			padding-top: 5px;
-		}
 		.login_box_area .login_box_img {
     margin-right: 0px;
     margin-left: -30px;
@@ -118,57 +115,57 @@
 }
 	</style>
 
-	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>التسجيل كمستخدم جديد</h3>
-						<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="إسم المستخدم" onfocus="this.placeholder = ''" onblur="this.placeholder = 'إسم المستخدم'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="البريد الإليكتروني" onfocus="this.placeholder = ''" onblur="this.placeholder = 'البريد الإليكتروني'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="رقم الهاتف" onfocus="this.placeholder = ''" onblur="this.placeholder = 'رقم الهاتف'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="الرقم السري" onfocus="this.placeholder = ''" onblur="this.placeholder = 'الرقم السري'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="تأكيد الرقم السري" onfocus="this.placeholder = ''" onblur="this.placeholder = 'تأكيد الرقم السري'">
-							</div>
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">موافق على شروط الإستخدام</label>
+		<!--================Login Box Area =================-->
+		<section class="login_box_area section_gap">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-lg-6">
+						<div class="login_form_inner">
+							<h3>التسجيل كمستخدم جديد</h3>
+							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="إسم المستخدم" onfocus="this.placeholder = ''" onblur="this.placeholder = 'إسم المستخدم'">
 								</div>
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">التسجيل</button>
-								<!-- <a href="#">نسيت كلمة السر؟</a> -->
-							</div>
-						</form>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="البريد الإليكتروني" onfocus="this.placeholder = ''" onblur="this.placeholder = 'البريد الإليكتروني'">
+								</div>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="رقم الهاتف" onfocus="this.placeholder = ''" onblur="this.placeholder = 'رقم الهاتف'">
+								</div>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="الرقم السري" onfocus="this.placeholder = ''" onblur="this.placeholder = 'الرقم السري'">
+								</div>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="تأكيد الرقم السري" onfocus="this.placeholder = ''" onblur="this.placeholder = 'تأكيد الرقم السري'">
+								</div>
+								<div class="col-md-12 form-group">
+									<div class="creat_account">
+										<input type="checkbox" id="f-option2" name="selector">
+										<label for="f-option2">موافق على شروط الإستخدام</label>
+									</div>
+								</div>
+								<div class="col-md-12 form-group">
+									<button type="submit" value="submit" class="primary-btn">التسجيل</button>
+									<!-- <a href="#">نسيت كلمة السر؟</a> -->
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="img/login.jpg" alt="">
-						<div class="hover">
-							<h4>لديك حساب مسبق؟</h4>
-							<p>مرحبًا بك في عائلتنا! ، نود أن نرحب بك بذراعين مفتوحين إلى عالمنا. انضم إلينا لتستكشف منتجاتنا وتجربة تجمع بين الجودة والتميز.</p>
-							<a class="primary-btn" href="login.html">تسجيل الدخول</a>
+					<div class="col-lg-6">
+						<div class="login_box_img">
+							<img class="img-fluid" src="img/login.jpg" alt="">
+							<div class="hover">
+								<h4>لديك حساب مسبق؟</h4>
+								<p>مرحبًا بك في عائلتنا! ، نود أن نرحب بك بذراعين مفتوحين إلى عالمنا. انضم إلينا لتستكشف منتجاتنا وتجربة تجمع بين الجودة والتميز.</p>
+								<a class="primary-btn" href="login.html">تسجيل الدخول</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!--================End Login Box Area =================-->
+		</section>
+		<!--================End Login Box Area =================-->
 
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">

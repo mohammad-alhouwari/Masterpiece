@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,28 +45,18 @@ Route::get('/Islamiyat/shop/{category_id}', [ProductController::class, 'shop'])-
 Route::get('/Islamiyat/product/{product_id}', [ProductController::class, 'product'])->name('product');
 
 
+// Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
+// 1. Handle Adding to Cart
+Route::post('/add-to-cart', [CartController::class, 'addToCart']);
 
+// 2. Handle Viewing Cart
+Route::get('/view-cart', [CartController::class, 'viewCart']);
 
+// 3. Handle Updating and Removing Items
+Route::put('/update-cart-item', [CartController::class, 'updateCartItem']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 4. Display Cart Total
+Route::get('/cart-total', [CartController::class, 'cartTotal']);
 
 
 

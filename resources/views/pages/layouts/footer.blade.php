@@ -76,6 +76,8 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="{{ asset('userSide/js/gmaps.min.js')}}"></script>
 	<script src="{{ asset('userSide/js/main.js')}}"></script>
+	{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
 </body>
 
 </html>
