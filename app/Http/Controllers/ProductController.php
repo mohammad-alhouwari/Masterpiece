@@ -70,6 +70,7 @@ class ProductController extends Controller
 
         $images = $request->file('images');
         $i = 1;
+        if($images){
         foreach ($images as  $image) {
             $inputName = 'image' . $i;
             $destinationPath = 'images/';
@@ -78,7 +79,7 @@ class ProductController extends Controller
             $input[$inputName] = $profileImage;
             $input['image' . $i] = $profileImage;
             $i++;
-        }
+        }}
         
 
         // Add the category_id to the input before creating the product

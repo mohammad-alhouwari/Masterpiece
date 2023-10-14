@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Cart;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,7 +30,28 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect()->intended(RouteServiceProvider::HOME);
+
+
+        $sessionCart = session('cart');
+
+        if ($sessionCart != null) {
+            $cartproducts = cart::where('user_id', auth()->user()->id);
+
+            foreach ($sessionCart as $cartItem) {
+                $existingCartItem = $cartproducts->where('product_id', $cartItem['id'])->first();
+                if ($existingCartItem) {
+                    $existingCartItem->quantity += $cartItem['quantity'];
+                    $existingCartItem->save();
+                } else {
+                    cart::create([
+                        'product_id' => $cartItem['productId'],
+                        'user_id' => auth()->user()->id,
+                        'quantity' => $cartItem['quantity']
+                    ]);
+                }
+
+            }
+        }
         return redirect()->intended("/Islamiyat");
     }
 
@@ -43,7 +65,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
+        session()->forget('cart');
         return redirect('/Islamiyat');
     }
 }

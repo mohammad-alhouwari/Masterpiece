@@ -56,9 +56,12 @@ Route::get('/view-cart', [CartController::class, 'viewCart']);
 Route::put('/update-cart-item', [CartController::class, 'updateCartItem']);
 
 // 4. Display Cart Total
-Route::get('/cart-total', [CartController::class, 'cartTotal']);
 
 
+Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
+
+Route::post('/Islamiyat/cart/add', [CartController::class, 'saveProductToSession'])->name('cartAdd');
+Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('cartRemove');
 
 
 

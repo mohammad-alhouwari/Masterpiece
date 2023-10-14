@@ -5,77 +5,160 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+
 
 class CartController extends Controller
 {
-    // 6. Implement User Authentication
-    public function __construct()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $this->middleware(['auth']);
+        return view('pages.cart');
+        
     }
 
-    // 1. Handle Adding to Cart
-    public function addToCart(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $product = Product::find($request->product_id);
+        //
+    }
 
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, cart $cart)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(cart $cart)
+    {
+        //
+    }
+
+    public function saveProductToSession(Request $request)
+    {
+        $valueToAdd = $request->input('productId');
+        $quantity = $request->input('quantity');
+        $cart = session()->get('cart', []);
+        $product = Product::findOrFail($valueToAdd);
+        if (isset($cart[$valueToAdd])) {
+            $cart[$valueToAdd]['quantity'] +=$quantity;
+        } else {
+            $cart[$valueToAdd] = [
+                "id" => $product->id,
+                "name" => $product->name,
+                "image" => $product->image,
+                "price" => $product->price,
+                'description' => $product->description,
+                "quantity" => $quantity
+            ];
         }
 
-        $cart = Cart::updateOrCreate(
-            ['user_id' => auth()->user()->id, 'product_id' => $request->product_id],
-            ['quantity' => $request->quantity]
-        );
+        if (Auth::check()) {
+            $user = Auth::user();
+            $cartproducts = Cart::where('user_id', $user->id)->get();
 
-        return response()->json(['message' => 'Product added to cart', 'cart' => $cart]);
+            foreach ($cart as $cartItem) {
+                $existingCartItem = $cartproducts->where('product_id', $cartItem['id'])->first();
+                if ($existingCartItem) {
+                    // Update the quantity of the existing cart item
+                    $existingCartItem->quantity += $quantity;
+                    $existingCartItem->save();
+                } else {
+                    // Create a new cart item
+                    Cart::create([
+                        'user_id' => $user->id,
+                        'product_id' => $cartItem['id'],
+                        'quantity' => $cartItem['quantity'],
+                    ]);
+                }
+            }
+        } else {
+
+            session()->put('cart', $cart);
+        }
+        // Push $valueToAdd onto the session array
+        // return response()->json(['message' => 'Value added to session array successfully']);
+        return redirect()->back()->with('success', 'تم إضافة المنتج بنجاح');
     }
 
-    // 2. Handle Viewing Cart
-    public function viewCart()
+    public function update2(Request $request)
     {
-        $cartItems = auth()->user()->Cart;
-        $total = $this->calculateTotal($cartItems);
-
-        return view('pages.cart', compact('cartItems', 'total'));
+        if ($request->id && $request->quantity) {
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart successfully updated!');
+        }
     }
 
-    // 3. Handle Updating and Removing Items
-    public function updateCartItem(Request $request)
+    public function remove(Request $request)
     {
-        $cart = Cart::where('user_id', auth()->user()->id)
-            ->where('product_id', $request->product_id)
-            ->first();
+        if ($request->id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
 
-        if (!$cart) {
-            return response()->json(['message' => 'Cart item not found'], 404);
+                if (Auth::check()) {
+                    $user = Auth::user();
+                    $cartItem = Cart::where('user_id', $user->id)
+                        ->where('product_id', $request->id)
+                        ->first();
+
+                    if ($cartItem) {
+                        if ($cartItem->quantity > 0) {
+                            $cartItem->delete(); // Remove the record if quantity becomes zero
+                        } else {
+                            $cartItem->quantity = 0;
+                            $cartItem->save(); // Update the quantity in the database
+                        }
+                    }
+                }
+
+                session()->flash('success', 'تم حذف المنتج من سلة المشتريات بنجاح');
+            }
         }
 
-        if ($request->quantity == 0) {
-            $cart->delete();
-            return response()->json(['message' => 'Cart item removed']);
-        }
-
-        $cart->update(['quantity' => $request->quantity]);
-
-        return response()->json(['message' => 'Cart item updated', 'cart' => $cart]);
+        return redirect()->back();
     }
 
-    // 4. Display Cart Total
-    public function cartTotal()
-    {
-        $total = $this->calculateTotal(auth()->user()->Cart);
 
-        return response()->json(['total' => $total]);
-    }
 
-    // 5. Display Checkout and Order Process (This can be a separate controller or action)
 
-    // Helper method to calculate the cart total
-    private function calculateTotal($cartItems)
-    {
-        return $cartItems->sum(function ($item) {
-            return $item->Product->price * $item->quantity;
-        });
-    }
+
+
+
 }

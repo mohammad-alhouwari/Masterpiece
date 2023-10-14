@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <div class="card-back">
-                                <video class="video__container" autoplay muted loop>
+                                <video class="video__container" style="height: 320px;" autoplay muted loop>
                                     <source src="{{ url('videos/' . $category->video) }}" type="video/mp4">
                                     this is a video
                                 </video>
