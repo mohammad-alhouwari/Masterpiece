@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
                     $existingCartItem->save();
                 } else {
                     cart::create([
-                        'product_id' => $cartItem['productId'],
+                        'product_id' => $cartItem['id'],
                         'user_id' => auth()->user()->id,
                         'quantity' => $cartItem['quantity']
                     ]);

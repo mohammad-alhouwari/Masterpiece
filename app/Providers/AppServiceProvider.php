@@ -28,9 +28,16 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $navCategories = Category::all();
             $user = Auth::user();
-            $cart = $user ? Cart::where('user_id', $user->id)->get() : [];
+            $cart = [];
+
+            if ($user) {
+                $cart = Cart::where('user_id', $user->id)->get();
+            } elseif (session()->has('cart')) {
+                $cart = session('cart');
+            }
 
             $view->with(compact('navCategories', 'cart'));
         });
+
     }
 }

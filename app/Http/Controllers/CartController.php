@@ -114,15 +114,81 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'تم إضافة المنتج بنجاح');
     }
 
-    public function update2(Request $request)
+    // public function cartUpdate(Request $request)
+    // {
+    //     dd($request);
+
+    //     if ($request->id && $request->quantity) {
+    //         $cart = session()->get('cart');
+    //         $cart[$request->id]["quantity"] = $request->quantity;
+    //         session()->put('cart', $cart);
+    //         session()->flash('success', 'Cart successfully updated!');
+    //     }
+    // }
+
+    public function cartUpdateS(Request $request)
     {
-        if ($request->id && $request->quantity) {
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
-            session()->put('cart', $cart);
-            session()->flash('success', 'Cart successfully updated!');
+        $cart = session()->get('cart', []); // Retrieve the cart from session
+
+        foreach ($cart as $key => $item) {
+            $quantity = $request->input('quantity' . $item['id']);
+
+            // Check if the quantity is valid (non-negative integer)
+            if (!is_numeric($quantity) || $quantity < 0 || floor($quantity) != $quantity) {
+                return redirect()->back()->with('error', 'Invalid quantity for ' . $item['name']);
+            }
+
+            // Update the quantity
+            $cart[$key]['quantity'] = $quantity;
         }
+
+        // Save the updated cart back to session
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'تم تعديل سلة المنتجات بنجاح');
     }
+
+
+public function cartUpdateD(Request $request)
+{
+    
+    $cartItems = Cart::where('user_id', auth()->user()->id)->get(); // Retrieve the cart items from the database
+
+    foreach ($cartItems as $cartItem) {
+        $quantity = $request->input('quantity' . $cartItem->product_id);
+
+        // Check if the quantity is valid (non-negative integer)
+        if (!is_numeric($quantity) || $quantity < 0 || floor($quantity) != $quantity) {
+            return redirect()->back()->with('error', 'Invalid quantity for product ID ' . $cartItem->product_id);
+        }
+
+        // Update the quantity
+        $cartItem->quantity = $quantity;
+        $cartItem->save();
+    }
+
+    return redirect()->back()->with('success', 'تم تعديل سلة المنتجات بنجاح');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function remove(Request $request)
     {

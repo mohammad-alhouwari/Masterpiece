@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -46,24 +47,18 @@ Route::get('/Islamiyat/product/{product_id}', [ProductController::class, 'produc
 
 
 // Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
-// 1. Handle Adding to Cart
-Route::post('/add-to-cart', [CartController::class, 'addToCart']);
-
-// 2. Handle Viewing Cart
-Route::get('/view-cart', [CartController::class, 'viewCart']);
-
-// 3. Handle Updating and Removing Items
-Route::put('/update-cart-item', [CartController::class, 'updateCartItem']);
-
-// 4. Display Cart Total
 
 
 Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
 
 Route::post('/Islamiyat/cart/add', [CartController::class, 'saveProductToSession'])->name('cartAdd');
+Route::post('/Islamiyat/cart/updateS', [CartController::class, 'cartUpdateS'])->name('cartUpdateS');
+Route::post('/Islamiyat/cart/updateD', [CartController::class, 'cartUpdateD'])->name('cartUpdateD');
 Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('cartRemove');
 
 
+//order
+Route::get('/Islamiyat/checkout', [OrderController::class, 'index'])->name('checkout');
 
 
 
