@@ -99,6 +99,17 @@
         });
     </script>
 @endif
+@if (session('error'))
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            Swal.fire(
+                'معاكسة',
+                '{{ session('error') }}',
+                'error'
+            );
+        });
+    </script>
+@endif
 
 {{-- <script src="{{ asset('userSide/js/cart/customCart.js') }}"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}

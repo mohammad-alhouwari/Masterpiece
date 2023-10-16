@@ -59,6 +59,7 @@ Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('
 
 //order
 Route::get('/Islamiyat/checkout', [OrderController::class, 'index'])->name('checkout');
+Route::post('/Islamiyat/checkout/pay', [OrderController::class, 'pay'])->name('pay');
 
 
 

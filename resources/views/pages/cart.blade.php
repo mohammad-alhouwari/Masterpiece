@@ -38,7 +38,8 @@
 
 
                             <tr>
-                                <div id="cartUPdate" class="alert alert-warning" style="display: none; text-align: center;"> الرجاء اعادة تحميل القيبة لتطبيق التغيرات</div>
+                                <div id="cartUPdate" class="alert alert-warning" style="display: none; text-align: center;">
+                                    الرجاء اعادة تحميل الحقية لتطبيق التغيرات</div>
                             </tr>
 
 
@@ -48,12 +49,13 @@
 
 
 
-                
-                            <form  action="{{ isset($cart[0]->Product) ? route('cartUpdateD') : route('cartUpdateS')}}" method="POST">
+
+                            <form action="{{ isset($cart[0]->Product) ? route('cartUpdateD') : route('cartUpdateS') }}"
+                                method="POST">
                                 @csrf
                                 @if (session('cart') || $cart)
-                                    
-                                    @foreach ( $cart as $details)
+
+                                    @foreach ($cart as $details)
                                         <tr>
                                             <td>
                                                 <div class="media">
@@ -63,7 +65,7 @@
                                                             alt="">
                                                     </div>
                                                     <div class="media-body">
-                                                        <p>{{ $details['name'] }}</p>
+                                                        <p>{{ isset($details->Product) ? $details->Product->name : $details['name'] }}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -74,7 +76,8 @@
                                             </td>
                                             <td>
                                                 <div class="product_count">
-                                                    <input type="text" name="quantity{{ isset($details->Product) ? $details->Product->id : $details['id'] }}"
+                                                    <input type="text"
+                                                        name="quantity{{ isset($details->Product) ? $details->Product->id : $details['id'] }}"
                                                         id="quantity{{ isset($details->Product) ? $details->Product->id : $details['id'] }}"
                                                         maxlength="12"
                                                         onchange="updateTotal({{ isset($details->Product) ? $details->Product->id : $details['id'] }}, {{ isset($details->Product) ? $details->Product->price : $details['price'] }})"
@@ -95,7 +98,7 @@
                                             <td>
                                                 @php
                                                     $ItemTotal = isset($details->Product) ? $details->Product->price * $details['quantity'] : $details['price'] * $details['quantity'];
-                                                    
+
                                                 @endphp
                                                 <h5>$<span
                                                         id="total{{ isset($details->Product) ? $details->Product->id : $details['id'] }}">{{ $ItemTotal }}</span>
@@ -189,8 +192,8 @@
             var totalElement = document.getElementById('total' + id);
             var total = price * quantity;
             totalElement.textContent = total;
-            document.getElementById('cartUPdate').style.display="block";
-            
+            document.getElementById('cartUPdate').style.display = "block";
+
         }
 
         function incrementQuantity(inputId, price) {
@@ -201,7 +204,7 @@
                 var id = inputId.substring(8);
                 updateTotal(id, price);
             }
-            document.getElementById('cartUPdate').style.display="block";
+            document.getElementById('cartUPdate').style.display = "block";
         }
 
         function decrementQuantity(inputId, price) {
@@ -212,7 +215,7 @@
                 var id = inputId.substring(8);
                 updateTotal(id, price);
             }
-            document.getElementById('cartUPdate').style.display="block";
+            document.getElementById('cartUPdate').style.display = "block";
         }
     </script>
 @endsection

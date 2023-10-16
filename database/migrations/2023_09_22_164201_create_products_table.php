@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('image');
             $table->text('description');
+            $table->text('longDescription')->nullable();
             $table->bigInteger('stock_quantity');
             $table->float('price');
             $table->string('image1')->nullable();

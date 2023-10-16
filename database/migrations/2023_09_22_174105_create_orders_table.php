@@ -15,13 +15,12 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('phone')->nullable();
-            $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('street_address')->nullable();
             $table->bigInteger('post_code')->nullable();
-            $table->timestamp('date');
-            $table->integer('total quantity');
+            $table->integer('total-quantity');
             $table->string('status');
+            $table->text('note')->nullable();
             $table->string('payment_method');
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
