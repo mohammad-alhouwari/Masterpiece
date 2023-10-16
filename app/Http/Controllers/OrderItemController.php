@@ -62,4 +62,9 @@ class OrderItemController extends Controller
     {
         //
     }
+    public function orderItemsView($order_id)
+    {
+        $orderItems = orderItem::where('order_id', $order_id)->get();
+        return view('dash.orderitems.orderItemView', compact('orderItems'));
+    }
 }

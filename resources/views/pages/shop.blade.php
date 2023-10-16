@@ -179,6 +179,7 @@
 
 						<!--foreach single product -->
 						@foreach ($products as $product)
+						@if ($product->stock_quantity > 0)						
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
 								<img class="img-fluid" src="{{ url($product->image) }}" alt="{{ $product->name }}.image">
@@ -210,6 +211,7 @@
 								</div>
 							</div>
 						</div>
+						@endif
 						@endforeach
 
 

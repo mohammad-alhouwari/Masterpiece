@@ -139,11 +139,8 @@
                                 <td>
                                     <h5>عدد المنتجات</h5>
                                 </td>
-                                @php
-                                    $cartt = isset($details->Product) ? $details->Product->price : session('cart');
-                                @endphp
-                                @if (is_array($cartt) && count($cartt) > 0)
-                                    <td>منتج {{ count($cartt) }}</td>
+                                @if (count($cart) > 0)
+                                    <td>منتج {{ count($cart) }}</td>
                                 @else
                                     <td>منتج 0</ف>
                                 @endif

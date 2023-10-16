@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Cart;
 
 class RegisteredUserController extends Controller
 {
@@ -32,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -45,6 +46,27 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $sessionCart = session('cart');
+
+        if ($sessionCart != null) {
+            $cartproducts = cart::where('user_id', auth()->user()->id);
+
+            foreach ($sessionCart as $cartItem) {
+                $existingCartItem = $cartproducts->where('product_id', $cartItem['id'])->first();
+                if ($existingCartItem) {
+                    $existingCartItem->quantity += $cartItem['quantity'];
+                    $existingCartItem->save();
+                } else {
+                    cart::create([
+                        'product_id' => $cartItem['id'],
+                        'user_id' => auth()->user()->id,
+                        'quantity' => $cartItem['quantity']
+                    ]);
+                }
+
+            }
+        }
 
         // return redirect(RouteServiceProvider::HOME);
         return redirect('/Islamiyat');

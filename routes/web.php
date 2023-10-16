@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 
 
 /*
@@ -76,3 +77,6 @@ Route::get('/dashboard/test', function () {
 Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
 Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
 Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
+
+Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
+Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');

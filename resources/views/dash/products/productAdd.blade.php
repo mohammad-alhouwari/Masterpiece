@@ -20,146 +20,132 @@
             <!-- Advanced Form Example With Validation -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>Add Product</h2>
-                            {{-- <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul> --}}
-                        </div>
-                        <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>Add New Product</h2>
 
-                            
+                                </div>
+                                <div class="body">
+                                    {{-- <form id="form_advanced_validation" method="POST" > --}}
+                                    <form action="{{ route('dashboard.product.store') }}" id="form_advanced_validation"
+                                        method="POST" enctype="multipart/form-data">
+
+                                        @csrf
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="name" maxlength="10"
+                                                    minlength="3" required>
+                                                <label class="form-label">Product Name</label>
+                                            </div>
+                                            <div class="help-info">Min. 3, Max. 10 characters</div>
+                                        </div>
 
 
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h2>Add New Product</h2>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <textarea name="description" cols="30" rows="2" class="form-control no-resize" required></textarea>
+                                                <label class="form-label">Description</label>
+                                            </div>
+                                            <div class="help-info">Description</div>
 
                                         </div>
-                                        <div class="body">
-                                            {{-- <form id="form_advanced_validation" method="POST" > --}}
-                                            <form action="{{ route('dashboard.product.store') }}"
-                                                id="form_advanced_validation" method="POST" enctype="multipart/form-data">
 
-                                                @csrf
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <textarea name="longDescription" cols="30" rows="5" class="form-control no-resize" required></textarea>
+                                                <label class="form-label">Long Description</label>
+                                            </div>
+                                            <div class="help-info">Long Description</div>
 
-                                                <div class="form-group form-float">
-                                                    <div class="form-line">
-                                                        <input type="text" class="form-control" name="name"
-                                                            maxlength="10" minlength="3" required>
-                                                        <label class="form-label">Product Name</label>
-                                                    </div>
-                                                    <div class="help-info">Min. 3, Max. 10 characters</div>
-                                                </div>
-
-
-
-                                                <div class="form-group form-float">
-                                                    <div class="form-line">
-                                                        <textarea name="description" cols="30" rows="5" class="form-control no-resize" required></textarea>
-                                                        <label class="form-label">Description</label>
-                                                    </div>
-                                                    <div class="help-info">Description</div>
-
-                                                </div>
-
-
-
-                                                <div class="form-group form-float"
-                                                    style="display: inline-block; width:48%; margin:0 5px;">
-                                                    <div class="form-line">
-                                                        <input type="number" class="form-control" name="stock_quantity"
-                                                            min="1" required>
-                                                        <label class="form-label">Stock quantity</label>
-                                                    </div>
-                                                    <div class="help-info">Numbers only</div>
-                                                </div>
-
-
-
-
-
-                                                <div class="form-group form-float"
-                                                    style="display: inline-block; width:48%; margin:0 5px;">
-                                                    <div class="form-line">
-                                                        <input type="number" class="form-control" name="price"
-                                                            min="1" required>
-                                                        <label class="form-label">Price</label>
-                                                    </div>
-                                                    <div class="help-info">Numbers only min 1</div>
-                                                </div>
-
-                                                <div class="form-group form-float"
-                                                    style="display: inline-block; width:48%; margin:0 5px;">
-                                                    <div class="form-line">
-                                                        <select class="form-select" id="category" name="category_id"
-                                                            required>
-                                                            <option selected="true" disabled="disabled">Choose Category
-                                                            </option>
-                                                            @foreach ($categories as $category)
-                                                                <option value="{{ $category->id }}">
-                                                                    {{ $category->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        {{-- <label class="form-label">Price</label> --}}
-                                                    </div>
-                                                    <div class="help-info">Numbers only min 1</div>
-                                                </div>
-
-
-                                                <div class="form-group form-float"
-                                                    style="display: inline-block; width:48%; margin:0 5px;">
-                                                    <div class="form-line">
-                                                        <input type="file" class="form-control" name="image"
-                                                            id="thumbnail" accept="image/*" required>
-                                                        <label for="thumbnail" class="form-label">Thumbnail image</label>
-                                                    </div>
-                                                    <div class="help-info">Thumbnail image required</div>
-                                                </div>
-
-                                                <br>
-                                                <br>
-
-                                                <div class="form-group form-float">
-                                                    <div class="form-line">
-                                                        <div class="drop-area" id="dropArea">
-                                                            <p>Drag & drop images here or click to select</p>
-                                                            <input name="images[]" type="file" id="fileInput"
-                                                                accept="image/*" multiple>
-                                                        </div>
-                                                        {{-- <label class="form-label">Description</label> --}}
-                                                    </div>
-                                                    <div class="help-info">Add additional images maximam 5</div>
-                                                </div>
-                                                <div class="slider-container" id="imageContainer"></div>
-
-
-
-
-                                                <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
-                                            </form>
                                         </div>
-                                    </div>
+
+
+
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <input type="number" class="form-control" name="stock_quantity"
+                                                    min="1" required>
+                                                <label class="form-label">Stock quantity</label>
+                                            </div>
+                                            <div class="help-info">Numbers only</div>
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <input type="number" class="form-control" name="price" min="1"
+                                                    required>
+                                                <label class="form-label">Price</label>
+                                            </div>
+                                            <div class="help-info">Numbers only min 1</div>
+                                        </div>
+
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <select class="form-select" id="category" name="category_id" required>
+                                                    <option selected="true" disabled="disabled">Choose Category
+                                                    </option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">
+                                                            {{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <label class="form-label">Price</label> --}}
+                                            </div>
+                                            <div class="help-info">Numbers only min 1</div>
+                                        </div>
+
+
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <input type="file" class="form-control" name="image" id="thumbnail"
+                                                    accept="image/*" required>
+                                                <label for="thumbnail" class="form-label">Thumbnail image</label>
+                                            </div>
+                                            <div class="help-info">Thumbnail image required</div>
+                                        </div>
+
+                                        <br>
+                                        <br>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <div class="drop-area" id="dropArea">
+                                                    <p>Drag & drop images here or click to select</p>
+                                                    <input name="images[]" type="file" id="fileInput" accept="image/*"
+                                                        multiple>
+                                                </div>
+                                                {{-- <label class="form-label">Description</label> --}}
+                                            </div>
+                                            <div class="help-info">Add additional images maximam 5</div>
+                                        </div>
+                                        <div class="slider-container" id="imageContainer"></div>
+
+
+
+
+                                        <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
 
 
 
-                            {{-- 
+                    {{-- 
 
                             <form action="{{ route('dashboard.product.store') }}" method="POST"
                                 enctype="multipart/form-data">
@@ -179,8 +165,6 @@
 
 
 
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- #END# Advanced Form Example With Validation -->
@@ -225,29 +209,29 @@
         }
 
         /* .slider-container {
-                                                                                                            display: flex;
-                                                                                                            overflow-x: auto;
-                                                                                                            margin-bottom: 10px;
-                                                                                                        }
+                                                                                                                display: flex;
+                                                                                                                overflow-x: auto;
+                                                                                                                margin-bottom: 10px;
+                                                                                                            }
 
-                                                                                                        .slider-image {
-                                                                                                            max-width: 100px;
-                                                                                                            max-height: 100px;
-                                                                                                            margin-right: 10px;
-                                                                                                            position: relative;
-                                                                                                        } */
+                                                                                                            .slider-image {
+                                                                                                                max-width: 100px;
+                                                                                                                max-height: 100px;
+                                                                                                                margin-right: 10px;
+                                                                                                                position: relative;
+                                                                                                            } */
 
         /* .delete-button {
-                                                                                                            position: absolute;
-                                                                                                            top: 5px;
-                                                                                                            right: 5px;
-                                                                                                            background: red;
-                                                                                                            color: white;
-                                                                                                            border: none;
-                                                                                                            padding: 5px 10px;
-                                                                                                            cursor: pointer;
-                                                                                                            border-radius: 50%;
-                                                                                                        } */
+                                                                                                                position: absolute;
+                                                                                                                top: 5px;
+                                                                                                                right: 5px;
+                                                                                                                background: red;
+                                                                                                                color: white;
+                                                                                                                border: none;
+                                                                                                                padding: 5px 10px;
+                                                                                                                cursor: pointer;
+                                                                                                                border-radius: 50%;
+                                                                                                            } */
 
         #imageContainer {
             display: flex;

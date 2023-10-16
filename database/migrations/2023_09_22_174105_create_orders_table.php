@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->string('city')->nullable();
             $table->string('street_address')->nullable();
             $table->bigInteger('post_code')->nullable();
-            $table->integer('total-quantity');
-            $table->integer('total-price');
+            $table->integer('total_quantity');
+            $table->integer('total_price');
             $table->string('status');
             $table->text('note')->nullable();
             $table->string('payment_method');

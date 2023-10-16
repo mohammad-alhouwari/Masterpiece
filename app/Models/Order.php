@@ -18,8 +18,8 @@ class Order extends Model
         'post_code',
         'discount_id',
         'status',
-        'total-quantity',
-        'total-price',
+        'total_quantity',
+        'total_price',
         'payment_method',
     ];
 

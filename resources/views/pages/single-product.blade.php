@@ -19,7 +19,6 @@
         </div>
     </section>
     <!-- End Banner Area -->
-
     <!--================Single Product Area =================-->
     <div class="product_image_area">
         <div class="container">
@@ -53,23 +52,18 @@
                         <p>
                             {{ $product->description }}
                         </p>
-
-
-
-
-
                         <form action="{{ route('cartAdd') }}" method="POST">
                             @csrf
                             <input type="hidden" name="productId" value="{{ $product->id }}"> 
                             <div class="product_count">
                                 <label for="quantity">الكميّة:</label>
-                                <input type="text" name="quantity" id="quantity{{ $product->id }}" maxlength="12"
-                                    value="1" min="1" title="Quantity:" class="input-text qty">
+                                <input type="number" name="quantity" id="quantity{{ $product->id }}" maxlength="12"
+                                    value="1" min="1" max="{{$product->stock_quantity}}" title="Quantity:" class="input-text qty">
                                 <button
-                                    onclick="var result = document.getElementById('quantity{{ $product->id }}'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                    onclick="var result = document.getElementById('quantity{{ $product->id }}'); var sst = result.value; if( !isNaN( sst ) && sst < {{$product->stock_quantity}} ) result.value++;return false;"
                                     class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                 <button
-                                    onclick="var result = document.getElementById('quantity{{ $product->id }}'); var sst = result.value; if( !isNaN( sst ) && sst > 1 ) result.value--;return false;"
+                                    onclick="var result = document.getElementById('quantity{{ $product->id }}'); var sst = result.value; if( !isNaN( sst ) && sst > 1  ) result.value--;return false;"
                                     class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                             </div>
                             <div class="card_area d-flex align-items-center add_to_cart">
@@ -77,17 +71,6 @@
                                 <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                             </div>
                         </form>
-
-
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -103,10 +86,10 @@
                     <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
                         aria-selected="true">الوصف</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                         aria-controls="profile" aria-selected="false">تفاصيل المنتج</a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
@@ -115,23 +98,11 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <p>تُقدم لوحة جدارية إسلامية من إبداعاتنا الفنية، تأخذك في رحلةٍ عبر أروقة التاريخ الإسلامي. بتفاصيلها
-                        الرقيقة والهندسية الدقيقة، تعكس جمالًا استثنائيًّا ينبض بالروحانية. تصميم متقن يجمع بين الزخارف
-                        المعمارية والفنون التقليدية، مما يخلق لوحة فريدة تضفي جوًا من السكينة والإلهام على المكان الذي تُعرض
-                        فيه.</p>
-                    <p>تتميز هذه اللوحة بالحرفية العالية في النقوش والتفاصيل، حيث تبدو وكأنها نسيج يجمع بين الماضي والحاضر.
-                        تجمع الألوان الدافئة والزاهية بين الأناقة والبساطة، ما يجعلها تتناسب مع مختلف أنماط الديكور
-                        والمساحات.</p>
-                    <p>هذه اللوحة الجدارية ليست مجرد قطعة فنية، بل هي تعبير عن تراث ثقافي غني، تُضفي لمسة فريدة من التاريخ
-                        الإسلامي إلى منزلك أو مكان عملك. بغض النظر عن خلفيتك الثقافية، ستشعر وكأنك تغوص في جمال وعمق
-                        التفاصيل التي تحملها هذه اللوحة.</p>
-                    <p>سواءً اخترت وضعها في غرفة المعيشة، غرفة النوم، المكتب، أو حتى في مكان استقبال الضيوف، ستكون هذه
-                        اللوحة إضافة مميزة ولافتة تسرق الأنظار وتثير الإعجاب. اجعلها تذكيرًا يوميًّا بقيم وثقافة الإسلام،
-                        واستمتع بجاذبيتها ورونقها الذي سيبقى خالدًا عبر الزمن.</p>
+                    <p>{{$product->longDescription}}</p>
 
 
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                {{-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
@@ -178,7 +149,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <div class="row">
@@ -263,7 +234,7 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                     </div>
-                                    <p>واااااه <br>انا طلبت مجدرة <br> اجاني لوحة جدارية</p>
+                                    <p>واااااه</p>
                                 </div>
                             </div>
                         </div>

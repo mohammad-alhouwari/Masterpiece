@@ -21,6 +21,12 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'يتوجب عليك تسجيل الدخول');
 
     }
+    public function orders()
+    {
+
+        $orders = order::all();
+        return view('dash.order.orderView', compact('orders'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -91,8 +97,8 @@ class OrderController extends Controller
             'post_code' => $request->input('post_code'),
             'discount_id' => $request->input('discount_id') ? $request->input('discount_id') : null ,
             'payment_method' => $request->input('payment_method'),
-            'total-quantity' => $total,
-            'total-price' => $totalPrice,
+            'total_quantity' => $total,
+            'total_price' => $totalPrice,
             'status' => "onHold"
         ]);
         

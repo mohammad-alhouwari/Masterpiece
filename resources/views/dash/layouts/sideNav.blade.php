@@ -62,7 +62,7 @@
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
                 <li @yield('home')>
-                    <a href="{{route('dashboard')}}">
+                    <a href="{{ route('dashboard') }}">
                         <i class="material-icons">home</i>
                         <span>Home</span>
                     </a>
@@ -122,6 +122,21 @@
                             <a href="{{ url('dashboard/product/create') }}">Add New Product</a>
                         </li>
                     </ul>
+                </li>
+
+                <li @yield('orders')>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa-solid fa-truck"></i>
+                        <span>Orders Information</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li @yield('orderView')>
+                            <a href="{{ route('orders') }}">View All Orders</a>
+                        </li>
+                    </ul>
+
+                    @yield('singleOrderView')
+
                 </li>
 
 
