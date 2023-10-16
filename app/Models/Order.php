@@ -19,6 +19,7 @@ class Order extends Model
         'discount_id',
         'status',
         'total-quantity',
+        'total-price',
         'payment_method',
     ];
 
@@ -35,5 +36,5 @@ class Order extends Model
     {
         return $this->belongsTo(Discount::class, 'discount_id');
     }
-    
+
 }

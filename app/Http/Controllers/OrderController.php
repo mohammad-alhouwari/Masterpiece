@@ -77,8 +77,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $userCart = Cart::where('user_id', $user->id)->get();
         $total =0;
+        $totalPrice = 0;
         foreach ($userCart as $item) {
-           $total += $item->quantity;
+            $totalPrice += $item->quantity * $item->Product->price;
+            $total += $item->quantity;
         }
         $order = order::create([
             'user_id' => $user->id,
@@ -90,6 +92,7 @@ class OrderController extends Controller
             'discount_id' => $request->input('discount_id') ? $request->input('discount_id') : null ,
             'payment_method' => $request->input('payment_method'),
             'total-quantity' => $total,
+            'total-price' => $totalPrice,
             'status' => "onHold"
         ]);
         
@@ -100,7 +103,8 @@ class OrderController extends Controller
                 'quantity'=> $item->quantity,
                 'price'=> $item->Product->price,
             ]);
-           
+            $item->Product->stock_quantity -= $item->quantity;
+            $item->Product->save();
             $item->delete();
         }
 
