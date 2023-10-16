@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -62,7 +63,8 @@ Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('
 Route::get('/Islamiyat/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::post('/Islamiyat/checkout/pay', [OrderController::class, 'pay'])->name('pay');
 
-
+//ReviewController
+Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name('review');
 
 
 

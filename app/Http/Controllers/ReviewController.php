@@ -26,9 +26,13 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeReview(Request $request)
     {
-        //
+        $review = $request->all();
+        $review['user_id'] = auth()->user()->id;
+        
+        review::create($review);
+        return redirect()->back()->with('success', 'مشكور على التعليق معلم');
     }
 
     /**
