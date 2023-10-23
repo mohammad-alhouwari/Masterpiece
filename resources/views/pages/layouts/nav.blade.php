@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('userSide/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('userSide/css/arabic.css') }}">
     <link rel="stylesheet" href="{{ asset('userSide/css/card.css') }}">
+    @yield('CSS')
 </head>
 
 <body>
@@ -54,10 +55,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active @yield('home')"><a class="nav-link"
+                            <li class="nav-item  {{ Route::is('home') ? 'active' : '' }}"><a class="nav-link"
                                     href="{{ Route('home') }}">الرئيسية</a></li>
 
-                            <li class="nav-item submenu dropdown ">
+                            <li class="nav-item submenu dropdown {{ Route::is('shop') ? 'active' : '' }} ">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">المتجر</a>
                                 <ul class="dropdown-menu">
@@ -68,7 +69,7 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-item "><a class="nav-link" href="about_us.html">من نحن</a></li>
+                            <li class="nav-item {{ Route::is('about') ? 'active' : '' }} "><a class="nav-link" href="{{ Route('about') }}">من نحن</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">تواصل معنا</a></li>
 
 
@@ -89,7 +90,8 @@
                                         </a></li>
                                 </form>
                             @else
-                                <li class="nav-item"><a class=" primary-btn small" href="{{ route('login') }}"> تسجيل الدخول </a>
+                                <li class="nav-item"><a class=" primary-btn small" href="{{ route('login') }}"> تسجيل
+                                        الدخول </a>
                                 </li>
                             @endif
 
@@ -103,11 +105,11 @@
 
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="{{route('cart')}}" class="cart"><span class="ti-bag"></span></a>
+                            <li class="nav-item"><a href="{{ route('cart') }}" class="cart"><span
+                                        class="ti-bag"></span></a>
                             </li>
                             <li class="nav-item">
-                                <button class="search"><span class="lnr lnr-magnifier"
-                                        id="search"></span></button>
+                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                             </li>
 
                         </ul>

@@ -1,0 +1,144 @@
+/* @import url('https://fonts.googleapis.com/css?family=Stalemate'); */
+@font-face {
+    font-family: 'arabicBook';
+    /* src:url(../fonts/amiri-quran.ttf); */
+    src:url(../fonts/aref-ruqaa.ttf);
+    /* src: url(../fonts/Marhey-VariableFont_wght.ttf); */
+    /* src:url(../fonts/ReemKufi-VariableFont_wght.ttf); */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    /*   background:  linear-gradient(
+      rgba(255, 250, 250, 0.75), 
+      rgba(255, 250, 250, 0.75)), url(https://image.freepik.com/free-vector/forest-herbs-blue-background_8365-70.jpg); */
+    /*     background:     linear-gradient(
+      rgba(255, 250, 250, 0.75), 
+      rgba(255, 250, 250, 0.75)
+    ), url(https://i.pinimg.com/736x/3c/c0/54/3cc0541a55ce0550f78246bed0a96380--vintage-floral-backgrounds-vintage-wallpapers.jpg); */
+    background: linear-gradient(rgba(255, 255, 255, 0.9),
+            rgba(255, 255, 255, 0.9)), url(https://st2.depositphotos.com/1943535/9317/i/600/depositphotos_93171248-stock-photo-arabic-decorations-detail.jpg);
+    /* rgba(255, 255, 255, 0.9)), url(https://s-media-cache-ak0.pinimg.com/originals/30/b3/a9/30b3a9b27032a6b9c1d7a69d2400fb9e.jpg); */
+    /* font-family: 'Stalemate'; */
+}
+
+
+.container-book {
+    overflow: hidden;
+    /* margin-top: 3%; */
+}
+
+.book-wrapper {
+    position: relative;
+    margin: auto;
+    /* width: 820px; */
+    width: 60vw;
+}
+
+.book-wrapper img {
+    filter: drop-shadow(15px 5px 5px #494338);
+}
+
+.pages-container {
+    position: absolute;
+    top: 4%;
+    left: 3%;
+    right: 0;
+    bottom: 0;
+    width: 95%;
+    height: 95%;
+}
+
+.pages b,
+.pages p,
+.pages h1 {
+    font-family: 'arabicBook';
+    font-size: 1.05em;
+    font-weight: 600;
+}
+
+.pages [class^="page-num-"] {
+    background-image: url("https://img00.deviantart.net/cbb9/i/2005/258/c/4/paper_texture_v5_by_bashcorpo.jpg");
+    background-size: auto 100%;
+    position: relative;
+}
+
+
+.pages-content {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: table;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10%;
+}
+
+.content-inner {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+
+.book-wrapper {
+    user-select: none;
+}
+
+
+.page-num-1 .pages-background {
+    /* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url(https://openclipart.org/image/2400px/svg_to_png/242093/Vintage-Floral-Texture-Background.png); */
+    /* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("/userSide/img/bookPage.png"); */
+    /* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("/userSide/img/avatar.jpg");
+    background-size: cover;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0; */
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("https: //player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd6992dd6c1c&profile_id=139&oauth2_token_id=57447761");
+        background-size: cover;
+        opacity: 0.2;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+}
+
+/* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("/userSide/img/avatar.jpg"); */
+/* .pageImg {
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("https: //player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd6992dd6c1c&profile_id=139&oauth2_token_id=57447761");
+    background-size: cover;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+} */
+
+.pageImg {
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("https: //player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd6992dd6c1c&profile_id=139&oauth2_token_id=57447761");
+    background-size: cover;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

@@ -139,6 +139,21 @@
 
                 </li>
 
+                 <li @yield('about')>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa-regular fa-address-card"></i>
+                        <span>About-US Information</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li @yield('aboutView')>
+                            <a href="{{ url('dashboard/about') }}">View All About-US</a>
+                        </li>
+                        <li @yield('aboutAdd')>
+                            <a href="{{ url('dashboard/about/create') }}">Add New About-US</a>
+                        </li>
+                    </ul>
+                </li>
+
 
 
         </div>

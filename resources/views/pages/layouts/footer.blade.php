@@ -88,6 +88,9 @@
 <script src="{{ asset('userSide/js/main.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@yield('JS')
+
+
 @if (session('success'))
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {

@@ -1315,7 +1315,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                EXPORTABLE TABLE
+                                Users
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">

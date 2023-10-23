@@ -76,21 +76,22 @@ class ProductController extends Controller
 
         $images = $request->file('images');
         $i = 1;
-        if($images){
-        foreach ($images as  $image) {
-            $inputName = 'image' . $i;
-            $destinationPath = 'images/';
-            $profileImage = 'images/' . date('YmdHis') . "-" . $i . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input[$inputName] = $profileImage;
-            $input['image' . $i] = $profileImage;
-            $i++;
-        }}
-        
+        if ($images) {
+            foreach ($images as $image) {
+                $inputName = 'image' . $i;
+                $destinationPath = 'images/';
+                $profileImage = 'images/' . date('YmdHis') . "-" . $i . "." . $image->getClientOriginalExtension();
+                $image->move($destinationPath, $profileImage);
+                $input[$inputName] = $profileImage;
+                $input['image' . $i] = $profileImage;
+                $i++;
+            }
+        }
+
 
         // Add the category_id to the input before creating the product
         $input['category_id'] = $request->input('category_id');
-       
+
         // dd($input);
         Product::create($input);
 
@@ -113,7 +114,7 @@ class ProductController extends Controller
     public function edit(product $product)
     {
         $categories = Category::all();
-        return view('dash.products.productEdit', compact('product' , 'categories'));
+        return view('dash.products.productEdit', compact('product', 'categories'));
     }
 
     /**
@@ -172,43 +173,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('dashboard.product.index')->with('success', 'Product deleted successfully.');
-    }
-
-
-
-    //------------------------------- home page -------------------------------
-
-    public function home(){
-        $categories = Category::all();
-        return view('pages.index' ,compact('categories'));
-    }
-
-
-    public function shop($category_id)
-    {
-        $products = product::where('category_id', $category_id)->get();
-        $categories = Category::all();
-        $categoryName = Category::where('id', $category_id)->first();
-        return view('pages.shop',compact('products','categories','categoryName'));
-    }
-
-    public function product($product_id)
-    {
-        $product = product::where('id', $product_id)->first();
-
-        $user =auth::user();
-        $hasBeenBought = false;
-        $Reviews = Review::where('product_id', $product_id)->get();
-        foreach ($user->Order as $order) {
-            foreach ($order->OrderItem as $item) {
-                if ($item->product_id == $product_id) {
-                    $hasBeenBought = true;
-                }
-            }
-        }
-
-        $category = Category::where('id', $product->category_id)->first();
-        return view('pages.single-product',compact('product','category','hasBeenBought','Reviews'));
     }
 
 }

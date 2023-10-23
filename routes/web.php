@@ -10,6 +10,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\JeneralController;
 
 
 /*
@@ -43,9 +45,10 @@ require __DIR__ . '/auth.php';
 
 //---------------------main --------------------
 
-Route::get('/Islamiyat', [ProductController::class, 'home'])->name('home');
-Route::get('/Islamiyat/shop/{category_id}', [ProductController::class, 'shop'])->name('shop');
-Route::get('/Islamiyat/product/{product_id}', [ProductController::class, 'product'])->name('product');
+Route::get('/', [IndexController::class, 'home'])->name('home');
+Route::get('/Islamiyat/shop/{category_id}', [IndexController::class, 'shop'])->name('shop');
+Route::get('/Islamiyat/product/{product_id}', [IndexController::class, 'product'])->name('product');
+Route::get('/Islamiyat/about', [IndexController::class, 'about'])->name('about');
 
 
 // Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
@@ -68,6 +71,7 @@ Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name
 
 
 
+
 // ------------- dashboard -------------
 Route::get('/dashboard', function () {
     return view('dash.index');
@@ -79,6 +83,7 @@ Route::get('/dashboard/test', function () {
 Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
 Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
 Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
+Route::resource('dashboard/about', JeneralController::class)->names('dashboard.about');
 
 Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
 Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');

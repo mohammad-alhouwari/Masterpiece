@@ -14,8 +14,6 @@
         <div class="container-fluid">
             <div class="block-header">
                 <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
                 </h2>
             </div>
             <!-- Exportable Table -->
@@ -24,7 +22,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                EXPORTABLE TABLE
+                                Categories
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">

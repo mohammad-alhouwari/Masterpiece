@@ -1,21 +1,18 @@
 ﻿@extends('dash.layouts.masterTable')
 
-@section('title', 'orders')
+@section('title', 'about')
 
-@section('orders')
+@section('about')
     class="active"
 @endsection
-@section('orderView')
+@section('aboutView')
     class="active"
 @endsection
-
 
 @section('content')
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>
-                </h2>
             </div>
             <!-- Exportable Table -->
             <div class="row clearfix">
@@ -23,7 +20,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Orders Items
+                                About-Us 
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -39,42 +36,59 @@
                                 </li>
                             </ul>
                         </div>
+
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>See Products</th>
+                                            <th>Page</th>
+                                            <th>Title</th>
+                                            <th>Text</th>
+                                            <th>Cover</th>
+                                            <th>Media</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>See Products</th>
+                                            <th>Page</th>
+                                            <th>Title</th>
+                                            <th>Text</th>
+                                            <th>Cover</th>
+                                            <th>Media</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($orderItems as $item)
+                                        @php
+                                            $pageNumber = 1;
+                                        @endphp
+
+                                        @foreach ($abouts as $about)
                                             <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->Product->name }}</td>
-                                                <td>{{ $item->quantity }}</td>
-                                                <td>{{ $item->Product->price }}</td>
+                                                <td>Page {{$pageNumber}}</td>
+                                                <td>{{ $about->title }}</td>
+                                                <td>{{ $about->text }}</td>
+                                                <td>{{ $about->media1 ? $about->media1: "" }}</td>
+                                                <td>{{ $about->media2 ? $about->media2: "" }}</td>
                                                 <td>
-                                                    <a href="{{ route('product', $item->Product->id) }}" target="_blank"
-                                                        class="btn btn-primary">See Product</a>
+                                                    <a href="{{ route('dashboard.about.edit', $product->id) }}"
+                                                        class="btn btn-primary">Edit</a>
+                                                    <button class="btn btn-danger"
+                                                        onclick="deleteCategory({{ $about->id }})">Delete</button>
+                                                    <form id="delete-form-{{ $product->id }}"
+                                                        action="{{ route('dashboard.about.destroy', $product->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
@@ -82,11 +96,7 @@
             </div>
             <!-- #END# Exportable Table -->
 
-
-
-
-
-
+          
 
 
             <!-- Basic Examples -->
@@ -170,7 +180,5 @@
                 });
             }
         </script>
-
-
     </section>
 @endsection
