@@ -35,7 +35,7 @@ class CategoryController extends Controller
             'video' => 'required|mimes:mp4,mov,avi',
             'description' => 'nullable|string',
         ]);
-        
+
 
         $category = new Category();
         $category->name = $request->input('name');
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->description = $request->input('description');
 
-    
+
         if ($video = $request->file('video')) {
             $destinationPath = 'videos/';
             $fileName = time() . '_' . $video->getClientOriginalName();

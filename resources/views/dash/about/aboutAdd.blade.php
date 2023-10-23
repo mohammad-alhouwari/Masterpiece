@@ -37,55 +37,55 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <input type="text" class="form-control" name="title" minlength="3"
-                                                    required>
+                                                    >
                                                 <label class="form-label">Page Title</label>
                                             </div>
-                                            <div class="help-info">Min. 3 <b>(optional)</b></div>
+                                            <div class="help-info">add title <b>(optional)</b></div>
                                         </div>
 
                                         <div class="form-group form-float">
                                             <div class="form-line">
-                                                <textarea name="text" cols="30" rows="3" class="form-control no-resize" required></textarea>
+                                                <textarea name="text" cols="30" rows="3" class="form-control no-resize" maxlength="400" minlength="20"></textarea>
                                                 <label class="form-label">text</label>
                                             </div>
-                                            <div class="help-info">write something here <b>(optional)</b></div>
+                                            <div class="help-info">write something here  <b>(optional)</b></div>
 
                                         </div>
 
-                                        <div class="form-group form-float"
-                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                        <div class="form-group form-float">
                                             <div class="form-line">
-                                                <select class="form-select" id="category" name="category_id" required>
-                                                    <option selected="true" disabled="disabled">Choose Media Type
-                                                    </option>
-                                                    
-                                                    <option value="video">video</option>
-                                                    <option value="image">image</option>
-                                                 
-                                                </select>
-                                            </div>
-                                            <div class="help-info">Numbers only min 1</div>
-                                        </div>
-
-                                        <div class="form-group form-float"
-                                            style="display: inline-block; width:48%; margin:0 5px;">
-                                            <div class="form-line">
-                                                <input type="file" class="form-control" name="image1" id="thumbnail"
-                                                    accept="image/*" required>
-                                                <label for="thumbnail" class="form-label">Add image</label>
-                                            </div>
-                                            <div class="help-info">add background cover image for the page <b>(optional)</b></div>
-                                        </div>
-
-                                        <div class="form-group form-float"
-                                            style="display: inline-block; width:48%; margin:0 5px;">
-                                            <div class="form-line">
-                                                <input type="file" class="form-control" name="image2" id="thumbnail"
-                                                    accept="image/*" required>
+                                                <input type="file" class="form-control" name="media2" id="image2"
+                                                    accept="image/*" >
                                                 <label for="thumbnail" class="form-label">cover image</label>
                                             </div>
-                                            <div class="help-info">add image for the page <b>(optional)</b></div>
+                                            <div class="help-info">add background cover image for the page <b>(optional)</b>
+                                            </div>
+
                                         </div>
+                                        <br>
+
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <input type="file" class="form-control" name="media1" id="image1"
+                                                    accept="video/*,image/*" >
+                                                <label for="thumbnail" class="form-label">Add image or video</label>
+                                            </div>
+                                            <div class="help-info">add media for the page <b>(optional)</b></div>
+
+                                        </div>
+                                        <div class="form-group form-float"
+                                            style="display: inline-block; width:48%; margin:0 5px;">
+                                            <div class="form-line">
+                                                <select class="form-select" id="mediaType1" name="mediaType1" >
+                                                    <option value="image">image</option>
+                                                    <option value="video">video</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="help-info">Choose Media type <b>(image by default)</b></div>
+                                        </div>
+
 
                                         <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
                                     </form>

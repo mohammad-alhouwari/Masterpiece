@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\product;
 use App\Models\Category;
+use App\Models\Jeneral;
 use App\Models\OrderItem;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -51,9 +52,10 @@ class IndexController extends Controller
         return view('pages.single-product', compact('product', 'category', 'hasBeenBought', 'Reviews'));
     }
 
-    public function about () 
+    public function about()
     {
-        return view('pages.about_us');
+        $Jenerals = Jeneral::all();
+        return view('pages.about_us', compact('Jenerals'));
     }
 
 }

@@ -71,67 +71,50 @@
             </div>
             <div id="bookAbout" class="pages-container">
                 <div class="pages">
-                    <div class="page-num-1">
-                        <div class="pages-content">
-                            <div class="pages-background"></div>
-                            <div class="content-inner">
-                                <h1><b>منين احنا</b></h1>
-                                <div class="text">
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ea non vitae a
-                                        assumenda sint quod, dolores laboriosam velit corrupti nobis cupiditate perspiciatis
-                                        natus exercitationem, architecto esse ratione blanditiis! Itaque.</p>
+                    @php
+                        $pageNum = 1;
+                    @endphp
+                    @foreach ($Jenerals as $Jeneral)
+                        <div class="page-num-{{ $pageNum }}">
+                            <div class="pages-content">
+                                <div class="pages-background"></div>
+                                <div class="content-inner">
+                                    <h2><b>{{ $Jeneral->title }}</b></h2>
+                                    @if ($Jeneral->media1)
+                                        @if ($Jeneral->mediaType1 == 'image')
+                                            <img src="{{ url($Jeneral->media1) }}" alt="">
+                                        @elseif ($Jeneral->mediaType1 == 'video')
+                                            <video class="aboutVideo" loop muted autoplay style="position: ">
+                                                <source src="{{ url($Jeneral->media1) }}" type="video/mp4">
+                                                this is a video
+                                            </video>
+                                        @endif
+                                    @endif
+                                    <div class="text">
+                                        <p>{{ $Jeneral->text }}</p>
+                                    </div>
+                                    @if ($Jeneral->media2)
+                                        <div class="pageImg{{ $pageNum }}"></div>
+                                        <style>
+                                            .pageImg{{ $pageNum }} {
+                                                background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ url($Jeneral->media2) }});
+                                                background-size: cover;
+                                                opacity: 0.2;
+                                                width: 100%;
+                                                height: 100%;
+                                                position: absolute;
+                                                left: 0;
+                                                top: 0;
+                                            }
+                                        </style>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="page-num-2">
-                        <div class="pages-content">
-                            <div class="content-inner">
-                                <h1>Chapter 2</h1>
-                                <div class="text">
-                                    <video class="video__container" autoplay muted loop>
-                                        <source class="video__media"
-                                            src="https://player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd6992dd6c1c&profile_id=139&oauth2_token_id=57447761"
-                                            type="video/mp4">
-                                    </video>
-                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, cumque autem! Magni
-                                        eligendi qui officiis? Fugit iste voluptatum atque voluptatibus totam! Nisi
-                                        accusantium saepe hic. Aut nobis nesciunt mollitia error.</p>
-                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam odio modi, hic
-                                        ratione fugit quod natus, excepturi quae minus voluptatum cupiditate quia magnam
-                                        eveniet ex, reiciendis voluptates ipsam iste laudantium!</p>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt magnam,
-                                        at perspiciatis aut. Voluptatem consequuntur neque quisquam?</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="page-num-3">
-                        <div class="pages-content">
-                            <div class="content-inner">
-
-                                <h1>Chapter 3</h1>
-                                <div class="text">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate voluptas
-                                        molestiae tempore amet adipisci dicta incidunt nisi alias distinctio fugit
-                                        blanditiis dignissimos nobis deserunt eum consequuntur ipsam, perspiciatis numquam
-                                        repellendus.</p>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in odio deserunt
-                                        est hic minima inventore, mollitia, officia aspernatur eaque voluptatibus? Amet,
-                                        molestias adipisci delectus ea eligendi sit numquam illo.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="page-num-4">
-                        <div class="pages-content">
-                            <div class="content-inner">
-                                <h1>النهاية</h1>
-                                <div class="pageImg"></div>
-                            </div>
-                        </div>
-                    </div>
+                        @php
+                            $pageNum++;
+                        @endphp
+                    @endforeach
                 </div>
             </div>
         </div>

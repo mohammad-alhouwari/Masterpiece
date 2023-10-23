@@ -20,7 +20,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                About-Us 
+                                About-Us
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -66,29 +66,48 @@
                                         @endphp
 
                                         @foreach ($abouts as $about)
-                                            <tr>
-                                                <td>Page {{$pageNumber}}</td>
-                                                <td>{{ $about->title }}</td>
-                                                <td>{{ $about->text }}</td>
-                                                <td>{{ $about->media1 ? $about->media1: "" }}</td>
-                                                <td>{{ $about->media2 ? $about->media2: "" }}</td>
-                                                <td>
-                                                    <a href="{{ route('dashboard.about.edit', $product->id) }}"
-                                                        class="btn btn-primary">Edit</a>
-                                                    <button class="btn btn-danger"
-                                                        onclick="deleteCategory({{ $about->id }})">Delete</button>
-                                                    <form id="delete-form-{{ $product->id }}"
-                                                        action="{{ route('dashboard.about.destroy', $product->id) }}"
-                                                        method="POST" style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                            @if ($about->jeneralType == 'about')
+                                                <tr>
+                                                    <td>Page {{ $pageNumber }}</td>
+                                                    <td>{{ $about->title }}</td>
+                                                    <td>{{ $about->text }}</td>
+                                                    <td>
+                                                        @if ($about->media2)
+                                                            <img height="100px" width="100px"
+                                                                src="{{ url($about->media2) }}" alt="">
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($about->media1)
+                                                            @if ($about->mediaType1 == 'image')
+                                                                <img src="{{ url($about->media1) }}" alt="">
+                                                            @elseif ($about->mediaType1 == 'video')
+                                                                <video width="200" height="120" loop muted autoplay>
+                                                                    <source src="{{ url($about->media1) }}"
+                                                                        type="video/mp4">
+                                                                    this is a video
+                                                                </video>
+                                                            @endif
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('dashboard.about.edit', $about->id) }}"
+                                                            class="btn btn-primary">Edit</a>
+                                                        <button class="btn btn-danger"
+                                                            onclick="deleteCategory({{ $about->id }})">Delete</button>
+                                                        <form id="delete-form-{{ $about->id }}"
+                                                            action="{{ route('dashboard.about.destroy', $about->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -96,7 +115,7 @@
             </div>
             <!-- #END# Exportable Table -->
 
-          
+
 
 
             <!-- Basic Examples -->
