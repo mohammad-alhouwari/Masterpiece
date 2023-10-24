@@ -11,7 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\JeneralController;
+use App\Http\Controllers\GeneralController;
 
 
 /*
@@ -83,7 +83,12 @@ Route::get('/dashboard/test', function () {
 Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
 Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
 Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
-Route::resource('dashboard/about', JeneralController::class)->names('dashboard.about');
+Route::resource('dashboard/about', GeneralController::class)->names('dashboard.about');
 
 Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
 Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');
+
+
+// Route::post('/store-shipment', [CheckoutController::class, 'storeShipment'])->name('store-shipment');
+// Route::get('paypal/success', [CheckoutController::class, 'success'])->name('paypal_success');
+// Route::get('paypal/cancel', [CheckoutController::class, 'cancel'])->name('paypal_cancel');

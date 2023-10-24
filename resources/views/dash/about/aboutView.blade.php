@@ -66,7 +66,7 @@
                                         @endphp
 
                                         @foreach ($abouts as $about)
-                                            @if ($about->jeneralType == 'about')
+                                            @if ($about->generalType == 'about')
                                                 <tr>
                                                     <td>Page {{ $pageNumber }}</td>
                                                     <td>{{ $about->title }}</td>
@@ -80,7 +80,8 @@
                                                     <td>
                                                         @if ($about->media1)
                                                             @if ($about->mediaType1 == 'image')
-                                                                <img src="{{ url($about->media1) }}" alt="">
+                                                                <img height="100px" width="100px"
+                                                                    src="{{ url($about->media1) }}" alt="">
                                                             @elseif ($about->mediaType1 == 'video')
                                                                 <video width="200" height="120" loop muted autoplay>
                                                                     <source src="{{ url($about->media1) }}"
@@ -88,6 +89,8 @@
                                                                     this is a video
                                                                 </video>
                                                             @endif
+                                                        @else
+                                                        <P><i class="fa-solid fa-pallet"></i></P>
                                                         @endif
                                                     </td>
                                                     <td>
@@ -103,6 +106,9 @@
                                                         </form>
                                                     </td>
                                                 </tr>
+                                                @php
+                                                    $pageNumber++;
+                                                @endphp
                                             @endif
                                         @endforeach
                                     </tbody>

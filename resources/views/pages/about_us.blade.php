@@ -74,30 +74,30 @@
                     @php
                         $pageNum = 1;
                     @endphp
-                    @foreach ($Jenerals as $Jeneral)
+                    @foreach ($generals as $general)
                         <div class="page-num-{{ $pageNum }}">
                             <div class="pages-content">
                                 <div class="pages-background"></div>
                                 <div class="content-inner">
-                                    <h2><b>{{ $Jeneral->title }}</b></h2>
-                                    @if ($Jeneral->media1)
-                                        @if ($Jeneral->mediaType1 == 'image')
-                                            <img src="{{ url($Jeneral->media1) }}" alt="">
-                                        @elseif ($Jeneral->mediaType1 == 'video')
+                                    <h2><b>{{ $general->title }}</b></h2>
+                                    @if ($general->media1)
+                                        @if ($general->mediaType1 == 'image')
+                                            <img class="aboutImage" src="{{ url($general->media1) }}" alt="">
+                                        @elseif ($general->mediaType1 == 'video')
                                             <video class="aboutVideo" loop muted autoplay style="position: ">
-                                                <source src="{{ url($Jeneral->media1) }}" type="video/mp4">
+                                                <source src="{{ url($general->media1) }}" type="video/mp4">
                                                 this is a video
                                             </video>
                                         @endif
                                     @endif
                                     <div class="text">
-                                        <p>{{ $Jeneral->text }}</p>
+                                        <p>{{ $general->text }}</p>
                                     </div>
-                                    @if ($Jeneral->media2)
+                                    @if ($general->media2)
                                         <div class="pageImg{{ $pageNum }}"></div>
                                         <style>
                                             .pageImg{{ $pageNum }} {
-                                                background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ url($Jeneral->media2) }});
+                                                background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ url($general->media2) }});
                                                 background-size: cover;
                                                 opacity: 0.2;
                                                 width: 100%;
