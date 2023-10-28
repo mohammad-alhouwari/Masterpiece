@@ -87,7 +87,7 @@
 <script src="{{ asset('userSide/js/gmaps.min.js') }}"></script>
 <script src="{{ asset('userSide/js/main.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://kit.fontawesome.com/24ac720f84.js" crossorigin="anonymous"></script>
 @yield('JS')
 
 

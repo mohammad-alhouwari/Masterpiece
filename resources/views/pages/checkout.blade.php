@@ -142,7 +142,7 @@
                                 </ul>
                                 <div class="payment_item">
                                     <div class="radion_btn">
-                                        <input type="radio" id="f-option5" value="cash" name="payment_method" required>
+                                        <input type="radio" id="f-option5" value="Cash" name="payment_method" required>
                                         <label for="f-option5">الدفع النقدي</label>
                                         <div class="check"></div>
                                     </div>
@@ -164,6 +164,7 @@
                                 <label for="f-option4">قرأت و وافقت على </label>
                             </div> --}}
                                 <button type="submit" class="primary-btn w-100" href="#">متابعة الدفع</button>
+                 
                             </div>
                         </div>
     </form>

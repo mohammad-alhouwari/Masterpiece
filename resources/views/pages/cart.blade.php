@@ -44,12 +44,6 @@
 
 
 
-
-
-
-
-
-
                             <form action="{{ isset($cart[0]->Product) ? route('cartUpdateD') : route('cartUpdateS') }}"
                                 method="POST">
                                 @csrf

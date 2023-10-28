@@ -66,8 +66,8 @@
             <div class="book-cover">
                 <img src="https://github.com/slyka85/assets/blob/master/bookcover2.png?raw=true" alt=""
                     width="100%">
-                {{-- <img src="https://mcdn.wallpapersafari.com/medium/80/42/f50qwo.jpg" alt=""> --}}
-                {{-- <img src="https://mcdn.wallpapersafari.com/medium/59/87/V9iIpx.jpg" alt=""> --}}
+                {{-- <img src="https://mcdn.wallpapersafari.com/medium/80/42/f50qwo.jpg" alt=""  width="100%"> --}}
+                {{-- <img src="https://mcdn.wallpapersafari.com/medium/59/87/V9iIpx.jpg" alt=""  width="100%"> --}}
             </div>
             <div id="bookAbout" class="pages-container">
                 <div class="pages">

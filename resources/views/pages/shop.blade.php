@@ -153,30 +153,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 						<!--foreach single product -->
 						@foreach ($products as $product)
 						@if ($product->stock_quantity > 0)						

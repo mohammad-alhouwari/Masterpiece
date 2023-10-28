@@ -51,8 +51,9 @@ class AuthenticatedSessionController extends Controller
                 }
 
             }
+            session()->forget('cart');
         }
-        return redirect()->intended("/Islamiyat");
+        return redirect()->intended("/");
     }
 
     /**
@@ -66,6 +67,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
         session()->forget('cart');
-        return redirect('/Islamiyat');
+        return redirect('/');
     }
 }

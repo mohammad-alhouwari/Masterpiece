@@ -25,7 +25,9 @@ class IndexController extends Controller
 
     public function shop($category_id)
     {
-        $products = product::where('category_id', $category_id)->get();
+        $products = Product::where('category_id', $category_id)
+            ->where('stock_quantity', '>', 0)
+            ->get();
         $categories = Category::all();
         $categoryName = Category::where('id', $category_id)->first();
         return view('pages.shop', compact('products', 'categories', 'categoryName'));
@@ -56,6 +58,18 @@ class IndexController extends Controller
     {
         $generals = general::all();
         return view('pages.about_us', compact('generals'));
+    }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+
+    public function orderConfirmation()
+    {
+        $user = auth::user();
+        $order = $user->Order->last();
+        return view('pages.orderConfirmation', compact('order', 'user'));
     }
 
 }

@@ -49,6 +49,7 @@ Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/Islamiyat/shop/{category_id}', [IndexController::class, 'shop'])->name('shop');
 Route::get('/Islamiyat/product/{product_id}', [IndexController::class, 'product'])->name('product');
 Route::get('/Islamiyat/about', [IndexController::class, 'about'])->name('about');
+Route::get('/Islamiyat/contact', [IndexController::class, 'contact'])->name('contact');
 
 
 // Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
@@ -65,6 +66,9 @@ Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('
 //order
 Route::get('/Islamiyat/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::post('/Islamiyat/checkout/pay', [OrderController::class, 'pay'])->name('pay');
+Route::get('paypal/success', [OrderController::class, 'success'])->name('paypal_success');
+Route::get('paypal/cancel', [OrderController::class, 'cancel'])->name('paypal_cancel');
+Route::get('/Islamiyat/orderConfirmation', [IndexController::class, 'orderConfirmation'])->name('Confirmation');
 
 //ReviewController
 Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name('review');

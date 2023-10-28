@@ -69,24 +69,22 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-item {{ Route::is('about') ? 'active' : '' }} "><a class="nav-link" href="{{ Route('about') }}">من نحن</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">تواصل معنا</a></li>
-
-
-
-
+                            <li class="nav-item {{ Route::is('about') ? 'active' : '' }} "><a class="nav-link"
+                                    href="{{ Route('about') }}">من نحن</a></li>
+                            <li class="nav-item {{ Route::is('contact') ? 'active' : '' }}"><a class="nav-link"
+                                    href="{{ Route('contact') }}">تواصل معنا</a></li>
 
 
                             @if (Auth::check())
-                                <li> <a href="{{ route('profile.edit', [Auth::user()]) }}"
-                                        class="nav-item">{{ Auth::user()->name }}</a></li>
+                                <li class="nav-item active"> <a class="nav-link"
+                                        href="{{ route('profile.edit', [Auth::user()]) }}">{{ Auth::user()->name }}</a>
+                                </li>
                                 <form style="display: inline-block" method="POST" class="nav-item"
                                     action="{{ route('logout') }}">
                                     @csrf
-
-                                    <li> <a href="{{ route('logout') }}"
+                                    <li> <a href="{{ route('logout') }}" class=" primary-btn small"
                                             onclick="event.preventDefault();this.closest('form').submit();">
-                                            {{ __('Log Out') }}
+                                            {{ __('تسجيل الخروج') }}
                                         </a></li>
                                 </form>
                             @else
@@ -104,12 +102,17 @@
 
 
                         </ul>
+
                         <ul class="nav navbar-nav navbar-right">
                             <li class="nav-item"><a href="{{ route('cart') }}" class="cart"><span
-                                        class="ti-bag"></span></a>
+                                        class="ti-bag"><span class="cart-count"
+                                            id="cartCountBag">{{ count($cart) }}</span></span>
+
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                <button class="search"><span class="lnr lnr-magnifier"
+                                        id="search"></span></button>
                             </li>
 
                         </ul>
