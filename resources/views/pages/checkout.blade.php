@@ -72,18 +72,18 @@
                             <div class="col-md-12 form-group p_star">
                                 <select class="w-100 country_select" name="city" required>
                                     <option value="0" disabled selected>--- إختر المحافظة ---</option>
-                                    <option value="irbid">إربد</option>
-                                    <option value="amman">عمان</option>
-                                    <option value="zarqa">الزرقاء</option>
-                                    <option value="balqa">البلقاء</option>
-                                    <option value="madaba">مادبا</option>
-                                    <option value="karak">الكرك</option>
-                                    <option value="tafila">الطفيلة</option>
-                                    <option value="maan">معان</option>
-                                    <option value="aqaba">العقبة</option>
-                                    <option value="jarash">جرش</option>
-                                    <option value="ajloun">عجلون</option>
-                                    <option value="mafraq">المفرق</option>
+                                    <option value="إربد">إربد</option>
+                                    <option value="عمان">عمان</option>
+                                    <option value="الزرقاء">الزرقاء</option>
+                                    <option value="البلقاء">البلقاء</option>
+                                    <option value="مادبا">مادبا</option>
+                                    <option value="الكرك">الكرك</option>
+                                    <option value="الطفيلة">الطفيلة</option>
+                                    <option value="معان">معان</option>
+                                    <option value="العقبة">العقبة</option>
+                                    <option value="جرش">جرش</option>
+                                    <option value="عجلون">عجلون</option>
+                                    <option value="المفرق">المفرق</option>
                                 </select>
 
                             </div>
@@ -164,7 +164,7 @@
                                 <label for="f-option4">قرأت و وافقت على </label>
                             </div> --}}
                                 <button type="submit" class="primary-btn w-100" href="#">متابعة الدفع</button>
-                 
+
                             </div>
                         </div>
     </form>

@@ -40,13 +40,14 @@
                             @php
                                 $user = auth()->user();
                             @endphp
-                            <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 border-form-left"
-                                enctype="multipart/form-data">
+                            <form method="post" action="{{ route('profile.update') }}"
+                                class="mt-6 space-y-6 border-form-left" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="card-body media align-items-center">
                                     <img src="{{ url(Auth::user()->image ? Auth::user()->image : 'userSide/img/user.jpg') }}"
-                                        style="height: 100px; border-radius: 90%; width: 100px !important; border: dashed 3px #ffba00;" alt="" class="d-block ui-w-80">
+                                        style="height: 100px; border-radius: 90%; width: 100px !important; border: dashed 3px #ffba00;"
+                                        alt="" class="d-block ui-w-80">
                                     <div class="media-body ml-4">
                                         <label class="btn btn-primary genric-btn primary">
                                             ارفع صورة
@@ -97,7 +98,8 @@
                                     </div>
                                 </div>
                                 <div class="text-center mb-2">
-                                    <x-primary-button class="btn btn-primary primary-btn mb-2">{{ __('حفظ التغيرات') }}</x-primary-button>
+                                    <x-primary-button
+                                        class="btn btn-primary primary-btn mb-2">{{ __('حفظ التغيرات') }}</x-primary-button>
                                 </div>
                                 {{-- <button type="button" class="btn btn-primary">Save changes</button>&nbsp; --}}
 
@@ -111,7 +113,8 @@
                         <div class="tab-pane fade" id="changePassword">
                             <div class="profile border-form-left">
                                 <h1 class="card-body"><b>كلمة المرور</b></h1>
-                                <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6 card-body">
+                                <form method="post" action="{{ route('password.update') }}"
+                                    class="mt-6 space-y-6 card-body">
                                     @csrf
                                     @method('put')
 
@@ -124,8 +127,8 @@
 
                                     <div>
                                         <x-input-label for="password" :value="__('كلمة السر الجديدة')" />
-                                        <x-text-input id="password" name="password" type="password" class="form-control m-2"
-                                            autocomplete="new-password" />
+                                        <x-text-input id="password" name="password" type="password"
+                                            class="form-control m-2" autocomplete="new-password" />
                                         <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                     </div>
 
@@ -137,7 +140,8 @@
                                     </div>
 
                                     <div class="flex items-center gap-4 card-body text-center">
-                                        <x-primary-button class="btn btn-primary primary-btn">{{ __('حفظ التغيرات') }}</x-primary-button>
+                                        <x-primary-button
+                                            class="btn btn-primary primary-btn">{{ __('حفظ التغيرات') }}</x-primary-button>
 
                                         @if (session('status') === 'password-updated')
                                             <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
@@ -165,15 +169,19 @@
                                         <tbody>
                                             @php $No = 0; @endphp
                                             @foreach ($orders as $item)
-                                                @php $No ++; @endphp
+                                                @php
+                                                    $No++;
+                                                @endphp
                                                 <tr>
                                                     <td>{{ $No }}</td>
-                                                    <td>{{ $item->created_at }}</td>
-                                                    <td>{{ $item->totalPrice }}</td>
-                                                    <td>
-                                                        <button class="btn btn-primary view-details-btn genric-btn primary"
-                                                            data-order-id="{{ $item->id }}">View Details</button>
-                                                    </td>   
+                                                    <<td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}
+                                                        </td>
+                                                        <td>{{ $item->total_price }}</td>
+                                                        <td>
+                                                            <button
+                                                                class="btn btn-primary view-details-btn genric-btn primary"
+                                                                data-order-id="{{ $item->id }}">رؤية المنتج</button>
+                                                        </td>
                                                 </tr>
                                                 <tr class="order-items-row" id="order-items-{{ $item->id }}"
                                                     style="display: none;">
@@ -181,19 +189,21 @@
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>اسم المنتج</th>
-                                                                    <th>سعر المنتج</th>
-                                                                    <th>كمية الطلب</th>
-                                                                    <th>صفحة المنتج</th>
+                                                                    <th>المنتج</th>
+                                                                    <th>السعر</th>
+                                                                    <th>الكمية</th>
+                                                                    <th>...</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach ($item->OrderItem as $items)
                                                                     <tr>
                                                                         <td>{{ $items->product->name }}</td>
-                                                                        <td>{{ $items->product->price }}</td>
+                                                                        <td>{{ $items->price }}</td>
                                                                         <td>{{ $items->quantity }}</td>
-                                                                        <td><a class="genric-btn primary-border small p-auto" href="{{route('product',$items->product->id)}}"><i class="fa-solid fa-eye"></i></a></td>
+                                                                        <td><a class="genric-btn primary-border small p-auto"
+                                                                                href="{{ route('product', $items->product->id) }}"><i
+                                                                                    class="fa-solid fa-eye"></i></a></td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>

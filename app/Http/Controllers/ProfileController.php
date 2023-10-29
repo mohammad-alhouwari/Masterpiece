@@ -20,22 +20,18 @@ class ProfileController extends Controller
     {
         $userId = auth()->user()->id;
         $orders = Order::where('user_id', $userId)->get();
-        $orderItems = [];
+        
+        // $orderItems = [];
 
-        foreach ($orders as $item) {
-            $orderItems[] = OrderItem::where('order_Id', $item->id)
-                ->with('product')
-                ->get();
-        }
-        // foreach($orders as $item) {
-
-        //     dd($item->OrderItem);
+        // foreach ($orders as $item) {
+        //     $orderItems[] = OrderItem::where('order_Id', $item->id)
+        //         ->with('product')
+        //         ->get();
         // }
-
 
         return view('pages.profile', [
             'user' => $request->user(),
-            'orderItems' => $orderItems,
+            // 'orderItems' => $orderItems,
             'orders' => $orders,
         ]);
     

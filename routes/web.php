@@ -88,6 +88,10 @@ Route::resource('dashboard/user', UserController::class)->names('dashboard.user'
 Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
 Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
 Route::resource('dashboard/about', GeneralController::class)->names('dashboard.about');
+Route::get('/dashboard/Index_Slider/View', [GeneralController::class, 'Index_SliderView'])->name('Index_Slider');
+Route::get('/dashboard/Index_Slider/Create', [GeneralController::class, 'Index_SliderCreate'])->name('Index_SliderCreate');
+Route::post('/dashboard/Index_Slider/Add', [GeneralController::class, 'Index_SliderAdd'])->name('Index_SliderAdd');
+Route::delete('/dashboard/Index_Slider/Delete', [GeneralController::class, 'Index_SliderDelete'])->name('Index_SliderDelete');
 
 Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
 Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');

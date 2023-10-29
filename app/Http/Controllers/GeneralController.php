@@ -116,4 +116,12 @@ class GeneralController extends Controller
         $jeneral->delete();
         return redirect()->route('dashboard.about.index')->with('success', $message . ' deleted successfully.');
     }
+    public function Index_SliderView()
+    {
+        //
+    }
+    public function Index_SliderCreate()
+    {
+        //
+    }
 }

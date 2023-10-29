@@ -1,10 +1,11 @@
 ﻿@extends('dash.layouts.masterForm')
 
 @section('title', 'about')
-
-@section('about')
+@section('about', 'toggled')
+@section('general')
     class="active"
 @endsection
+
 @section('aboutAdd')
     class="active"
 @endsection

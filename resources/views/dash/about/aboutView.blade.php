@@ -1,8 +1,8 @@
 ﻿@extends('dash.layouts.masterTable')
 
 @section('title', 'about')
-
-@section('about')
+@section('about', 'toggled')
+@section('general')
     class="active"
 @endsection
 @section('aboutView')

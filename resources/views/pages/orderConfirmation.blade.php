@@ -24,7 +24,7 @@
     </section>
     <section class="order_details section_gap">
         <div class="container">
-            <h3 class="title_confirmation">شكراً لك , تم تسجيل طلبك بنجاح</h3>
+            <h2 class="title_confirmation ">شكراً لك , تم تسجيل طلبك بنجاح</h2>
             <div class="row order_d_inner">
                 <div class="col-lg-6">
                     <div class="details_item">
@@ -33,9 +33,15 @@
                             <li>
                                 <p href="#"><span>رقم الطلب</span> : {{ $order->id }}</p>
                             </li>
-                            <li><p href="#"><span>عدد المنتجات</span> : {{ $order->city }}</p></li>
-                            <li><p href="#"><span>مجموع التكلفة</span> : USD {{ $order->total_price }}</p></li>
-                            <li><p href="#"><span>وسيلة الدفع</span> : {{ $order->payment_method }}</p></li>
+                            <li>
+                                <p href="#"><span>عدد المنتجات</span> : {{ $order->total_quantity }}</p>
+                            </li>
+                            <li>
+                                <p href="#"><span>مجموع التكلفة</span> : $ {{ $order->total_price }}</p>
+                            </li>
+                            <li>
+                                <p href="#"><span>وسيلة الدفع</span> : {{ $order->payment_method }}</p>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -43,10 +49,18 @@
                     <div class="details_item">
                         <h4>معلومات الشحن</h4>
                         <ul class="list">
-                            <li><p href="#"><span>رقم الهاتف</span> : {{ $order->phone }}</p></li>
-                            <li><p href="#"><span>المحافظة</span> : {{ $order->city }}</p></li>
-                            <li><p href="#"><span>الحي والشارع</span> : {{ $order->street_address }}</p></li>
-                            <li><p href="#"><span>رقم البريد </span> : {{ $order->post_code }}</p></li>
+                            <li>
+                                <p href="#"><span>رقم الهاتف</span> : {{ $order->phone }}</p>
+                            </li>
+                            <li>
+                                <p href="#"><span>المحافظة</span> : {{ $order->city }}</p>
+                            </li>
+                            <li>
+                                <p href="#"><span>الحي والشارع</span> : {{ $order->street_address }}</p>
+                            </li>
+                            <li>
+                                <p href="#"><span>رقم البريد </span> : {{ $order->post_code }}</p>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -58,81 +72,61 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Total</th>
+                                <th scope="col">المنتج</th>
+                                <th scope="col">الكمية</th>
+                                <th scope="col">السعر</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $total = 5;
+                            @endphp
+                            @foreach ($order->OrderItem as $Item)
+                                <tr>
+                                    <td>
+                                        <p>{{ $Item->Product->name }}</p>
+                                    </td>
+                                    <td>
+                                        <h5>x {{ $Item->quantity }}</h5>
+                                    </td>
+                                    <td>
+                                        <p>${{ $Item->price }}</p>
+                                    </td>
+                                </tr>
+                                @php
+                                    $total += $Item->price;
+                                @endphp
+                            @endforeach
+
                             <tr>
                                 <td>
-                                    <p>Pixelstore fresh Blackberry</p>
+                                    <h4>الشحن</h4>
                                 </td>
                                 <td>
-                                    <h5>x 02</h5>
+                                    <h5>النسبة</h5>
                                 </td>
                                 <td>
-                                    <p>$720.00</p>
+                                    <p>$5</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>Pixelstore fresh Blackberry</p>
-                                </td>
-                                <td>
-                                    <h5>x 02</h5>
-                                </td>
-                                <td>
-                                    <p>$720.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>Pixelstore fresh Blackberry</p>
-                                </td>
-                                <td>
-                                    <h5>x 02</h5>
-                                </td>
-                                <td>
-                                    <p>$720.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4>Subtotal</h4>
+                                    <h4>المجموه الكلي </h4>
                                 </td>
                                 <td>
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <p>$2160.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4>Shipping</h4>
-                                </td>
-                                <td>
-                                    <h5></h5>
-                                </td>
-                                <td>
-                                    <p>Flat rate: $50.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4>Total</h4>
-                                </td>
-                                <td>
-                                    <h5></h5>
-                                </td>
-                                <td>
-                                    <p>$2210.00</p>
+                                    <p>${{ $total }}</p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <br>
+            <div class="text-center">
+                <a  class="primary-btn mx-auto" href="{{route('home')}}">الصفحة الرئيسية</a>
             </div>
         </div>
     </section>
