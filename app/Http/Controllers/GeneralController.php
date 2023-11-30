@@ -27,57 +27,64 @@ class GeneralController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'nullable|min:3',
-            'text' => 'nullable|min:20|max:400',
-            'media1' => [
-                'nullable',
-                function ($attribute, $value, $fail) use ($request) {
-                    $mediaType1 = $request->input('mediaType1');
+        // Validation rules
+        $rules = [
+            'name' => 'nullable|string|min:3',
+            'description' => 'nullable|string|min:20',
+            'coverImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed image formats and max size
+            'mediaType1' => 'nullable|string|in:image,video',
+            'mediaImage' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'mediaVideo' => 'nullable|mimes:mp4,avi,mov', // Adjust allowed video formats and max size
+        ];
 
-                    if ($mediaType1 == 'image' && !in_array($value->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif', 'svg'])) {
-                        $fail('The ' . $attribute . ' must be an image.');
-                    }
+        // Validate the request
+        $request->validate($rules);
 
-                    if ($mediaType1 == 'video' && !in_array($value->getClientOriginalExtension(), ['mp4', 'avi', 'mov'])) {
-                        $fail('The ' . $attribute . ' must be a video.');
-                    }
-                },
-            ],
-            'media2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            'mediaType1' => 'nullable|in:image,video',
-        ]);
+        // Create a new General model instance
+        $general = new General;
 
+        // Assign values from the request to the model
+        $general->title = $request->input('name');
+        $general->generalType = 'about';
+        $general->text = $request->input('description');
 
-        $about = new General();
-        $about->generalType = 'about';
-        $about->title = $request->input('title');
-        $about->text = $request->input('text');
-        $about->mediaType1 = $request->input('mediaType1');
-
-        if ($request->hasFile('media1')) {
-            $image1 = $request->file('media1');
-            $destinationPath = 'media/';
-            $profileImage = 'media/' . date('YmdHis') . "." . $image1->getClientOriginalExtension();
-            $image1->move($destinationPath, $profileImage);
-            $about->media1 = $profileImage;
+        // Handle cover image
+        if ($request->hasFile('coverImage')) {
+            $coverImage = $request->file('coverImage');
+            $coverImagePath = 'media/' . date('YmdHis') . "." . $coverImage->getClientOriginalExtension();
+            $coverImage->move(public_path('media'), $coverImagePath);
+            $general->media2 = $coverImagePath;
         }
 
-        if ($request->hasFile('media2')) {
-            $image2 = $request->file('media2');
-            $destinationPath = 'media/';
-            $profileMedia = 'media/' . date('YmdHis') + 1 . "." . $image2->getClientOriginalExtension();
-            $image2->move($destinationPath, $profileMedia);
-            $about->media2 = $profileMedia;
+        // Handle mediaType1 based on selected value
+        if ($request->input('mediaType1') === 'image') {
+            if ($request->hasFile('mediaImage')) {
+                $mediaImage = $request->file('mediaImage');
+                $mediaImagePath = 'media/' . date('YmdHis') . "_mediaImage." . $mediaImage->getClientOriginalExtension();
+                $mediaImage->move(public_path('media'), $mediaImagePath);
+                $general->media1 = $mediaImagePath;
+                $general->mediaType1 = 'image';
+            }
+        } elseif ($request->input('mediaType1') === 'video') {
+            if ($request->hasFile('mediaVideo')) {
+                $mediaVideo = $request->file('mediaVideo');
+                $mediaVideoPath = 'media/' . date('YmdHis') . "_mediaVideo." . $mediaVideo->getClientOriginalExtension();
+                $mediaVideo->move(public_path('media'), $mediaVideoPath);
+                $general->media1 = $mediaVideoPath;
+                $general->mediaType1 = 'video';
+            }
         }
 
-        $about->save();
+        // Save the General model instance
+        $general->save();
 
-        return redirect()->route('dashboard.about.index')->with('success', 'About page created successfully.');
+        // Redirect or respond as needed
+        return redirect()->route('dashboard.general.about.index')->with('success', 'تم إضافة صفحة من نحن بنجاح');
     }
-
     /**
      * Display the specified resource.
      */
@@ -89,17 +96,83 @@ class GeneralController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(General $general)
+    public function edit($general)
     {
-        //
+        $about = General::where('generalType', 'about')->where('id', $general)->first();
+        return view('dash.about.aboutEdit', compact('about'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, General $general)
+    // public function update(Request $request, General $general)
+    // {
+    //     //
+    // }
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'nullable|string|min:3',
+            'description' => 'nullable|string|min:20',
+            'coverImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'mediaType1' => 'in:image,video,emptyMedia',
+            'mediaImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'mediaVideo' => 'nullable|mimetypes:video/mp4,video/avi,video/mov|max:20480',
+            'coverImageRemove' => 'nullable', // added for removing cover image
+        ]);
+
+        // Find the model instance
+        $general = General::findOrFail($id);
+
+        // Update the model with the new data
+        $general->update([
+            'title' => $request->input('name'),
+            'text' => $request->input('description'),
+            // Add other fields as needed
+
+            // Handle cover image removal
+            'media2' => $request->has('coverImageRemove') && $request->input('coverImageRemove') ? null : $general->media2,
+        ]);
+
+        // Handle cover image update
+        if ($request->hasFile('coverImage')) {
+            // Upload and save the new cover image
+            $coverImage = $request->file('coverImage');
+            $coverImagePath = 'media/' . date('YmdHis') . "." . $coverImage->getClientOriginalExtension();
+            $coverImage->move(public_path('media'), $coverImagePath);
+
+            // Update the model with the new cover image path
+            $general->update(['media2' => $coverImagePath]);
+        }
+
+        // Handle mediaType1 update based on the selected value
+        if ($request->input('mediaType1') === 'image' && $request->hasFile('mediaImage')) {
+            // Upload and save the new image
+            $mediaImage = $request->file('mediaImage');
+            $mediaImagePath = 'media/' . date('YmdHis') . "_mediaImage." . $mediaImage->getClientOriginalExtension();
+            $mediaImage->move(public_path('media'), $mediaImagePath);
+
+            // Update the model with the new image path
+            $general->update(['media1' => $mediaImagePath]);
+            $general->update(['mediaType1' => 'image']);
+        } elseif ($request->input('mediaType1') === 'video' && $request->hasFile('mediaVideo')) {
+            // Upload and save the new video
+            $mediaVideo = $request->file('mediaVideo');
+            $mediaVideoPath = 'media/' . date('YmdHis') . "_mediaVideo." . $mediaVideo->getClientOriginalExtension();
+            $mediaVideo->move(public_path('media'), $mediaVideoPath);
+
+            // Update the model with the new video path
+            $general->update(['media1' => $mediaVideoPath]);
+            $general->update(['mediaType1' => 'video']);
+        } elseif ($request->input('mediaType1') === 'emptyMedia') {
+            // Remove the existing media
+            $general->update(['media1' => null]);
+            $general->update(['mediaType1' => null]);
+        }
+
+        // Redirect back or wherever you need to go after the update
+        return redirect()->back()->with('success', 'تم التحديث بنجاح');
     }
 
     /**

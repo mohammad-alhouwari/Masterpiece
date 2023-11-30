@@ -1,104 +1,108 @@
-﻿@extends('dash.layouts.masterForm')
+@extends('dash.layouts.master')
 
-@section('title', 'categories')
-
-@section('categories')
-    class="active"
-@endsection
-@section('categoryAdd')
-    class="active"
-@endsection
+@section('title', 'فئات المنتجات')
 
 @section('content')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>Add New Category</h2>
-            </div>
-            <!-- Color Pickers -->
-
-            <!-- Advanced Form Example With Validation -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>Add Category</h2>
-                            {{-- <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul> --}}
-                        </div>
-                        <div class="body">
-                            <form action="{{ route('dashboard.category.store') }}" id="wizard_with_validation" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <h3>Category Information</h3>
-                                <fieldset>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="text" name="name" class="form-control" required>
-                                            <label class="form-label"><i class="fa-solid fa-pencil"></i> Title*</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <textarea name="description" cols="30" rows="3" class="form-control no-resize" required></textarea>
-                                            <label class="form-label"><i class="fa-solid fa-pen-to-square"></i>
-                                                Description*</label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <h3>Add Video*</h3>
-                                <fieldset>
-                                    <div class="d-flex flex-wrap ">
-                                        <div class="w-50 p-1">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input type="file" name="video" class="form-control" required>
-                                                    <label class="form-label"><i class="fa-solid fa-envelopes-bulk"></i>
-                                                        Video</label>
-                                                </div>
-                                                <div class="help-info">Add Video</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mb-md-0 mb-1">
+                <div class="card">
+                    <div class="container py-4">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto d-flex justify-content-center flex-column">
+                                <h3 class="text-center text-primary text-shadow">إضافة فئة جديدة</h3>
+                                {{-- <form role="form" action="{{ route('dashboard.category.store') }}" method="POST"
+                                    id="addCategory" enctype="multipart/form-data" autocomplete="off">
+                                    @csrf
+                                    <div class="card-body">
+                                        <div class="mb-4">
+                                            <label class="h6">إسم الفئة</label>
+                                            <div class="input-group">
+                                                <input class="form-control px-5 " placeholder="" id="name"
+                                                    aria-label="العنوان..." type="text" name="name">
                                             </div>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف عوان الفئة  <b>(أكثر من 3
+                                                حروف)</b></sup>
                                         </div>
-                                        <div class="w-50 p-1">
+                                        <div class="mb-4">
+                                            <label class="h6">أرفق فيديو</label>
+                                            <div class="input-group">
+                                                <input type="file" id="video" class="form-control" placeholder=""
+                                                    name="video">
+                                            </div>
+                                            <sup><span class="text-danger">*</span>حقل إجباري و يتوجب أن يكون نوع الملف
+                                                 <b>(فيديو)</b></sup>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label>وصف الفئة</label>
+                                            <textarea class="form-control" id="description" rows="4" name="description"></textarea>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف وصف قصير للفئة <b>(أكثر من 20
+                                                حرف)</b></sup>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn bg-gradient-primary w-100 h5">أضيف
+                                                الفئة</button>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </form>
+                                </form> --}}
+                                <form role="form" action="{{ route('dashboard.category.store') }}" method="POST"
+                                    id="addCategory" enctype="multipart/form-data" autocomplete="off">
+                                    @csrf
+                                    <div class="card-body">
+                                        <div class="mb-4">
+                                            <label class="h6">إسم الفئة</label>
+                                            <div class="input-group">
+                                                <input class="form-control px-5" placeholder="" id="name"
+                                                    aria-label="العنوان..." type="text" name="name">
+                                            </div>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف عوان الفئة <b>(أكثر من 3
+                                                    حروف)</b></sup>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="h6">أرفق فيديو</label>
+                                            <div class="input-group">
+                                                <input type="file" id="video" class="form-control" placeholder="" accept="video/*"
+                                                    name="video" onchange="previewVideo()">
+                                            </div>
+                                            <video controls id="videoPreview" style="display: none;" width="100%" height="160"  loop muted autoplay></video>
+                                            <sup><span class="text-danger">*</span>حقل إجباري و يتوجب أن يكون نوع الملف
+                                                <b>(فيديو)</b></sup>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="h6">وصف الفئة</label>
+                                            <textarea class="form-control" id="description" rows="4" name="description"></textarea>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف وصف قصير للفئة <b>(أكثر من
+                                                    20 حرف)</b></sup>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn bg-gradient-primary w-100 h5">أضيف
+                                                الفئة</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Advanced Form Example With Validation -->
 
         </div>
-    </section>
-    <!-- Initialize Dropzone -->
-@endsection
+        <script>
+            function previewVideo() {
+                var videoInput = document.getElementById('video');
+                var videoPreview = document.getElementById('videoPreview');
 
+                var file = videoInput.files[0];
 
-@section('JS')
-    <!-- Jquery Validation Plugin Js -->
-    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+                if (file) {
+                    var objectURL = URL.createObjectURL(file);
+                    videoPreview.src = objectURL;
+                    videoPreview.style.display = 'block';
+                } else {
+                    videoPreview.src = '';
+                    videoPreview.style.display = 'none';
+                }
+            }
+        </script>
 
-    <!-- JQuery Steps Plugin Js -->
-    <script src="../../plugins/jquery-steps/jquery.steps.js"></script>
-
-    <!-- Sweet Alert Plugin Js -->
-    {{-- <script src="../../plugins/sweetalert/sweetalert.min.js"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Custom Js -->
-    <script src="../../js/pages/forms/form-wizard.js"></script>
-@endsection
+    @endsection

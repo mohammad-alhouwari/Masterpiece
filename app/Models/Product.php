@@ -16,6 +16,7 @@ class Product extends Model
         'longDescription',
         'stock_quantity',
         'price',
+        'status',
         'image1',
         'image2',
         'image3',

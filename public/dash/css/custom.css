@@ -1,0 +1,23 @@
+.hide {
+    display: none !important;
+}
+
+.img-container {
+    min-height: 200px;
+    max-height: 516px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .img-container {
+        min-height: 516px;
+    }
+}
+
+.img-container img {
+    max-height: 516px;
+    width: 100%;
+}
+.cropper-container{
+    max-height: 516px !important;
+}

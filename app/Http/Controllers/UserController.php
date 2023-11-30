@@ -13,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return View('dash.users.usersView');
+        $users = User::where('role', 0)->get();
+        return View('dash.users.usersView', compact('users'));
     }
 
     /**

@@ -160,7 +160,20 @@
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="javascript:void(0);" class="menu-toggle @yield('about') ">
+                            <a href="javascript:void(0);" class="menu-toggle @yield('Index_Slider') ">
+                                <span>Index_Slider Information</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li @yield('Index_SliderView')>
+                                    <a href="{{ route('Index_SliderView') }}">View All Index_Slider</a>
+                                </li>
+                                <li @yield('Index_SliderAdd')>
+                                    <a href="{{ route('Index_SliderCreate') }}">Add New Index_Slider</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle @yield('about')">
                                 <span>About-US Information</span>
                             </a>
                             <ul class="ml-menu">
@@ -168,19 +181,6 @@
                                     <a href="{{ url('dashboard/about') }}">View All About-US</a>
                                 </li>
                                 <li @yield('aboutAdd')>
-                                    <a href="{{ url('dashboard/about/create') }}">Add New About-US</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="menu-toggle @yield('Index_Slider')">
-                                <span>About-US Information</span>
-                            </a>
-                            <ul class="ml-menu">
-                                <li @yield('Index_SliderView')>
-                                    <a href="{{ url('dashboard/about') }}">View All About-US</a>
-                                </li>
-                                <li @yield('Index_SliderAdd')>
                                     <a href="{{ url('dashboard/about/create') }}">Add New About-US</a>
                                 </li>
                             </ul>

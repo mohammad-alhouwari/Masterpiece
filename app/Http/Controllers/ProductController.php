@@ -10,6 +10,9 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -34,69 +37,45 @@ class ProductController extends Controller
         return view('dash.products.productAdd', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
+        // Validate the request data
         $request->validate([
-            'name' => 'required|min:3|max:10',
+            'name' => 'required|min:3|max:255',
             'description' => 'required',
             'longDescription' => 'required',
             'price' => 'required|min:1',
             'stock_quantity' => 'required|min:1',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image',
-            'images.*' => 'image',
+            'image_data' => 'required',
+            'status' => 'nullable',
         ]);
 
         // All data that comes from the user are stored in the request
         $input = $request->all();
 
-        // Handle the image upload
-        if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
-            $profileImage = 'images/' . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = $profileImage;
+        if ($request->has('status')) {
+            $input['status'] = 1;
+        } else {
+            $input['status'] = 0;
         }
 
-        // Loop through the input fields for additional images (image1, image2, image3, image4, image5)
-        // for ($i = 1; $i <= 5; $i++) {
-        //     $inputName = 'images' . $i;
-
-        //     if ($image = $request->file($inputName)) {
-        //         $destinationPath = 'images/';
-        //         $profileImage = 'images/' . date('YmdHis') . "-" . $i . "." . $image->getClientOriginalExtension();
-        //         $image->move($destinationPath, $profileImage);
-        //         $input[$inputName] = $profileImage;
-        //         $input['image'. $i] = $profileImage;
-        //     }
-        // }
-
-        $images = $request->file('images');
-        $i = 1;
-        if ($images) {
-            foreach ($images as $image) {
-                $inputName = 'image' . $i;
-                $destinationPath = 'images/';
-                $profileImage = 'images/' . date('YmdHis') . "-" . $i . "." . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $profileImage);
-                $input[$inputName] = $profileImage;
-                $input['image' . $i] = $profileImage;
-                $i++;
-            }
-        }
-
+        // Save the image to your storage (you may need to configure storage settings)
+        $imageData = $request->input('image_data');
+        $imageData = substr($imageData, strpos($imageData, ',') + 1);
+        $imageData = base64_decode($imageData);
+        $filename = time() . '_' . Str::random(10) . '.jpg';
+        file_put_contents(public_path('images/' . $filename), $imageData);
 
         // Add the category_id to the input before creating the product
         $input['category_id'] = $request->input('category_id');
+        $input['image'] = 'images/' . $filename;
 
-        // dd($input);
+        // Create a new Product model instance
         Product::create($input);
 
-        return redirect()->route('dashboard.product.index')
-            ->with('success', 'Product created successfully.');
+        return redirect()->route('dashboard.product.index')->with('success', 'Product created successfully.');
     }
 
 
@@ -105,7 +84,7 @@ class ProductController extends Controller
      */
     public function show(product $product)
     {
-        //
+        return view('dash.products.productShow', compact('product'));
     }
 
     /**
@@ -117,52 +96,59 @@ class ProductController extends Controller
         return view('dash.products.productEdit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'name' => 'required|string|max:10|min:3',
-            'description' => 'required|string',
-            'stock_quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:1',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'image|mimes:jpeg,png,jpg,gif',
-            'image1' => 'image|mimes:jpeg,png,jpg,gif',
-            'image2' => 'image|mimes:jpeg,png,jpg,gif',
-            'image3' => 'image|mimes:jpeg,png,jpg,gif',
-            'image4' => 'image|mimes:jpeg,png,jpg,gif',
-            'image5' => 'image|mimes:jpeg,png,jpg,gif',
-        ]);
 
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'required',
+            'longDescription' => 'required',
+            'price' => 'required|min:1',
+            'stock_quantity' => 'required|min:1',
+            'category_id' => 'required|exists:categories,id',
+            'image_data' => 'nullable', // Make image_data optional for updates
+            'status' => 'nullable',
+        ]);
+        // Find the product by ID
+        $product = Product::findOrFail($id);
+
+        // Update the product data
         $product->name = $request->input('name');
         $product->description = $request->input('description');
-        $product->stock_quantity = $request->input('stock_quantity');
+        $product->longDescription = $request->input('longDescription');
         $product->price = $request->input('price');
+        $product->stock_quantity = $request->input('stock_quantity');
         $product->category_id = $request->input('category_id');
 
-        if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
-            $profileImage = 'images/' . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $product->image = $profileImage;
+        // Update the status based on the checkbox
+        if ($request->has('status')) {
+            $product->status = 1;
+        } else {
+            $product->status = 0;
         }
 
-        for ($i = 1; $i <= 5; $i++) {
-            $inputName = "image{$i}";
+        // Update the image if provided
+        if ($request->image_data) {
+            $imageData = $request->input('image_data');
+            $imageData = substr($imageData, strpos($imageData, ',') + 1);
+            $imageData = base64_decode($imageData);
+            $filename = time() . '_' . Str::random(10) . '.jpg';
+            file_put_contents(public_path('images/' . $filename), $imageData);
 
-            if ($request->hasFile($inputName)) {
-                $destinationPath = 'images/';
-                $profileImage = 'images/' . date('YmdHis') . "-" . $i . "." . $request->file($inputName)->getClientOriginalExtension();
-                $request->file($inputName)->move($destinationPath, $profileImage);
-                $product->$inputName = $profileImage;
+            // Delete the old image if it exists
+            if (File::exists(public_path($product->image))) {
+                File::delete(public_path($product->image));
             }
+
+            $product->image = 'images/' . $filename;
         }
 
+        // Save the updated product
         $product->save();
 
-        return redirect()->route('dashboard.product.index')->with('success', 'Product updated successfully');
+        return redirect()->route('dashboard.product.index')->with('success', 'تم تحديث .');
     }
 
     /**
@@ -170,9 +156,59 @@ class ProductController extends Controller
      */
     public function destroy(product $product)
     {
+        
+        if ($product->status == 1) {
+            $product->status = 0;
+            $product->update(['status' => 0]);
+            return redirect()->route('dashboard.product.index')->with('success', 'لقد أصبحت حالة المنتج غير نشطة لتأكيد الحذف قم بإجراء عملية الحذف مرة أخرى');
+        }
         $product->delete();
 
-        return redirect()->route('dashboard.product.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('dashboard.product.index')->with('success', 'تم خذف المنتج بنجاح.');
+    }
+
+    public function imageDelete(Request $request)
+    {
+        $product = Product::where('id', $request->productId)->first();
+        $imageKey = $request->imageKey;
+
+        if ($product) {
+            $product->update([$imageKey => null]);
+            return redirect()->back()->with('success', 'تم حذف الصورة بنجاح');
+        } else {
+            return redirect()->back()->with('error', 'لم يتم العثور على صورة لتتم عملية الحذف');
+        }
+    }
+    public function imageAddPage($id)
+    {
+        return view('dash.products.productAddImage', compact('id'));
+    }
+    public function imageStore(Request $request, Product $product)
+    {
+
+        $request->validate([
+            'image_data' => 'required',
+        ]);
+
+        for ($i = 1; $i <= 5; $i++) {
+            $inputName = "image{$i}";
+
+            if (!$product->$inputName) {
+                $imageData = $request->input('image_data');
+                $imageData = substr($imageData, strpos($imageData, ',') + 1);
+                $imageData = base64_decode($imageData);
+                $filename = time() . '_' . Str::random(10) . '.jpg';
+                file_put_contents(public_path('images/' . $filename), $imageData);
+                $product->$inputName = 'images/' . $filename;
+                break;
+            }
+        }
+
+        // dd($product);
+        $product->save();
+        session::flash('success', 'تم إضافة الصورة بنجاح');
+        return redirect()->route('dashboard.product.show', $product->id);
+        // return view('dash.products.productShow', compact('product'))->with('success', 'تم إضافة الصورة بنجاح');
     }
 
 }

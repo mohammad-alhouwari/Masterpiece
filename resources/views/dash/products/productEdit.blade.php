@@ -1,316 +1,186 @@
-﻿@extends('dash.layouts.masterForm')
+@extends('dash.layouts.master')
 
-@section('title', 'products')
-
-@section('products')
-    class="active"
-@endsection
-
+@section('title', 'فئات المنتجات')
 
 @section('content')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>Edit Categorye</h2>
-            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mb-md-0 mb-1">
+                <div class="card">
+                    <div class="container py-4">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto d-flex justify-content-center flex-column">
+                                <h3 class="text-center text-primary text-shadow">تحديث المنتج السابق</h3>
+
+
+                                <form action="{{ route('dashboard.product.update', $product->id) }}" id="addProduct"
+                                    class="formStore" role="form" method="POST" enctype="multipart/form-data">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="card-body">
+                                        <div class="mb-4">
+                                            <label class="h6">إسم المنتج</label>
+                                            <div class="input-group">
+                                                <input class="form-control px-5" placeholder="" id="name"
+                                                    value="{{ $product->name }}" aria-label="" type="text"
+                                                    name="name">
+                                            </div>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف إسم المنتج <b>(أكثر من 3
+                                                    حروف)</b></sup>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="h6">أرفق صورة</label>
+                                            <div class="input-group">
+                                            </div>
+                                            <main class="page">
+                                                <!-- input file -->
+                                                <div class="box text-center">
+                                                    <input type="file" id="file-input" class="form-control"
+                                                        accept="image/*">
+                                                    <img id="oldImage" class="col-md-6 " src="{{ url($product->image) }}"
+                                                        alt="">
+                                                </div>
+                                                <!-- leftbox -->
+                                                <div class="row">
+                                                    <div class="box-2 col-lg-6 mb-2">
+                                                        <div class="result hide img-container"></div>
+                                                    </div>
+                                                    <!--rightbox-->
+                                                    <div
+                                                        class="box-2 img-result hide col-lg-6 text-center img-container cropper-container">
+                                                        <img id="myImage" class="cropped" src="" alt="">
+                                                    </div>
+                                                </div>
+                                                <!-- input file -->
+                                                <div class="box text-center">
+                                                    <div class="options hide">
+                                                        <input type="number" class="img-w" value="300" min="100"
+                                                            max="1200" />
+                                                    </div>
+                                                    <!-- save btn -->
+                                                    <div id="oldImage" style="display: none;"></div>
+                                                    <button id="" class="btn btn-outline-primary save hide ">تأكيد
+                                                        الصورة</button>
+                                                    <input type="hidden" name="image_data" id="image_data" />
+                                                </div>
+                                            </main>
+
+                                            <sup><span class="text-danger">*</span>حقل إجباري و يتوجب أن يكون نوع الملف
+                                                <b>(صورة)</b></sup>
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="form-group form-float col-md-4">
+                                                <div class="form-line">
+                                                    <label class="h6">الكمية المتوفرة</label>
+                                                    <input id="stock_quantity" type="number" class="form-control"
+                                                        name="stock_quantity" value="{{ $product->stock_quantity }}"
+                                                        min="1" required>
+                                                </div>
+                                                <sup><span class="text-danger">*</span>حقل إجباري <b>(
+                                                        أرقام موجبة فقط)</b></sup>
+                                            </div>
+
+
+                                            <div class="form-group form-float col-md-4">
+                                                <div class="form-line">
+                                                    <label class="h6">السعر</label>
+                                                    <input id="price" type="number" class="form-control" name="price"
+                                                        min="1" value="{{ $product->price }}" required required>
+                                                </div>
+                                                <sup><span class="text-danger">*</span>حقل إجباري أقل سعر <b>(
+                                                        1)</b></sup>
+                                            </div>
+
+                                            <div class="form-group form-float col-md-4">
+                                                <div class="form-line">
+                                                    <label class="h6">إختر الفئة</label>
+                                                    <select class="form-control px-3" id="category_id" name="category_id"
+                                                        required>
+                                                        <option value="{{ $product->category_id }}">
+                                                            {{ $product->category->name }}
+                                                        </option>
+                                                        @foreach ($categories as $category)
+                                                            @if ($product->category_id != $category->id)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- <label class="form-label">Price</label> --}}
+                                                </div>
+                                                <sup><span class="text-danger">*</span>حقل إجباري و يتوجب أن تختار <b>(
+                                                        فيئة)</b></sup>
+                                            </div>
+
+                                        </div>
 
 
 
 
-            {{-- 
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                Edit Categorye
-                            </h2>
-                        </div>
-                        <div class="body">
-                            <form id="category-edit-form" class=""
-                                action="{{ route('dashboard.category.update', $category->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="row clearfix col-md-6">
-                                    <div class="col-md-12">
-                                        <p>
-                                            <b>Name</b>
-                                        </p>
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" placeholder="Name" name="name"
-                                                    value="{{ $category->name }}" required>
+
+                                        <div class="form-group mb-4">
+                                            <label class="h6">وصف قصير</label>
+                                            <textarea class="form-control" id="description" rows="2" name="description" value="{{ $product->description }}">{{ $product->description }}</textarea>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف وصف قصير للمنتج <b>(أكثر
+                                                    من
+                                                    20 حرف)</b></sup>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="h6">وصف طويل</label>
+                                            <textarea class="form-control" id="longDescription" rows="4" name="longDescription"
+                                                value="{{ $product->longDescription }}">{{ $product->longDescription }}</textarea>
+                                            <sup><span class="text-danger">*</span>حقل إجباري أضف وصف طويل للمنتج <b>(أكثر
+                                                    من
+                                                    30 حرف)</b></sup>
+                                        </div>
+
+
+
+
+                                        <div class="form-check form-switch ps-0">
+                                            <label class="h6 mb-0">حدد حالة المنتج</label>
+                                            <div class="form-check form-switch ps-0 mb-3">
+                                                <input class="form-check-input mt-1 float-end me-auto" type="checkbox"
+                                                    name="status" id="flexSwitchCheckDefault"
+                                                    {{ $product->status == 1 ? 'checked' : '' }}>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-12">
-                                        <p>
-                                            <b>Description</b>
-                                        </p>
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </span>
-                                            <div class="form-line">
-                                                <textarea class="form-control" name="description" required>{{ $category->description }}</textarea>
-                                            </div>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" id="ButtonStore"
+                                                class="btn bg-gradient-primary w-100 h5">عدل المنتج
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <p>
-                                            <b>Video</b>
-                                        </p>
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <i class="fa-solid fa-video"></i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="file" class="form-control" name="video"
-                                                    placeholder="Video">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix col-md-6 text-center">
-                                    @if ($category->video)
-                                        <video width="420" height="360" loop muted autoplay>
-                                            <source src="{{ url('videos/' . $category->video) }}" type="video/mp4">
-                                            this is a video
-                                        </video>
-                                    @else
-                                        No video available
-                                    @endif
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary  waves-effect">Save</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
- --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>Edit Product</h2>
-
-                        </div>
-                        <div class="body">
-                            {{-- <form id="form_advanced_validation" method="POST" > --}}
-                            <form action="{{ route('dashboard.product.update', $product->id) }}" id="form_advanced_validation"
-                                method="POST" enctype="multipart/form-data">
-                                @method('PUT')
-                                @csrf
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" maxlength="10"
-                                            minlength="3" required value="{{ $product->name }}">
-                                        <label class="form-label">Product Name</label>
-                                    </div>
-                                    <div class="help-info">Min. 3, Max. 10 characters</div>
-                                </div>
-
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <textarea name="description" cols="30" rows="5" class="form-control no-resize" required>{{ $product->description }}</textarea>
-                                        <label class="form-label">Description</label>
-                                    </div>
-                                    <div class="help-info">Description</div>
-
-                                </div>
-
-
-
-                                <div class="form-group form-float" style="display: inline-block; width:48%; margin:0 5px;">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="stock_quantity" min="1"
-                                            required value="{{ $product->stock_quantity }}">
-                                        <label class="form-label">Stock quantity</label>
-                                    </div>
-                                    <div class="help-info">Numbers only</div>
-                                </div>
-
-
-
-
-
-                                <div class="form-group form-float" style="display: inline-block; width:48%; margin:0 5px;">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="price" min="1" required
-                                            value="{{ $product->price }}">
-                                        <label class="form-label">Price</label>
-                                    </div>
-                                    <div class="help-info">Numbers only min 1</div>
-                                </div>
-
-                                <div class="form-group form-float" style="display: inline-block; width:48%; margin:0 5px;">
-                                    <div class="form-line">
-                                        <select class="form-select" id="category" name="category_id">
-                                            <option value="{{ $product->category_id }}">{{ $product->category->name }}
-                                            </option>
-                                            @foreach ($categories as $category)
-                                                @if ($product->category_id != $category->id)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="help-info">Numbers only min 1</div>
-                                </div>
-
-
-
-
-                                <div class="form-group form-float" style="display: inline-block; width:48%; margin:0 5px;">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image" id="thumbnail"
-                                            accept="image/*" required>
-                                        <label for="thumbnail" class="form-label">Thumbnail image</label>
-                                    </div>
-                                    <div class="help-info">Thumbnail image required</div>
-                                </div>
-
-
-                                {{-- value="{{ url($product->image1) }}" --}}
-                                <br>
-                                <br>
-                                <br>
-                                <div style="display: flex;">
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image1" id="image1"
-                                            accept="image/*">
-                                        <label for="image1" class="form-label" style="top: -15px;">image1</label>
-                                    </div>
-                                    <div class="help-info" style="float: left;">image1</div>
-                                </div>
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image2" id="image2"
-                                            accept="image/*">
-                                        <label for="image2" class="form-label" style="top: -15px;">image2</label>
-                                    </div>
-                                    <div class="help-info" style="float: left;">image2</div>
-                                </div>
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image3" id="image3"
-                                            accept="image/*">
-                                        <label for="image3" class="form-label" style="top: -15px;">image3</label>
-                                    </div>
-                                    <div class="help-info" style="float: left;">image3</div>
-                                </div>
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image4" id="image4"
-                                            accept="image/*">
-                                        <label for="image4" class="form-label" style="top: -15px;">image4</label>
-                                    </div>
-                                    <div class="help-info" style="float: left;">image4</div>
-                                </div>
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="file" class="form-control" name="image5" id="image5"
-                                            accept="image/*">
-                                        <label for="image5" class="form-label" style="top: -15px;">image5</label>
-                                    </div>
-                                    <div class="help-info" style="float: left;">image5</div>
-                                </div>
-
-
-
-                                </div>
-
-
-                                <br>
-                                <br>
-
-
-                                <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            >
-
         </div>
-    </section>
-    <!-- Initialize Dropzone -->
-@endsection
+        <script>
+            // function previewVideo() {
+            //     var videoInput = document.getElementById('video');
+            //     var videoPreview = document.getElementById('videoPreview');
 
+            //     var file = videoInput.files[0];
 
-@section('JS')
-    <!-- Jquery Validation Plugin Js -->
-    <script src={{ asset('plugins/jquery-validation/jquery.validate.js') }}></script>
+            //     if (file) {
+            //         var objectURL = URL.createObjectURL(file);
+            //         videoPreview.src = objectURL;
+            //         videoPreview.style.display = 'block';
+            //     } else {
+            //         videoPreview.src = '';
+            //         videoPreview.style.display = 'none';
+            //     }
+            // }
+        </script>
 
-    <!-- JQuery Steps Plugin Js -->
-    <script src={{ asset('plugins/jquery-steps/jquery.steps.js') }}></script>
-
-    <!-- Sweet Alert Plugin Js -->
-    <script src={{ asset('plugins/sweetalert/sweetalert.min.js') }}></script>
-
-    <!-- Custom Js -->
-    <script src={{ asset('js/pages/forms/form-wizard.js') }}></script>
-@endsection
+    @endsection

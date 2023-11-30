@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -25,9 +26,9 @@ use App\Http\Controllers\GeneralController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -61,15 +62,12 @@ Route::post('/Islamiyat/cart/add', [CartController::class, 'saveProductToSession
 Route::post('/Islamiyat/cart/updateS', [CartController::class, 'cartUpdateS'])->name('cartUpdateS');
 Route::post('/Islamiyat/cart/updateD', [CartController::class, 'cartUpdateD'])->name('cartUpdateD');
 Route::post('/Islamiyat/cart/remove', [CartController::class, 'remove'])->name('cartRemove');
-
-
 //order
 Route::get('/Islamiyat/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::post('/Islamiyat/checkout/pay', [OrderController::class, 'pay'])->name('pay');
 Route::get('paypal/success', [OrderController::class, 'success'])->name('paypal_success');
 Route::get('paypal/cancel', [OrderController::class, 'cancel'])->name('paypal_cancel');
 Route::get('/Islamiyat/orderConfirmation', [IndexController::class, 'orderConfirmation'])->name('Confirmation');
-
 //ReviewController
 Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name('review');
 
@@ -77,25 +75,32 @@ Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name
 
 
 // ------------- dashboard -------------
-Route::get('/dashboard', function () {
-    return view('dash.index');
-})->name('dashboard');
-Route::get('/dashboard/test', function () {
-    return view('dash.jquery-datatable');
+Route::get('/dashboard_login', [DashboardController::class, 'login'])->name('dashboard_login');
+Route::post('/loginAdmin', [DashboardController::class, 'loginAdmin'])->name('loginAdmin');
+Route::middleware(['checkUserRole'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
+    Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
+    Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
+
+    // product image start
+    Route::get('/dashboard/product-imageAddPage/{id}', [ProductController::class, 'imageAddPage'])->name('imageAddPage');
+    Route::post('/dashboard/product-imageDelete', [ProductController::class, 'imageDelete'])->name('imageDelete');
+    Route::put('/dashboard/product-imageStore/{product}', [ProductController::class, 'imageStore'])->name('imageStore');
+    // product image end
+
+    // about start
+    Route::resource('dashboard/general/about', GeneralController::class)->names('dashboard.general.about');
+    // about end
+
+    //
+    Route::get('/dashboard/general/Index_Slider/View', [GeneralController::class, 'Index_SliderView'])->name('Index_SliderView');
+    Route::get('/dashboard/general/Index_Slider/Create', [GeneralController::class, 'Index_SliderCreate'])->name('Index_SliderCreate');
+    Route::post('/dashboard/general/Index_Slider/Add', [GeneralController::class, 'Index_SliderAdd'])->name('Index_SliderAdd');
+    Route::delete('/dashboard/Index_Slider/Delete', [GeneralController::class, 'Index_SliderDelete'])->name('Index_SliderDelete');
+    Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
+    Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');
 });
-
-Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
-Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
-Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
-Route::resource('dashboard/about', GeneralController::class)->names('dashboard.about');
-Route::get('/dashboard/Index_Slider/View', [GeneralController::class, 'Index_SliderView'])->name('Index_Slider');
-Route::get('/dashboard/Index_Slider/Create', [GeneralController::class, 'Index_SliderCreate'])->name('Index_SliderCreate');
-Route::post('/dashboard/Index_Slider/Add', [GeneralController::class, 'Index_SliderAdd'])->name('Index_SliderAdd');
-Route::delete('/dashboard/Index_Slider/Delete', [GeneralController::class, 'Index_SliderDelete'])->name('Index_SliderDelete');
-
-Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
-Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');
-
 
 // Route::post('/store-shipment', [CheckoutController::class, 'storeShipment'])->name('store-shipment');
 // Route::get('paypal/success', [CheckoutController::class, 'success'])->name('paypal_success');

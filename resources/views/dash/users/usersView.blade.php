@@ -1,153 +1,97 @@
-﻿@extends('dash.layouts.masterTable')
+﻿@extends('dash.layouts.master')
 
-@section('title', 'Dashboard')
-
-@section('users')
-    class="active"
-@endsection
-@section('usersView')
-    class="active"
-@endsection
+@section('title', 'من نحن')
 
 @section('content')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>
-                </h2>
-            </div>            
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                EXPORTABLE TABLE
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+    <div class="container-fluid py-4">
+
+
+        <div class="row my-4">
+            <div class="col-lg-12 col-md-12 mb-md-0 mb-12">
+                <div class="card p-2">
+                    <div class="card-header pb-0">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <a href="{{ route('dashboard.general.about.create') }}"
+                                    class="btn btn-outline-primary text-lg">إضافة صفحة جديدة</a>
+                            </div>
                         </div>
-                        <div class="body">
+                        <div class="card-body p-0 pb-2">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <table id="dataTable" class=" table table-head-bg-primary table-striped  table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th class="">العنوان</th>
+                                            <th class="">النّص</th>
+                                            <th class="">خلفية الصفحة</th>
+                                            <th class="">المحتوى</th>
+                                            <th class="w-10">التحكم</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
+                                        <th>العنوان</th>
+                                        <th>النّص</th>
+                                        <th>خلفية الصفحة</th>
+                                        <th>المحتوى</th>
+                                        <th>التحكم</th>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
+                                        @foreach ($users as $user)
+                                           
+                                                <tr>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>
+                                                        @if ($user->image)
+                                                            <img height="100px" width="100px"
+                                                                src="{{ url($user->image) }}" alt="">
+                                                        @else
+                                                        <P>فارغ</P>
+                                                        @endif
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="dropdown float-start ps-4 pt-1">
+                                                            <a class="cursor-pointer" id="dropdownTable"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fa-solid fa-wrench"
+                                                                    style="font-size: 2.25rem;"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu px-2 py-3 me-n4"
+                                                                aria-labelledby="dropdownTable">
+                                                                <li><a class="dropdown-item border-radius-md text-center text-success"
+                                                                        href="{{ route('dashboard.general.about.edit', $about->id) }}">تعديل</a>
+                                                                </li>
+                                                                <li>
+                                                                    <form id="deleteForm{{ $about->id }}"
+                                                                        action="{{ route('dashboard.general.about.destroy', $about->id) }}"
+                                                                        method="POST" style="display: inline;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                    </form>
+                                                                    <a class="dropdown-item border-radius-md text-center text-danger"
+                                                                        href="#"
+                                                                        onclick="confirmAndSubmit({{ $about->id }})">حذف</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                               
+                                        @endforeach
                                     </tbody>
                                 </table>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
-
-
-
-
-
-
-
-
-            <!-- Basic Examples -->
-            {{-- <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                BASIC EXAMPLE
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            <!-- #END# Basic Examples -->
         </div>
-    </section>
-@endsection
+
+    @endsection

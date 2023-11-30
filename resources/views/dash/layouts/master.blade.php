@@ -1,4 +1,3 @@
-@include('dash.layouts.nav')
-@include('dash.layouts.sideNav')
+@include('dash.layouts.header')
 @yield('content')
 @include('dash.layouts.footer')

@@ -27,6 +27,7 @@ class IndexController extends Controller
     {
         $products = Product::where('category_id', $category_id)
             ->where('stock_quantity', '>', 0)
+            ->where('status', 1)
             ->get();
         $categories = Category::all();
         $categoryName = Category::where('id', $category_id)->first();

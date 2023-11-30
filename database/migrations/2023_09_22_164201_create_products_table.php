@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('image');
+            $table->string('status')->default(1);
             $table->text('description');
             $table->text('longDescription')->nullable();
             $table->bigInteger('stock_quantity');
