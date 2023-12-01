@@ -49,6 +49,7 @@
                                 @csrf
                                 @if (session('cart') || $cart)
 
+                                
                                     @foreach ($cart as $details)
                                         <tr>
                                             <td>

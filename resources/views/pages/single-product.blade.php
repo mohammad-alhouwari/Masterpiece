@@ -47,9 +47,9 @@
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
                         <h3>{{ $product->name }}</h3>
-                        <h2>{{ $product->price }} JD</h2>
+                        <h2>{{ $product->price }} $</h2>
                         <ul class="list">
-                            <li><a class="active" href="#"><span>الفئة</span> : {{ $category->name }}</a></li>
+                            <li><a class="active" href="{{ route('shop', $category->id) }}"><span>الفئة</span> : {{ $category->name }}</a></li>
                             <li><a href="#"><span>التوفر</span> : {{ $product->stock_quantity }}</a></li>
                         </ul>
                         <p>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="card_area d-flex align-items-center add_to_cart">
                                 <button class="primary-btn" type="submit">أضف للحقيبة</button>
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                                {{-- <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a> --}}
                             </div>
                         </form>
                     </div>
@@ -159,7 +159,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row total_rate">
-                                @if (count($Reviews)>0)
+                                @if (count($Reviews) > 0)
                                     @php
                                         $R1 = 0;
                                         $R2 = 0;
@@ -199,7 +199,7 @@
                                                         class="fa fa-star"></i><i class="fa fa-star"></i><i
                                                         class="fa fa-star"></i><i class="fa fa-star"></i>
                                                     {{ isset($R5) ? $R5 : '0' }}</a></li>
-                                                </a></li>
+                                            </a></li>
                                             <li><a href="#">4 Star <i class="fa fa-star"></i><i
                                                         class="fa fa-star"></i><i class="fa fa-star"></i><i
                                                         class="fa fa-star"></i><i class="fa fa-star-o"></i>
@@ -207,7 +207,7 @@
                                             <li><a href="#">3 Star <i class="fa fa-star"></i><i
                                                         class="fa fa-star"></i><i class="fa fa-star"></i><i
                                                         class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
-                                                    {{ isset($R3) ? $R3 : '0'}}</a></li>
+                                                    {{ isset($R3) ? $R3 : '0' }}</a></li>
                                             <li><a href="#">2 Star <i class="fa fa-star"></i><i
                                                         class="fa fa-star"></i><i class="fa fa-star-o"></i><i
                                                         class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
@@ -297,6 +297,37 @@
             </div>
         </div>
     </section>
+    <section class="related-product-area mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1>منتجات مشابهة</h1>
+                        <p>بعض منتجاتنا</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        @foreach ( $related as $item )                            
+                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                            <div class="single-related-product d-flex">
+                                <a href="{{route('product',$item->id)}}"><img width="100px" src="{{url($item->image)}}" alt=""></a>
+                                <div class="desc">
+                                    <a href="{{route('product',$item->id)}}" class="title">{{$item->name}}</a>
+                                    <div class="price">
+                                        <h6>{{$item->price}}$</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!--================End Product Description Area =================-->
     <script>
         const stars = document.querySelectorAll('.stars i');
@@ -323,139 +354,139 @@
     </script>
     <!-- Start related-product Area -->
     <!-- <section class="related-product-area section_gap_bottom">
-                                                                                                                                                      <div class="container">
-                                                                                                                                                       <div class="row justify-content-center">
-                                                                                                                                                        <div class="col-lg-6 text-center">
-                                                                                                                                                         <div class="section-title">
-                                                                                                                                                          <h1>Deals of the Week</h1>
-                                                                                                                                                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                                                                                                                           magna aliqua.</p>
-                                                                                                                                                         </div>
-                                                                                                                                                        </div>
-                                                                                                                                                       </div>
-                                                                                                                                                       <div class="row">
-                                                                                                                                                        <div class="col-lg-9">
-                                                                                                                                                         <div class="row">
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r1.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
+                                                                                                                                                          <div class="container">
+                                                                                                                                                           <div class="row justify-content-center">
+                                                                                                                                                            <div class="col-lg-6 text-center">
+                                                                                                                                                             <div class="section-title">
+                                                                                                                                                              <h1>Deals of the Week</h1>
+                                                                                                                                                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                                                                                                                                                               magna aliqua.</p>
+                                                                                                                                                             </div>
+                                                                                                                                                            </div>
+                                                                                                                                                           </div>
+                                                                                                                                                           <div class="row">
+                                                                                                                                                            <div class="col-lg-9">
+                                                                                                                                                             <div class="row">
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r1.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r2.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r3.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r5.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r6.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r7.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r9.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r10.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                                                                                                               <div class="single-related-product d-flex">
+                                                                                                                                                                <a href="#"><img src="img/r11.jpg" alt=""></a>
+                                                                                                                                                                <div class="desc">
+                                                                                                                                                                 <a href="#" class="title">Black lace Heels</a>
+                                                                                                                                                                 <div class="price">
+                                                                                                                                                                  <h6>$189.00</h6>
+                                                                                                                                                                  <h6 class="l-through">$210.00</h6>
+                                                                                                                                                                 </div>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                             </div>
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-lg-3">
+                                                                                                                                                             <div class="ctg-right">
+                                                                                                                                                              <a href="#" target="_blank">
+                                                                                                                                                               <img class="img-fluid d-block mx-auto" src="img/category/c5.jpg" alt="">
+                                                                                                                                                              </a>
                                                                                                                                                              </div>
                                                                                                                                                             </div>
                                                                                                                                                            </div>
                                                                                                                                                           </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r2.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r3.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r5.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r6.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r7.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r9.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r10.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                          <div class="col-lg-4 col-md-4 col-sm-6">
-                                                                                                                                                           <div class="single-related-product d-flex">
-                                                                                                                                                            <a href="#"><img src="img/r11.jpg" alt=""></a>
-                                                                                                                                                            <div class="desc">
-                                                                                                                                                             <a href="#" class="title">Black lace Heels</a>
-                                                                                                                                                             <div class="price">
-                                                                                                                                                              <h6>$189.00</h6>
-                                                                                                                                                              <h6 class="l-through">$210.00</h6>
-                                                                                                                                                             </div>
-                                                                                                                                                            </div>
-                                                                                                                                                           </div>
-                                                                                                                                                          </div>
-                                                                                                                                                         </div>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div class="col-lg-3">
-                                                                                                                                                         <div class="ctg-right">
-                                                                                                                                                          <a href="#" target="_blank">
-                                                                                                                                                           <img class="img-fluid d-block mx-auto" src="img/category/c5.jpg" alt="">
-                                                                                                                                                          </a>
-                                                                                                                                                         </div>
-                                                                                                                                                        </div>
-                                                                                                                                                       </div>
-                                                                                                                                                      </div>
-                                                                                                                                                     </section> -->
+                                                                                                                                                         </section> -->
     <!-- End related-product Area -->
 
 @endsection

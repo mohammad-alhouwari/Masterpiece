@@ -47,7 +47,8 @@ require __DIR__ . '/auth.php';
 //---------------------main --------------------
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
-Route::get('/Islamiyat/shop/{category_id}', [IndexController::class, 'shop'])->name('shop');
+Route::get('/Islamiyat/shop/{category_id?}', [IndexController::class, 'shop'])->name('shop');
+// Route::get('/shop/filterByPrice/{category_id?}', [ProductController::class, 'shop'])->name('shop.filterByPrice');
 Route::get('/Islamiyat/product/{product_id}', [IndexController::class, 'product'])->name('product');
 Route::get('/Islamiyat/about', [IndexController::class, 'about'])->name('about');
 Route::get('/Islamiyat/contact', [IndexController::class, 'contact'])->name('contact');

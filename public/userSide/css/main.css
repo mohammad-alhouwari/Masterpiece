@@ -8,6 +8,10 @@
 /* Wide Mobile Layout: 480px */
 /* Section Gaps css
 ============================================================================================ */
+
+.main-text {
+  color: #ffba00;
+}
 .no-padding {
   padding: 0;
 }

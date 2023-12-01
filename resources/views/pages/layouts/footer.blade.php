@@ -106,7 +106,7 @@
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
             Swal.fire(
-                'معاكسة',
+                'مع الأسف',
                 '{{ session('error') }}',
                 'error'
             );

@@ -9993,7 +9993,8 @@ fieldset:disabled .btn {
 
 .rounded-circle,
 .avatar.rounded-circle img {
-  border-radius: 50% !important;
+  border-radius: 15% !important;
+  border: 2px white solid;
 }
 
 .rounded-pill {
@@ -18694,7 +18695,7 @@ fieldset:disabled .btn {
 }
 
 .avatar img {
-  width: 100%;
+  width: 220%;
 }
 
 .avatar+.avatar-content {

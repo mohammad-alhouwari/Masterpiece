@@ -1,6 +1,6 @@
 @extends('pages.layouts.master')
 
-@section('title','Islamiyat')
+@section('title', 'Islamiyat')
 
 @section('content')
     <!-- start banner Area -->
@@ -35,7 +35,8 @@
 
 
                                 <div class="carousel-item">
-                                    <img src="userSide/img/banner/banner-img.png" class="d-block w-50 mx-auto mt-5" alt="...">
+                                    <img src="userSide/img/banner/banner-img.png" class="d-block w-50 mx-auto mt-5"
+                                        alt="...">
                                     <div class=" text-center d-none d-md-block">
                                         <h3 style=" color: orangered; text-shadow: 0 0 3px white, 0 0 5px black;">اعوذ بالله
                                             من الشيطان الرجيم</h3>
@@ -123,52 +124,6 @@
     <!-- end features Area -->
 
     <!-- Start category Area -->
-    <!-- <section class="category-area">
-      <div class="container">
-       <div class="row justify-content-center">
-        
-        
-        <div class="col-lg-12 col-md-12 ">
-         <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6">
-           <div class="single-deal">
-            <div class="overlay"></div>
-            <img class="img-fluid w-100" src="img/category/c1.jpg" alt="">
-            <a href="img/category/c1.jpg" class="img-pop-up" target="_blank">
-             <div class="deal-details">
-              <h6 class="deal-title">كتب دينية</h6>
-             </div>
-            </a>
-           </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-           <div class="single-deal">
-            <div class="overlay"></div>
-            <img class="img-fluid w-100" src="img/category/c2.jpg" alt="">
-            <a href="img/category/c2.jpg" class="img-pop-up" target="_blank">
-             <div class="deal-details">
-              <h6 class="deal-title">ملابس شرعية</h6>
-             </div>
-            </a>
-           </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-           <div class="single-deal">
-            <a href="img/category/c3.jpg" class="img-pop-up" target="_blank">
-            <div class="overlay"></div>
-            <img class="img-fluid w-100" src="img/category/c3.jpg" alt="">
-             <div class="deal-details">
-              <h6 class="deal-title">مناسبات اسلامية</h6>
-             </div>
-            </a>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-      </div>
-     </section> -->
-
     <section class="card-area">
         @foreach ($categories as $category)
             <section class="card-section">
@@ -208,7 +163,8 @@
                             <p class="inside-page__text">
                                 {{ $category->description }}
                             </p>
-                            <a href="{{route('shop',$category->id)}}" class="inside-page__btn inside-page__btn--city">مشاهدة المزيد</a>
+                            <a href="{{ route('shop', $category->id) }}"
+                                class="inside-page__btn inside-page__btn--city">مشاهدة المزيد</a>
                         </div>
                     </div>
                 </div>
@@ -324,261 +280,41 @@
 
 
                     <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p1.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
+                    @foreach ($productsNew as $product)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="single-product">
+                                <img class="img-fluid" src="{{$product->image}}" alt="">
+                                <div class="product-details">
+                                    <h6>{{$product->name}}</h6>
+                                    <div class="price">
+                                        <h6>{{$product->price}}</h6>
+                                        {{-- <h6 class="l-through">JD210.00</h6> --}}
+                                    </div>
+                                    <div class="prd-bottom">
 
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
+                                        <a href="single-product.html" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">أضيف للحقيبة</p>
+                                        </a>
+                                        {{-- <a href="single-product.html" class="social-info">
+                                            <span class="lnr lnr-heart"></span>
+                                            <p class="hover-text">أضف للمفضلة</p>
+                                        </a> --}}
+                                        {{-- <a href="single-product.html" class="social-info">
+                                            <span class="lnr lnr-sync"></span>
+                                            <p class="hover-text">مقارنة المنتج</p>
+                                        </a> --}}
+                                        <a href="{{route('product',$product->id)}}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">رؤية المزيد</p>
+										</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p2.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p3.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p4.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p5.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p6.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p7.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single product -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="img/product/p8.jpg" alt="">
-                            <div class="product-details">
-                                <h6>ستاند للمصحف الشريف</h6>
-                                <div class="price">
-                                    <h6>JD150.00</h6>
-                                    <h6 class="l-through">JD210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">أضيف للحقيبة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">أضف للمفضلة</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">مقارنة المنتج</p>
-                                    </a>
-                                    <a href="single-product.html" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">رؤية المزيد</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -862,25 +598,25 @@
 
     <!-- Start brand Area -->
     <!-- <section class="brand-area section_gap">
-      <div class="container">
-       <div class="row">
-        <a class="col single-img" href="#">
-         <img class="img-fluid d-block mx-auto" src="img/brand/1.png" alt="">
-        </a>
-        <a class="col single-img" href="#">
-         <img class="img-fluid d-block mx-auto" src="img/brand/2.png" alt="">
-        </a>
-        <a class="col single-img" href="#">
-         <img class="img-fluid d-block mx-auto" src="img/brand/3.png" alt="">
-        </a>
-        <a class="col single-img" href="#">
-         <img class="img-fluid d-block mx-auto" src="img/brand/4.png" alt="">
-        </a>
-        <a class="col single-img" href="#">
-         <img class="img-fluid d-block mx-auto" src="img/brand/5.png" alt="">
-        </a>
-       </div>
-      </div>
-     </section> -->
+                      <div class="container">
+                       <div class="row">
+                        <a class="col single-img" href="#">
+                         <img class="img-fluid d-block mx-auto" src="img/brand/1.png" alt="">
+                        </a>
+                        <a class="col single-img" href="#">
+                         <img class="img-fluid d-block mx-auto" src="img/brand/2.png" alt="">
+                        </a>
+                        <a class="col single-img" href="#">
+                         <img class="img-fluid d-block mx-auto" src="img/brand/3.png" alt="">
+                        </a>
+                        <a class="col single-img" href="#">
+                         <img class="img-fluid d-block mx-auto" src="img/brand/4.png" alt="">
+                        </a>
+                        <a class="col single-img" href="#">
+                         <img class="img-fluid d-block mx-auto" src="img/brand/5.png" alt="">
+                        </a>
+                       </div>
+                      </div>
+                     </section> -->
     <!-- End brand Area -->
 @endsection

@@ -19,24 +19,77 @@ class IndexController extends Controller
     public function home()
     {
         $categories = Category::all();
-        return view('pages.index', compact('categories'));
+        $productsNew = Product::orderBy('created_at', 'desc')->take(8)->get();
+        return view('pages.index', compact('categories', 'productsNew'));
     }
 
 
-    public function shop($category_id)
+
+
+
+    public function shop(Request $request, $category_id = null)
     {
-        $products = Product::where('category_id', $category_id)
-            ->where('stock_quantity', '>', 0)
-            ->where('status', 1)
-            ->get();
-        $categories = Category::all();
-        $categoryName = Category::where('id', $category_id)->first();
-        return view('pages.shop', compact('products', 'categories', 'categoryName'));
+        
+        // dd($request);
+        $perPage = $request->input('perPage') ? $request->input('perPage') : 6;
+        $query = Product::query()->where('stock_quantity', '>', 0)->where('status', 1);
+
+        $sort = $request->input('sort');
+
+        if ($category_id !== null) {
+            $query->where('category_id', $category_id);
+        }
+
+        // Price filtering logic
+        $minPrice = $request->input('lowerValueFilter');
+        $maxPrice = $request->input('upperValueFilter');
+
+        if ($minPrice !== null && $maxPrice !== null) {
+            $query->whereBetween('price', [$minPrice, $maxPrice]);
+        }
+
+        if ($sort === 'az') {
+            $query->orderBy('name', 'asc');
+        } elseif ($sort === 'za') {
+            $query->orderBy('name', 'desc');
+        } elseif ($sort === 'high_price') {
+            $query->orderBy('price', 'desc');
+        } elseif ($sort === 'low_price') {
+            $query->orderBy('price', 'asc');
+        } elseif ($sort === 'newest') {
+            $query->orderBy('created_at', 'asc');
+        } elseif ($sort === 'oldest') {
+            $query->orderBy('created_at', 'desc');
+        }
+
+
+        if ($request->has('name')) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+
+        
+        $products = $query->paginate($perPage);
+
+
+        $category = Category::find($category_id);
+
+        return view('pages.shop', compact('products', 'category', 'category_id', 'sort', 'perPage' ,'maxPrice', 'minPrice'));
     }
+
+    
+
+
+
+
+
+
+
 
     public function product($product_id)
     {
         $product = product::where('id', $product_id)->first();
+        $related = Product::where('category_id', $product->category_id)->where('stock_quantity', '>', 0)->where('status', 1)->inRandomOrder()->take(6)->get();
+        $category = Category::where('id', $product->category_id)->first();
 
         $user = auth::user();
         $hasBeenBought = false;
@@ -51,8 +104,7 @@ class IndexController extends Controller
             }
         }
         ;
-        $category = Category::where('id', $product->category_id)->first();
-        return view('pages.single-product', compact('product', 'category', 'hasBeenBought', 'Reviews'));
+        return view('pages.single-product', compact('product', 'category', 'hasBeenBought', 'Reviews', 'related'));
     }
 
     public function about()

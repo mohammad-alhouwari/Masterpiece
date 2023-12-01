@@ -22,16 +22,18 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 120px;">الصورة</th>
-                                            <th class="w-10">إسم المنتج</th>
-                                            <th class="w-10">الفئة</th>
-                                            <th class="w-25">وصف قصير</th>
-                                            <th class="w-25">وصف طويل</th>
+                                            <th class="w-35">الصورة</th>
+                                            <th class="w-8">إسم المنتج</th>
+                                            <th class="w-8">الفئة</th>
+                                            <th class="w-15">وصف قصير</th>
+                                            <th class="w-15">وصف طويل</th>
                                             <th class="w-5">التوفر</th>
-                                            <th class="w-8">الحالة</th>
-                                            <th class="w-10">التحكم</th>
+                                            <th class="w-5">الحالة</th>
+                                            <th class="w-5">التحكم</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
+                                        <th>الصورة</th>
                                         <th>الصورة</th>
                                         <th>إسم المنتج</th>
                                         <th>الفئة</th>
@@ -44,17 +46,49 @@
                                     <tbody>
                                         @foreach ($products as $product)
                                             <tr>
-                                                <td style="width: 120px;"><img src="{{ url($product->image) }}"
-                                                        alt="img" width="120px"></td>
+                                                <td><img src="{{ url($product->image) }}" alt="img" width="120px">
+                                                </td>
+                                                <td>
+                                                    <div class="avatar-group mt-2 d-flex justify-content-center align-items-center"
+                                                        style="height: 160px;">
+                                                        @php
+                                                            $numImage = 0;
+                                                        @endphp
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @php
+                                                                $imageKey = 'image' . $i;
+                                                            @endphp
+                                                            @if ($product->$imageKey)
+                                                                @php
+                                                                    $numImage++;
+                                                                @endphp
+                                                                <a href="javascript:;"
+                                                                    class="avatar avatar-xxs rounded-circle"
+                                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $imageKey }}" --}}
+                                                                    >
+                                                                    <img alt="{{ $imageKey }}"
+                                                                        src="{{ url($product->$imageKey) }}">
+                                                                </a>
+                                                            @endif
+                                                        @endfor
+                                                        @if ($numImage == 0)
+                                                        <P>لا يوجد صور إضافية</P>
+                                                        @endif
+                                                    </div>
+                                                </td>
+
                                                 <td><b>{{ $product->name }}</b></td>
                                                 <td><b>{{ $product->category->name }}</b></td>
                                                 <td>
-                                                    {{ Illuminate\Support\Str::limit($product->description, 100, '...') }}
+                                                    {{ Illuminate\Support\Str::limit($product->description, 70, '...') }}
                                                     <button type="button" class="btn btn-block btn-outline-info mb-0 p-1"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#modal-description{{$product->id}}">روؤية المزيد</button>
-                                                    <div class="modal fade" id="modal-description{{$product->id}}" tabindex="-1" role="dialog"
-                                                        aria-labelledby="modal-description{{$product->id}}" aria-hidden="true">
+                                                        data-bs-target="#modal-description{{ $product->id }}">روؤية
+                                                        المزيد</button>
+                                                    <div class="modal fade" id="modal-description{{ $product->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="modal-description{{ $product->id }}"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog modal- modal-dialog-centered modal-"
                                                             role="document">
                                                             <div class="modal-content">
@@ -63,7 +97,7 @@
                                                                         id="modal-title-default">وصف قصير للمنتج</h6>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>{{$product->description}}</p>
+                                                                    <p>{{ $product->description }}</p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
@@ -75,12 +109,15 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ Illuminate\Support\Str::limit($product->longDescription, 100, '...') }}
+                                                    {{ Illuminate\Support\Str::limit($product->longDescription, 70, '...') }}
                                                     <button type="button" class="btn btn-block btn-outline-info mb-0 p-1"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#modal-longDescription{{$product->id}}">روؤية المزيد</button>
-                                                    <div class="modal fade" id="modal-longDescription{{$product->id}}" tabindex="-1" role="dialog"
-                                                        aria-labelledby="modal-longDescription{{$product->id}}" aria-hidden="true">
+                                                        data-bs-target="#modal-longDescription{{ $product->id }}">روؤية
+                                                        المزيد</button>
+                                                    <div class="modal fade" id="modal-longDescription{{ $product->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="modal-longDescription{{ $product->id }}"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog modal- modal-dialog-centered modal-"
                                                             role="document">
                                                             <div class="modal-content">
@@ -89,7 +126,7 @@
                                                                         id="modal-title-default">وصف طويل للمنتج</h6>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>{{$product->longDescription}}</p>
+                                                                    <p>{{ $product->longDescription }}</p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
