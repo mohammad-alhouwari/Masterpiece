@@ -24,9 +24,9 @@
 
 
     <div class="container">
-        <form action="" method="GET">
-            <input type="hidden" name="category_id" value="{{ isset($category->id) ? $category->id : null }}">
+        <form action="{{route('shop')}}" method="GET">
             @csrf
+            <input type="hidden" name="category_id" value="{{ isset($category->id) ? $category->id : null }}">
             <div class="row mb-5">
                 <div class="col-xl-3 col-lg-4 col-md-5">
                     <div class="sidebar-categories">

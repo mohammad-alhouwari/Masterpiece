@@ -14,6 +14,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 
 
 /*
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/userInfo', [IndexController::class, 'userInfo'])->name('profile.userInfo');
 });
 
 require __DIR__ . '/auth.php';
@@ -49,10 +51,10 @@ require __DIR__ . '/auth.php';
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/Islamiyat/shop/{category_id?}', [IndexController::class, 'shop'])->name('shop');
-// Route::get('/shop/filterByPrice/{category_id?}', [ProductController::class, 'shop'])->name('shop.filterByPrice');
 Route::get('/Islamiyat/product/{product_id}', [IndexController::class, 'product'])->name('product');
 Route::get('/Islamiyat/about', [IndexController::class, 'about'])->name('about');
 Route::get('/Islamiyat/contact', [IndexController::class, 'contact'])->name('contact');
+Route::post('/Islamiyat/contactSend', [IndexController::class, 'contactSend'])->name('contactSend');
 
 
 // Route::get('/Islamiyat/cart', [CartController::class, 'index'])->name('cart');
@@ -103,7 +105,7 @@ Route::middleware(['checkUserRole'])->group(function () {
 
     Route::middleware(['CheckAdminRole_2'])->group(function () {
         Route::resource('dashboard/Order', OrderItemController::class)->names('dashboard.order');
-
+        Route::resource('dashboard/contact', ContactController::class)->names('dashboard.contact');
     });
 
 

@@ -9,11 +9,13 @@
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-general"
-                            id="general-tab">General</a>
+                            id="general-tab">المعلومات العامة</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#changePassword"
-                            id="change-password-tab">Change password</a>
+                            id="change-password-tab">تغير كلمة السر</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#addresses"
+                            id="orders-tab">معلومات الموقع</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#orders"
-                            id="orders-tab">orders</a>
+                            id="orders-tab">الطلبات</a>
                         {{-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-social-links">Social links</a>
@@ -152,9 +154,53 @@
                                 </form>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="addresses">
+                            <div class="profile border-form-left">
+                                <h1 class="card-body"><b>معلومات الموقع</b></h1>
+                                <form method="post" action="{{ route('profile.userInfo') }}"
+                                    class="mt-6 space-y-6 card-body">
+                                    @csrf
+                                    @method('PATCH')
+
+
+                                    <div class="form-group">
+                                        <x-input-label for="city " :value="__('المدينة')" />
+                                        <x-text-input id="city" name="city" type="text" class="form-control mt-2"
+                                            :value="old('name', $user->city)" required autocomplete="city" />
+                                        <x-input-error class="mt-2" :messages="$errors->get('city')" />
+                                    </div>
+                                    <div class="form-group">
+                                        <x-input-label for="street_address " :value="__('الحي الشارع')" />
+                                        <x-text-input id="street_address" name="street_address" type="text" class="form-control mt-2"
+                                            :value="old('name', $user->street_address)" required autocomplete="street_address" />
+                                        <x-input-error class="mt-2" :messages="$errors->get('street_address')" />
+                                    </div>
+                                    <div class="form-group">
+                                        <x-input-label for="phone " :value="__('رقم الهاتف')" />
+                                        <x-text-input id="phone" name="phone" type="text" class="form-control mt-2"
+                                            :value="old('name', $user->phone)" required autocomplete="phone" />
+                                        <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+                                    </div>
+                                    <div class="form-group">
+                                        <x-input-label for="post_code " :value="__('رقم البريد')" />
+                                        <x-text-input id="post_code" name="post_code" type="text" class="form-control mt-2"
+                                            :value="old('name', $user->post_code)" required autocomplete="post_code" />
+                                        <x-input-error class="mt-2" :messages="$errors->get('post_code')" />
+                                    </div>
+
+                                
+
+                                    <div class="flex items-center gap-4 card-body text-center">
+                                        <x-primary-button
+                                            class="btn btn-primary primary-btn">{{ __('حفظ التغيرات') }}</x-primary-button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div class="tab-pane fade" id="orders">
                             <div class="profile border-form-left">
-                                <h1>User Profile</h1>
+                                <h2 class="text-center">الطلبات</h2>
                                 <div class= "table-responsive">
                                     <table class="table table-bordered table-sm custom-table"
                                         style="width: 100%;margin:0 auto">

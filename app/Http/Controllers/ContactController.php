@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\contact;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -12,7 +12,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $Inquiries = Contact::all();
+        return view('dash.contact.contactView', compact('Inquiries'));
     }
 
     /**

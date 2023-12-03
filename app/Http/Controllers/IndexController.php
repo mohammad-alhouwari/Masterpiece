@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\General;
 use App\Models\OrderItem;
 use App\Models\Review;
+use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +22,9 @@ class IndexController extends Controller
     {
         $categories = Category::all();
         $productsNew = Product::orderBy('created_at', 'desc')->take(8)->get();
+        $lastProducts = Product::orderBy('stock_quantity', 'asc')->take(2)->get();
         $productsRandom = Product::inRandomOrder()->take(6)->get();
-        return view('pages.index', compact('categories', 'productsNew',"productsRandom"));
+        return view('pages.index', compact('categories', 'productsNew', "productsRandom"));
     }
 
 
@@ -30,7 +33,7 @@ class IndexController extends Controller
 
     public function shop(Request $request, $category_id = null)
     {
-        
+
         // dd($request);
         $perPage = $request->input('perPage') ? $request->input('perPage') : 6;
         $query = Product::query()->where('stock_quantity', '>', 0)->where('status', 1);
@@ -65,19 +68,19 @@ class IndexController extends Controller
 
 
         if ($request->input('search')) {
-            $query->where('search', 'LIKE', '%' . $request->search . '%');
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
         }
 
-        
+
         $products = $query->paginate($perPage);
 
 
         $category = Category::find($category_id);
 
-        return view('pages.shop', compact('products', 'category', 'category_id', 'sort', 'perPage' ,'maxPrice', 'minPrice'));
+        return view('pages.shop', compact('products', 'category', 'category_id', 'sort', 'perPage', 'maxPrice', 'minPrice'));
     }
 
-    
+
 
 
 
@@ -125,5 +128,52 @@ class IndexController extends Controller
         $order = $user->Order->last();
         return view('pages.orderConfirmation', compact('order', 'user'));
     }
+
+    public function contactSend(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Create a new Contact instance and save it to the database
+        Contact::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'تم إرسال الرسالة بنجاح');
+    }
+
+    public function userInfo(Request $request)
+    {
+        $request->validate([
+            'city' => 'nullable',
+            'phone' => 'nullable',
+            'street_address' => 'nullable',
+            'post_code' => 'nullable',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        if ($user) {
+            $user->city = $request->input('city');
+            $user->phone = $request->input('phone');
+            $user->street_address = $request->input('street_address');
+            $user->post_code = $request->input('post_code');
+            $user->save();
+            return redirect()->back()->with('success', 'تم تعديل المعلومات بنجاح');
+        } else {
+            // Handle the case where the user is not found
+            return redirect()->back()->with('error', 'لم يتم العثور على المستخدم');
+        }
+    }
+
 
 }

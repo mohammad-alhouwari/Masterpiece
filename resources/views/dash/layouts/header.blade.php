@@ -186,7 +186,7 @@
                         </ul>
                     </div>
                 </li>
-                
+
                 @endif
 
                 @if (Auth::user()->sub_role == 0 || Auth::user()->sub_role == 2)
@@ -199,6 +199,16 @@
                             <i class="fa-solid fa-truck"></i>
                         </div>
                         <span class="nav-link-text me-1">الطلبات</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link {{ set_active(['dashboard.contact.*']) }}"
+                        href="{{ route('dashboard.contact.index') }}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                        <span class="nav-link-text me-1">الإستفسارات</span>
                     </a>
                 </li>
 
@@ -227,7 +237,16 @@
                     </div>
                 </li>
 
-
+                <li>
+                    <div class="copyright text-center text-sm text-muted text-lg-end">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>,
+                        إنتاج <i class="fa fa-heart"></i> 
+                        <a href="https://github.com/mohammad-alhouwari" class="font-weight-bold" target="_blank">محمد الحواري</a>
+                    </div>
+                </li>
 
 
 
