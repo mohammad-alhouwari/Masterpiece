@@ -11,9 +11,44 @@ $(document).ready(function () {
         return isValid;
     }
 
+    $('#password').on('input', function () {
+        // Password should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit
+        validateInput($(this), /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/);
+    });
+    $('#passwordNew').on('input', function () {
+        // Password should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit
+        validateInput($(this), /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/);
+    });
+
+    // Validate password confirmation input
+    $('#passwordMatch').on('input', function () {
+        const password = $('#passwordNew').val();
+        const confirmPassword = $(this).val();
+
+        // Check if the confirmation password matches the original password
+        if (confirmPassword === password) {
+            $(this).removeClass('is-invalid').addClass('is-valid');
+        } else {
+            $(this).removeClass('is-valid').addClass('is-invalid');
+        }
+    });
+
     // Validate name input
     $('#name').on('input', function () {
         validateInput($(this), /^.{3,}$/);
+    });
+
+    $('#email').on('input', function () {
+        validateInput($(this), /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    });
+
+    $('#phone').on('input', function () {
+        validateInput($(this), /^\+9627[789]\d{7}$/);
+    });
+
+    // Validate post code input
+    $('#post_code').on('input', function () {
+        validateInput($(this), /^[0-9]{5}$/);
     });
 
     $('#coverImage').on('change', function () {

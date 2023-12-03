@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -79,22 +80,33 @@ Route::post('/Islamiyat/Review', [ReviewController::class, 'storeReview'])->name
 Route::get('/dashboard_login', [DashboardController::class, 'login'])->name('dashboard_login');
 Route::post('/loginAdmin', [DashboardController::class, 'loginAdmin'])->name('loginAdmin');
 Route::middleware(['checkUserRole'])->group(function () {
+    // dashboard home page
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
-    Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
-    Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
 
-    // product image start
-    Route::get('/dashboard/product-imageAddPage/{id}', [ProductController::class, 'imageAddPage'])->name('imageAddPage');
-    Route::post('/dashboard/product-imageDelete', [ProductController::class, 'imageDelete'])->name('imageDelete');
-    Route::put('/dashboard/product-imageStore/{product}', [ProductController::class, 'imageStore'])->name('imageStore');
-    // product image end
+    // main Admin 
+    Route::middleware(['CheckAdminRole_0'])->group(function () {
+        Route::resource('dashboard/admin', AdminController::class)->names('dashboard.admin');
+        Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
+        // about start
+    });
 
-    // about start
-    Route::resource('dashboard/general/about', GeneralController::class)->names('dashboard.general.about');
-    // about end
 
-    //
+    Route::middleware(['CheckAdminRole_1'])->group(function () {
+        Route::resource('dashboard/general/about', GeneralController::class)->names('dashboard.general.about');
+        Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
+        Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
+        // product image start
+        Route::get('/dashboard/product-imageAddPage/{id}', [ProductController::class, 'imageAddPage'])->name('imageAddPage');
+        Route::post('/dashboard/product-imageDelete', [ProductController::class, 'imageDelete'])->name('imageDelete');
+        Route::put('/dashboard/product-imageStore/{product}', [ProductController::class, 'imageStore'])->name('imageStore');
+    });
+
+    Route::middleware(['CheckAdminRole_2'])->group(function () {
+        Route::resource('dashboard/Order', OrderItemController::class)->names('dashboard.order');
+
+    });
+
+
     Route::get('/dashboard/general/Index_Slider/View', [GeneralController::class, 'Index_SliderView'])->name('Index_SliderView');
     Route::get('/dashboard/general/Index_Slider/Create', [GeneralController::class, 'Index_SliderCreate'])->name('Index_SliderCreate');
     Route::post('/dashboard/general/Index_Slider/Add', [GeneralController::class, 'Index_SliderAdd'])->name('Index_SliderAdd');
@@ -102,6 +114,7 @@ Route::middleware(['checkUserRole'])->group(function () {
     Route::get('/dashboard/orders', [OrderController::class, 'orders'])->name('orders');
     Route::get('/dashboard/orderItems/{product_id}', [OrderItemController::class, 'orderItemsView'])->name('orderItems');
 });
+
 
 // Route::post('/store-shipment', [CheckoutController::class, 'storeShipment'])->name('store-shipment');
 // Route::get('paypal/success', [CheckoutController::class, 'success'])->name('paypal_success');

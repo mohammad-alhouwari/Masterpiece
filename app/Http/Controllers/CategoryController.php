@@ -107,9 +107,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if (!$category->Product->isEmpty()) {
+            return redirect()->route('dashboard.category.index')->with('error', 'يجب ان تكون الفئة فارغة من المنتجات أولاً');
+        }
+
         $category->delete();
 
-        return redirect()->route('dashboard.category.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('dashboard.category.index')->with('success', 'تم حذف الفئة بنجاح');
     }
+
 }
 

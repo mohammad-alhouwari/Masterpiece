@@ -335,6 +335,17 @@
             });
         </script>
     @endif
+    @if (session('error'))
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                Swal.fire(
+                    'للأسف...',
+                    '{{ session('error') }}',
+                    'error'
+                );
+            });
+        </script>
+    @endif
     @if ($errors->any())
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {

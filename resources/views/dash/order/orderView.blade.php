@@ -1,98 +1,155 @@
-﻿@extends('dash.layouts.masterTable')
+@extends('dash.layouts.master')
 
-@section('title', 'orders')
-
-@section('orders')
-    class="active"
-@endsection
-@section('orderView')
-    class="active"
-@endsection
-{{-- @section('singleOrderView')
-    <ul class="ml-menu">
-        <li class="active" >
-            <span>View All Orders</span>
-        </li>
-    </ul>
-@endsection --}}
+@section('title', 'من نحن')
 
 @section('content')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                Orders
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
+    <div class="container-fluid py-4">
+
+
+        <div class="row my-4">
+            <div class="col-lg-12 col-md-12 mb-md-0 mb-12">
+                <div class="card p-2">
+                    <div class="card-header pb-0">
+                        <div class="card-body p-0 pb-2">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <table id="dataTable" class=" table table-head-bg-primary table-striped  table-hover">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>City</th>
-                                            <th>Street_address</th>
-                                            <th>post_code</th>
-                                            <th>total_quantity</th>
-                                            <th>total_price</th>
-                                            <th>payment_method</th>
-                                            <th>MORE</th>
+                                            <th>رقم الطلب</th>
+                                            <th>الإسم</th>
+                                            <th>تاريخ الطلب</th>
+                                            <th>عدد المنتجات</th>
+                                            <th>السعر الكلي</th>
+                                            <th>طريقة الدفع</th>
+                                            <th>ملاحظات المشتري</th>
+                                            <th>معلومات الوصول</th>
+                                            <th class="w-10">المزيد</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>City</th>
-                                            <th>Street_address</th>
-                                            <th>post_code</th>
-                                            <th>total_quantity</th>
-                                            <th>total_price</th>
-                                            <th>payment_method</th>
-                                            <th>MORE</th>
+                                            <th>رقم الطلب</th>
+                                            <th>الإسم</th>
+                                            <th>تاريخ الطلب</th>
+                                            <th>عدد المنتجات</th>
+                                            <th>السعر الكلي</th>
+                                            <th>طريقة الدفع</th>
+                                            <th>ملاحظات المشتري</th>
+                                            <th>معلومات الوصول</th>
+                                            <th class="w-10">المزيد</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($orders as $item)
+                                        @foreach ($orders as $order)
                                             <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->User->name }}</td>
-                                                <td>{{ $item->phone }}</td>
-                                                <td>{{ $item->city }}</td>
-                                                <td>{{ $item->street_address }}</td>
-                                                <td>{{ $item->post_code }}</td>
-                                                <td>{{ $item->total_quantity }}</td>
-                                                <td>{{ $item->total_price }}</td>
-                                                <td>{{ $item->payment_method }}</td>
+                                                <td>#{{ $order->id }}</td>
+                                                <td>{{ $order->User->name }}</td>
+                                                <td>{{ $order->created_at->format('Y-m-d') }}</td>
+                                                <td>{{ $order->total_quantity }}</td>
+                                                <td>${{ $order->total_price }}</td>
+                                                <td>{{ $order->payment_method }}</td>
+
                                                 <td>
-                                                    <a href="{{ route('orderItems', $item->id) }}"
-                                                        class="btn btn-primary">More Info</a>
+                                                    @if ($order->note)
+                                                        <button type="button"
+                                                            class="btn btn-block .btn-lg btn-outline-info mb-0 py-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-note{{ $order->id }}">الملاحظات</button>
+                                                        <div class="modal fade" id="modal-note{{ $order->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="modal-note{{ $order->id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal- modal-dialog-centered modal-"
+                                                                role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h6 class="modal-title mx-auto"
+                                                                            id="modal-title-default">ملاحظات المشتري
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div class="modal-body text-center">
+                                                                        <h6>
+                                                                            <i class="fa-solid fa-clipboard-list"></i>
+                                                                        </h6>
+                                                                        <p>{{ $order->note ? "$order->note" : '-------' }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-link text-danger mx-auto my-0 py-1"
+                                                                            data-bs-dismiss="modal">إغلاق</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <P class="px-4  mb-0">غير متوفر</P>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($order->city || $order->phone || $order->street_address || $order->post_code)
+                                                        <button type="button"
+                                                            class="btn btn-block .btn-lg btn-outline-info mb-0 py-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-description{{ $order->id }}">العنوان</button>
+                                                        <div class="modal fade" id="modal-description{{ $order->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="modal-description{{ $order->id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal- modal-dialog-centered modal-"
+                                                                role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h6 class="modal-title mx-auto"
+                                                                            id="modal-title-default">معلومات عنوان الطلب
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div class="modal-body row">
+                                                                        <div class="col-lg-3">
+                                                                            <h6><i class="fa-solid fa-city"></i> المدينة
+                                                                            </h6>
+                                                                            <p>{{ $order->city ? "$order->city" : '-------' }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <h6><i class="fa-solid fa-phone"></i> الهاتف
+                                                                            </h6>
+                                                                            <p>{{ $order->phone ? "$order->phone" : '-------' }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <h6><i class="fa-solid fa-road"></i>الشارع و
+                                                                                الحي</h6>
+                                                                            <p>{{ $order->street_address ? "$order->street_address" : '-------' }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <h6><i class="fa-solid fa-envelopes-bulk"></i>
+                                                                                رمز البريد</h6>
+                                                                            <p>{{ $order->post_code ? "$order->post_code" : '-------' }}
+                                                                            </p>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-link text-danger mx-auto my-0 py-1"
+                                                                            data-bs-dismiss="modal">إغلاق</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <P>غير متوفر</P>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class=" ps-4 pt-1">
+                                                        <a class="cursor-pointer"
+                                                            href="{{ route('dashboard.order.show', $order->id) }}">
+                                                            <i class="fa-solid fa-eye" style="font-size: 1.8rem;"></i>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -103,97 +160,5 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
-
-
-
-
-
-
-
-
-            <!-- Basic Examples -->
-            {{-- <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                BASIC EXAMPLE
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            <!-- #END# Basic Examples -->
         </div>
-        <script>
-            function deleteCategory(categoryId) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // User confirmed, submit the form
-                        document.getElementById('delete-form-' + categoryId).submit();
-                    }
-                });
-            }
-        </script>
-
-
-    </section>
-@endsection
+    @endsection

@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('Mm12345@'), 
             'role' => true,
+            'sub_role' => 0,
             'image' => null,
             'phone' => '1234567890',
             'city' => 'irbed',

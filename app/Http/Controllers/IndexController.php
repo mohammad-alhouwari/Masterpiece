@@ -20,7 +20,8 @@ class IndexController extends Controller
     {
         $categories = Category::all();
         $productsNew = Product::orderBy('created_at', 'desc')->take(8)->get();
-        return view('pages.index', compact('categories', 'productsNew'));
+        $productsRandom = Product::inRandomOrder()->take(6)->get();
+        return view('pages.index', compact('categories', 'productsNew',"productsRandom"));
     }
 
 
@@ -63,8 +64,8 @@ class IndexController extends Controller
         }
 
 
-        if ($request->has('name')) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        if ($request->input('search')) {
+            $query->where('search', 'LIKE', '%' . $request->search . '%');
         }
 
         

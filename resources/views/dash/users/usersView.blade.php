@@ -4,18 +4,10 @@
 
 @section('content')
     <div class="container-fluid py-4">
-
-
         <div class="row my-4">
             <div class="col-lg-12 col-md-12 mb-md-0 mb-12">
                 <div class="card p-2">
                     <div class="card-header pb-0">
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <a href="{{ route('dashboard.user.create') }}" class="btn btn-outline-primary text-lg">إضافة
-                                    صفحة جديدة</a>
-                            </div>
-                        </div>
                         <div class="card-body p-0 pb-2">
                             <div class="table-responsive">
                                 <table id="dataTable" class=" table table-head-bg-primary table-striped  table-hover">
@@ -40,13 +32,13 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-
                                                 <td>
                                                     @if ($user->image)
                                                         <img height="100px" width="100px" src="{{ url($user->image) }}"
                                                             alt="">
                                                     @else
-                                                        <P>فارغ</P>
+                                                        <img height="100px" width="100px"
+                                                            src="{{ url('userSide/img/user.jpg') }}" alt="">
                                                     @endif
                                                 </td>
                                                 <td>{{ $user->name }}</td>
@@ -66,7 +58,8 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h6 class="modal-title mx-auto"
-                                                                            id="modal-title-default">معلومات عنوان العميل</h6>
+                                                                            id="modal-title-default">معلومات عنوان العميل
+                                                                        </h6>
                                                                     </div>
                                                                     <div class="modal-body row">
                                                                         <div class="col-lg-3">
@@ -82,7 +75,8 @@
                                                                             </p>
                                                                         </div>
                                                                         <div class="col-lg-3">
-                                                                            <h6><i class="fa-solid fa-road"></i>الشارع و الحي</h6>
+                                                                            <h6><i class="fa-solid fa-road"></i>الشارع و
+                                                                                الحي</h6>
                                                                             <p>{{ $user->street_address ? "$user->street_address" : '-------' }}
                                                                             </p>
                                                                         </div>
@@ -136,17 +130,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-
-
-
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     @endsection

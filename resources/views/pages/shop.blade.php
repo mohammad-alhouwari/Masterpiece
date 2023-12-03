@@ -90,7 +90,7 @@
                             </select>
                         </div>
                         <div class="pagination">
-                            <input name="" type="text" class="text-center py-1" placeholder="البحث عن منتج ؟">
+                            <input name="search" type="text" class="text-center py-1" placeholder="البحث عن منتج ؟">
                             <button class="px-3 pt-1 genric-btn primary"><span class="lnr lnr-magnifier"></span></button>
                         </div>
                     </div>
@@ -143,8 +143,9 @@
                     <!-- End Best Seller -->
                     <!-- Start Filter Bar -->
                     <div class="filter-bar d-flex flex-wrap align-items-center">
+                        {{$products->links()}}
 
-                        <div class="pagination mx-auto">
+                        {{-- <div class="pagination mx-auto">
                             <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left"
                                     aria-hidden="true"></i></a>
                             <a href="#" class="active">1</a>
@@ -154,7 +155,7 @@
                             <a href="#">6</a>
                             <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right"
                                     aria-hidden="true"></i></a>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- End Filter Bar -->
                 </div>

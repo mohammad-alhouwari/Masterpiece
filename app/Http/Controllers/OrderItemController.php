@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\orderItem;
+use App\Models\OrderItem;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
@@ -12,7 +13,8 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        return view('dash.order.orderView', compact('orders'));
     }
 
     /**
@@ -34,9 +36,11 @@ class OrderItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(orderItem $orderItem)
+    public function show(Order $Order)
     {
-        //
+        $orderItem=$Order->OrderItem;
+        return view('dash.order.orderShow', compact('orderItem'));
+
     }
 
     /**

@@ -61,7 +61,7 @@
                                         <div class="col-md-12">
                                             <button type="submit" id="ButtonStore"
                                                 class="btn bg-gradient-primary w-100 h5">أضيف
-                                                الفئة</button>
+                                                الصورة</button>
                                         </div>
                                     </div>
                                 </form>

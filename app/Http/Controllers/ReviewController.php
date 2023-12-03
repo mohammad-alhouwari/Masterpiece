@@ -32,7 +32,7 @@ class ReviewController extends Controller
         $review['user_id'] = auth()->user()->id;
         
         review::create($review);
-        return redirect()->back()->with('success', 'مشكور على التعليق معلم');
+        return redirect()->back()->with('success', 'شكراً على مشاركتنا بتعليقك');
     }
 
     /**
