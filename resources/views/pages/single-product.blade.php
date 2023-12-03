@@ -23,7 +23,7 @@
     </section>
     <!-- End Banner Area -->
     <!--================Single Product Area =================-->
-    <div class="product_image_area">
+    <div class="product_image_area pt-2">
         <div class="container">
             <div class="row s_product_inner">
                 <div class="col-lg-6">
@@ -247,7 +247,7 @@
                 <div class="col-lg-6 text-center">
                     <div class="section-title">
                         <h1>منتجات مشابهة</h1>
-                        <p>بعض منتجاتنا</p>
+                        <p>بعض منتجاتنا من نفس الفئة</p>
                     </div>
                 </div>
             </div>

@@ -45,7 +45,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-
+//social login by google
+Route::get('/googlelogin', [ProfileController::class, 'googleLogin'])->name('googlelogin');
+Route::get('/auth/google/callback', [ProfileController::class, 'googleHandle']);
 
 //---------------------main --------------------
 
