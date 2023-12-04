@@ -70,6 +70,11 @@
                                 {{-- <span class="placeholder" data-placeholder="رقم الهاتف"></span> --}}
                             </div>
                             <div class="col-md-12 form-group p_star">
+                                <input type="number" class="form-control" id="city" name="city" required
+                                    placeholder="المدينة">
+                                {{-- <span class="placeholder" data-placeholder="رقم الهاتف"></span> --}}
+                            </div>
+                            {{-- <div class="col-md-12 form-group p_star">
                                 <select class="w-100 country_select" name="city" required>
                                     <option value="0" disabled selected>--- إختر المحافظة ---</option>
                                     <option value="إربد">إربد</option>
@@ -86,7 +91,7 @@
                                     <option value="المفرق">المفرق</option>
                                 </select>
 
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="address" name="street_address"
@@ -98,12 +103,12 @@
                                 <input type="text" class="form-control" id="zip" name="post_code"
                                     placeholder="رمز البريد" required>
                             </div>
-                            <div class="col-md-12 form-group">
+                            {{-- <div class="col-md-12 form-group">
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option2" name="selectorInfo">
                                     <label for="f-option2">إستخدم معلومات <b>الحساب</b> الحالية؟</label>
                                 </div>
-                            </div>
+                            </div> --}}
                             <br>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">

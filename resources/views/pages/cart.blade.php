@@ -123,11 +123,11 @@
 
                             </td>
                             <td>
-                                <div class="cupon_text d-flex align-items-center">
+                                {{-- <div class="cupon_text d-flex align-items-center">
                                     <input type="text" placeholder="كود الكوبون">
                                     <a class="primary-btn" href="#">تطبيق</a>
                                     <a class="gray_btn" href="#">الغاء الكوبون</a>
-                                </div>
+                                </div> --}}
                             </td>
                             </tr>
                             <tr>
