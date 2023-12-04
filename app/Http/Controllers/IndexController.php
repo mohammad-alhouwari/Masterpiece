@@ -23,7 +23,7 @@ class IndexController extends Controller
         $categories = Category::all();
         $productsNew = Product::orderBy('created_at', 'desc')->take(8)->get();
         $lastProducts = Product::orderBy('stock_quantity', 'asc')->take(2)->get();
-        $productsRandom = Product::inRandomOrder()->take(6)->get();
+        $productsRandom = Product::inRandomOrder()->take(8)->get();
         return view('pages.index', compact('categories', 'productsNew', "productsRandom",'lastProducts'));
     }
 

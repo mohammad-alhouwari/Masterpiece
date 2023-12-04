@@ -20,11 +20,8 @@
     </section>
     <!-- End Banner Area -->
 
-
-
-
     <div class="container">
-        <form action="{{route('shop')}}" method="GET">
+        <form action="{{ isset($category->id) ? route('shop', $category->id) : route('shop') }}" method="GET">
             @csrf
             <input type="hidden" name="category_id" value="{{ isset($category->id) ? $category->id : null }}">
             <div class="row mb-5">
@@ -143,7 +140,7 @@
                     <!-- End Best Seller -->
                     <!-- Start Filter Bar -->
                     <div class="filter-bar d-flex flex-wrap align-items-center">
-                        {{$products->links()}}
+                        {{ $products->links('vendor.pagination.custom') }}
 
                         {{-- <div class="pagination mx-auto">
                             <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left"
