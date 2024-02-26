@@ -2191,8 +2191,18 @@ h6 {
 }
 
 .single-product {
-  margin-bottom: 50px;
+  /* Your existing styles */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  max-height: 490px;
+  padding: 5px 5px 36px 5px;
+  background: linear-gradient(180deg, #ff6c00  0%, #fff 100%);
+  box-shadow: inset 0 0 3px rgba(255, 255, 255, 1);
 }
+
 
 .single-product img {
   margin-bottom: 20px;
@@ -2201,7 +2211,8 @@ h6 {
 
 .single-product .product-details h6 {
   font-size: 16px;
-  text-transform: uppercase;
+  text-align: center;
+  /* text-transform: uppercase; */
 }
 
 .single-product .product-details .price h6 {
@@ -2220,6 +2231,8 @@ h6 {
 .single-product .product-details .prd-bottom {
   position: relative;
   margin-top: 20px;
+  padding-right: 15%;
+  padding-left: 15%;
 }
 
 .single-product .product-details .prd-bottom .social-info {
@@ -8523,3 +8536,11 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 
 
 /*end profile*/
+
+.price{
+  text-align: center;
+}
+
+.mb-35{
+  margin-bottom: 35px;
+}

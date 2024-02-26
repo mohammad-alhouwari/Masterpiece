@@ -17,24 +17,25 @@
                                     @method('PUT')
                                     <div class="card-body">
                                         <div class="mb-4">
-                                            <label class="h6">عدل العنوان (إختياري)</label>
+                                            <label class="h6">أضف أو عدل عنوان للصفحة  (إختياري)</label>
                                             <div class="input-group">
                                                 <input class="form-control px-5" placeholder="" id="name"
                                                     aria-label="العنوان..." type="text" name="name"
                                                     value="{{ $about->title }}">
                                             </div>
-                                            <sup><span class="text-danger">*</span>حقل إختياري أضف عنوان الفئة <b>(أكثر من 3
+                                            <sup><span class="text-danger">*</span>
+                                                حقل إختياري - أضف أو عدل عنوان للصفحة <b>(أكثر من 3
                                                     حروف)</b></sup>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label class="h6">عدل النص (إختياري)</label>
-                                            <textarea class="form-control" id="description" rows="2" name="description">{{ $about->text }}</textarea>
-                                            <sup><span class="text-danger">*</span>حقل إختياري أضف وصفًا قصيرًا للفئة
+                                            <label class="h6">أضف أو عدل النص (إختياري)</label>
+                                            <textarea class="form-control px-5" id="description" rows="2" name="description">{{ $about->text }}</textarea>
+                                            <sup><span class="text-danger">*</span>حقل إختياري - أضف أو عدل نص قصير للصفحة
                                                 <b>(أكثر من 20 حرف)</b></sup>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label class="h6">أرفق صورة خلفية(إختياري)</label>
+                                            <label class="h6">أرفق أو عدل صورة خلفية(إختياري)</label>
                                             @if ($about->media2)
                                                 <div class="form-check form-switch ps-0 d-flex d-flex">
                                                     <label class=" mb-0">أزيل صورة الخلفية</label>

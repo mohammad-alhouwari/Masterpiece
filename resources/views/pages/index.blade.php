@@ -170,9 +170,9 @@
     <!-- End category Area -->
     <!-- Start exclusive deal Area -->
     <section class="exclusive-deal-area">
-        <div class="container-fluid" style="height: 80vh">
+        <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
-                <div class="col-lg-6 no-padding exclusive-left pt-5 pb-5">
+                <div class="col-lg-6 no-padding exclusive-left">
                     <div class="row clock_sec clockdiv" id="clockdiv">
                         <div class="col-lg-12">
                             <h1>سارع قبل نفاذ الكفية</h1><br><br>
@@ -192,8 +192,8 @@
                 <div class="col-lg-6 no-padding exclusive-right ">
                     <div class="active-exclusive-product-slider">
                         @foreach ($lastProducts as $item)
-                            <div class="single-exclusive-slider row justify-content-center" style="padding: 20px;">
-                                <img class="img-fluid" src="{{ url($item->image) }}" alt="">
+                            <div class="single-exclusive-slider row justify-content-center d-flex flex-column justify-content-center align-items-center" style="padding: 20px;">
+                                <img class="img-fluid" src="{{ url($item->image) }}" style="width: 400px;" alt="">
                                 <div class="product-details">
                                     <div class="price">
                                         <h6>${{ $item->price }}</h6>
@@ -227,7 +227,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row gap-3">
                     <!-- single product -->
                     @foreach ($productsNew as $product)
                         <div class="col-lg-3 col-md-6">
@@ -236,7 +236,7 @@
                                 <div class="product-details">
                                     <h6>{{ $product->name }}</h6>
                                     <div class="price">
-                                        <h6>{{ $product->price }}</h6>
+                                        <h6>{{ $product->price }} $</h6>
                                         {{-- <h6 class="l-through">JD210.00</h6> --}}
                                     </div>
                                     <div class="prd-bottom">

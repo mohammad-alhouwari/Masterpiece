@@ -16,18 +16,18 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="mb-4">
-                                            <label class="h6">إسم الفئة(إختياري)</label>
+                                            <label class="h6">عنوان الصفحة (إختياري)</label>
                                             <div class="input-group">
                                                 <input class="form-control px-5" placeholder="" id="name"
                                                     aria-label="العنوان..." type="text" name="name">
                                             </div>
-                                            <sup><span class="text-danger">*</span>حقل إختياري أضف عوان الفئة <b>(أكثر من 3
+                                            <sup><span class="text-danger">*</span>حقل إختياري - أضف عنوان لصفحة  <b>(أكثر من 3
                                                     حروف)</b></sup>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label class="h6">وصف الفئة(إختياري)</label>
-                                            <textarea class="form-control" id="description" rows="2" name="description"></textarea>
-                                            <sup><span class="text-danger">*</span>حقل إختياري أضف وصف قصير للفئة <b>(أكثر
+                                            <label class="h6">نص قصير(إختياري)</label>
+                                            <textarea class="form-control px-5" id="description" rows="2" name="description"></textarea>
+                                            <sup><span class="text-danger">*</span>حقل إختياري - أضف نص قصير للصفحة <b>(أكثر
                                                     من
                                                     20 حرف)</b></sup>
                                         </div>
@@ -39,7 +39,7 @@
                                                     placeholder="" name="coverImage" onchange="previewCover()">
                                             </div>
                                             <img id="coverImagePreview" class="ImagePreview" src="" alt="">
-                                            <sup><span class="text-danger">*</span>حقل إختياري و يتوجب أن يكون نوع الملف
+                                            <sup><span class="text-danger">*</span>حقل إختياري - يتوجب أن يكون نوع الملف
                                                 <b>(صورة)</b></sup>
                                         </div>
 

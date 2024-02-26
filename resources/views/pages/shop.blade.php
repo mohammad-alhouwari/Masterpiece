@@ -94,7 +94,7 @@
                     <!-- End Filter Bar -->
                     <!-- Start Best Seller -->
                     <section class="lattest-product-area pb-40 category-list">
-                        <div class="row">
+                        <div class="row mb-35">
 
                             <!--foreach single product -->
                             @if ($products[0])

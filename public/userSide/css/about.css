@@ -150,6 +150,7 @@ body {
     border-radius: 30%;
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 1);
     transition: box-shadow 0.3s;
+    margin: 10px;
 }
 .aboutVideo:hover {
     box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.8);
@@ -162,5 +163,6 @@ body {
     border-radius: 5%;
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 1);
     transition: box-shadow 0.3s;
+    margin: 10px;
 }
 
