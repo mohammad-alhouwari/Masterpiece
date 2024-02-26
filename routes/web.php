@@ -90,24 +90,34 @@ Route::middleware(['checkUserRole'])->group(function () {
     // main Admin 
     Route::middleware(['CheckAdminRole_0'])->group(function () {
         Route::resource('dashboard/admin', AdminController::class)->names('dashboard.admin');
-        Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
-        // about start
     });
 
 
     Route::middleware(['CheckAdminRole_1'])->group(function () {
-        Route::resource('dashboard/general/about', GeneralController::class)->names('dashboard.general.about');
+        //category
         Route::resource('dashboard/category', CategoryController::class)->names('dashboard.category');
+        //product
         Route::resource('dashboard/product', ProductController::class)->names('dashboard.product');
-        // product image start
+        // product image 
         Route::get('/dashboard/product-imageAddPage/{id}', [ProductController::class, 'imageAddPage'])->name('imageAddPage');
         Route::post('/dashboard/product-imageDelete', [ProductController::class, 'imageDelete'])->name('imageDelete');
         Route::put('/dashboard/product-imageStore/{product}', [ProductController::class, 'imageStore'])->name('imageStore');
+        // about 
+        Route::resource('dashboard/general/about', GeneralController::class)->names('dashboard.general.about');
+         // features  
+        Route::get('dashboard/general/features', [GeneralController::class, 'featuresIndex'])->name('dashboard.general.features.Index');
+        Route::get('dashboard/general/features/Add', [GeneralController::class, 'featureAdd'])->name('dashboard.general.features.featureAdd');
+        Route::post('dashboard/general/features/Store', [GeneralController::class, 'featureStore'])->name('dashboard.general.features.featureStore');
+        Route::get('dashboard/general/features/Edit/{featureID}', [GeneralController::class, 'featureEdit'])->name('dashboard.general.features.featureEdit');
+        Route::put('dashboard/general/features/Update/{featureID}', [GeneralController::class, 'featureUpdate'])->name('dashboard.general.features.featureUpdate');
+        Route::delete('dashboard/general/features/Delete/{featureID}', [GeneralController::class, 'featureDelete'])->name('dashboard.general.features.featureDelete');
+
     });
 
     Route::middleware(['CheckAdminRole_2'])->group(function () {
         Route::resource('dashboard/Order', OrderItemController::class)->names('dashboard.order');
         Route::resource('dashboard/contact', ContactController::class)->names('dashboard.contact');
+        Route::resource('dashboard/user', UserController::class)->names('dashboard.user');
     });
 
 

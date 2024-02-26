@@ -90,6 +90,66 @@ class GeneralsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+
+
+
+            [
+                'generalType' => 'feature',
+                'title' => 'خدمة التوصيل',
+                'text' => 'توصيل لجميع مناطق المملكة',
+                'media1' => '/seed/features/1.JPG',
+                'mediaType1' => null,
+                'media2' => null,
+                'mediaType2' => null,
+                'media3' => null,
+                'mediaType3' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'generalType' => 'feature',
+                'title' => 'جودة منتجاتنا',
+                'text' => 'منتجنا هو الأول في العالم',
+                'media1' => '/seed/features/2.JPG',
+                'mediaType1' => null,
+                'media2' => null,
+                'mediaType2' => null,
+                'media3' => null,
+                'mediaType3' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'generalType' => 'feature',
+                'title' => 'خدمة الدعم الفني',
+                'text' => 'نسعى دائما لسعادتك',
+                'media1' => '/seed/features/3.JPG',
+                'mediaType1' => null,
+                'media2' => null,
+                'mediaType2' => null,
+                'media3' => null,
+                'mediaType3' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'generalType' => 'feature',
+                'title' => 'طرق الدفع الآمن',
+                'text' => 'سلامة العميل أهم اهدافنا',
+                'media1' => '/seed/features/4.JPG',
+                'mediaType1' => null,
+                'media2' => null,
+                'mediaType2' => null,
+                'media3' => null,
+                'mediaType3' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],  
+
+
+
+            
         ];
 
         // Insert data into the 'generals' table

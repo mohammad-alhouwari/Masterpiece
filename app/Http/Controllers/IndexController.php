@@ -20,11 +20,12 @@ class IndexController extends Controller
 
     public function home()
     {
+        $features = General::where('generalType', 'feature')->get();
         $categories = Category::all();
         $productsNew = Product::orderBy('created_at', 'desc')->take(8)->get();
         $lastProducts = Product::orderBy('stock_quantity', 'asc')->take(2)->get();
         $productsRandom = Product::inRandomOrder()->take(8)->get();
-        return view('pages.index', compact('categories', 'productsNew', "productsRandom",'lastProducts'));
+        return view('pages.index', compact('categories', 'productsNew', "productsRandom",'lastProducts','features'));
     }
 
 
@@ -113,7 +114,7 @@ class IndexController extends Controller
 
     public function about()
     {
-        $generals = general::all();
+        $generals = General::where('generalType', 'about')->get();
         return view('pages.about_us', compact('generals'));
     }
 

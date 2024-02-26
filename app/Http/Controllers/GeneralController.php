@@ -180,21 +180,133 @@ class GeneralController extends Controller
      */
     public function destroy($id)
     {
-        $jeneral = General::where('id', $id)->first();
-        if ($jeneral->jeneralType == 'about') {
+        $General = General::where('id', $id)->first();
+        if ($General->generalType == 'about') {
             $message = 'About page';
+            $General->delete();
+            return redirect()->route('dashboard.about.index')->with('success',' تم حذف صفحة من نحن بنجاح');
         } else {
             $message = 'Invalid page';
         }
-        $jeneral->delete();
-        return redirect()->route('dashboard.about.index')->with('success', $message . ' deleted successfully.');
     }
-    public function Index_SliderView()
+    // public function Index_SliderView()
+    // {
+    //     //
+    // }
+    // public function Index_SliderCreate()
+    // {
+    //     //
+    // }
+
+
+
+    //
+    //
+    // ========================================== features ==========================================
+    //
+    //
+
+    public function featuresIndex()
     {
-        //
+        $features = General::where('generalType', 'feature')->get();
+        return view('dash.features.featuresView', compact('features'));
     }
-    public function Index_SliderCreate()
+
+    public function featureAdd()
     {
-        //
+        return view('dash.features.featuresAdd');
+    }
+
+    public function featureStore(Request $request)
+    {
+        
+        // Validation rules
+        $rules = [
+            'name' => 'nullable|string|min:3',
+            'description' => 'nullable|string|min:20',
+            'featureImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed image formats and max size
+        ];
+
+        // Validate the request
+        $request->validate($rules);
+
+        // Create a new General model instance
+        $general = new General;
+
+        // Assign values from the request to the model
+        $general->title = $request->input('name');
+        $general->generalType = 'feature';
+        $general->text = $request->input('description');
+
+        // Handle cover image
+        if ($request->hasFile('featureImage')) {
+            $featureImage = $request->file('featureImage');
+            $featureImagePath = 'features/' . date('YmdHis') . "." . $featureImage->getClientOriginalExtension();
+            $featureImage->move(public_path('features'), $featureImagePath);
+            $general->media1 = $featureImagePath;
+        }
+
+        // Save the General model instance
+        $general->save();
+        // Redirect or respond as needed
+        return redirect()->route('featuresIndex')->with('success', 'تم إضافة ميّزة للموقع بنجاح');
+    }
+
+
+    public function featureEdit($featureID)
+    {
+        $feature = General::where('generalType', 'feature')->where('id', $featureID)->first();
+        return view('dash.features.featuresEdit', compact('feature'));
+    }
+
+    public function featureUpdate(Request $request, $id)
+{
+    // Validation rules
+    $rules = [
+        'name' => 'nullable|string|min:3',
+        'description' => 'nullable|string|min:20',
+        'featureImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ];
+
+    // Validate the request
+    $request->validate($rules);
+
+    // Find the existing General model instance by ID
+    $general = General::findOrFail($id);
+
+    // Update the attributes with new values from the request
+    $general->title = $request->input('name');
+    $general->text = $request->input('description');
+
+    // Handle cover image if a new file is uploaded
+    if ($request->hasFile('featureImage')) {
+        // Delete the old image if it exists
+        if ($general->media1 && file_exists(public_path($general->media1))) {
+            unlink(public_path($general->media1));
+        }
+
+        $featureImage = $request->file('featureImage');
+        $featureImagePath = 'features/' . date('YmdHis') . "." . $featureImage->getClientOriginalExtension();
+        $featureImage->move(public_path('features'), $featureImagePath);
+        $general->media1 = $featureImagePath;
+    }
+
+    // Save the updated General model instance
+    $general->save();
+
+    // Redirect or respond as needed
+    return redirect()->route('featuresIndex')->with('success', 'تم تحديث ميّزة الموقع بنجاح');
+}
+
+    public function featureDelete($featureID)
+    {
+        $General = General::where('id', $featureID)->first();
+        if ($General->generalType == 'feature') {
+            $General->delete();
+            return redirect()->route('featuresIndex')->with('success',' تم حذف الميزة بنجاح');
+        } else {
+            $message = 'Invalid page';
+        }
+        // return redirect()->route('featuresIndex')->with('success', $message . ' تم الحذف .');
     }
 }

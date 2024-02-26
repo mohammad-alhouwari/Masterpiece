@@ -183,6 +183,35 @@
                                 </div>
                             </li>
 
+                            <li class="nav-item ">
+                                <a class="nav-link {{ set_active(['dashboard.general.features.*']) }}"
+                                    data-bs-toggle="collapse" aria-expanded="false" href="#nav-itemFeatures">
+                                    <span class="sidenav-mini-icon"><i class="fa-regular fa-address-book"></i></span>
+                                    <span class="sidenav-normal"> مميزات الموقع<b class="caret"></b></span>
+                                </a>
+                                <div class="collapse {{ set_show(['dashboard.general.features.*']) }}"
+                                    id="nav-itemFeatures">
+                                    <ul class="nav nav-sm flex-column pe-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ set_active(['dashboard.general.features.Index']) }}"
+                                                href="{{ route('dashboard.general.features.Index') }}">
+                                                <span class="sidenav-mini-icon text-xs"><i
+                                                        class="fa-regular fa-eye"></i></span>
+                                                <span class="sidenav-normal">كل الميزات</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ set_active(['dashboard.general.features.featureAdd']) }}"
+                                                href="{{ route('dashboard.general.features.featureAdd') }}">
+                                                <span class="sidenav-mini-icon text-xs"><i
+                                                        class="fa-solid fa-circle-plus"></i></span>
+                                                <span class="sidenav-normal">إضافة ميزة جديدة</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
                         </ul>
                     </div>
                 </li>

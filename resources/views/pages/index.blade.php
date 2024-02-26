@@ -76,46 +76,19 @@
     <section class="features-area section_gap">
         <div class="container">
             <div class="row features-inner">
+                @foreach ($features as $item)
                 <!-- single features -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-features">
+                <div class="col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="single-features d-flex flex-column justify-content-between h-100">
                         <div class="f-icon">
-                            <img src="img/features/f-icon1.png" alt="">
+                            <img class="col-8" src="{{url($item->media1)}}" alt="">
                         </div>
-                        <h6>خدمة التوصيل السريع</h6>
-                        <p>توصيل لجميع مناطق</p>
+                        <h6>{{$item->title}}</h6>
+                        <p>{{$item->text}}</p>
                     </div>
                 </div>
-                <!-- single features -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-features">
-                        <div class="f-icon">
-                            <img src="img/features/f-icon2.png" alt="">
-                        </div>
-                        <h6>جودة منتجاتنا</h6>
-                        <p>منتجنا هو الأول في العالم</p>
-                    </div>
-                </div>
-                <!-- single features -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-features">
-                        <div class="f-icon">
-                            <img src="img/features/f-icon3.png" alt="">
-                        </div>
-                        <h6>خدمة الدعم الفني</h6>
-                        <p>نسعى دائما لسعادتك</p>
-                    </div>
-                </div>
-                <!-- single features -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-features">
-                        <div class="f-icon">
-                            <img src="img/features/f-icon4.png" alt="">
-                        </div>
-                        <h6>طرق الدفع الآمن</h6>
-                        <p>سلامة العميل أهم اهدافنا</p>
-                    </div>
-                </div>
+                @endforeach
+               
             </div>
         </div>
     </section>

@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('Aa12345@'), 
             'role' => true,
             'sub_role' => 0,
-            'image' => null,
+            'image' => "seed\admin\admin1.png",
             'phone' => '0700000001',
             'city' => 'irbed',
             'street_address' => 'al-hossen',

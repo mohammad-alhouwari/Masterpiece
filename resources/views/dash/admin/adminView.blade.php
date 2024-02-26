@@ -15,10 +15,10 @@
                     <div class="row">
                         @foreach ($admins as $admin)
                             <div class="col-md-4 mt-4">
-                                <div class="card card-profile mt-md-0 mt-5">
-                                    <label for="image{{$admin->id}}" id="photo{{$admin->id}}">
-                                        <div class="p-3">
-                                            <img class="w-100 border-radius-md"
+                                <div class="card card-profile mt-md-0 mt-5 h-100 shadow-lg pb-2">
+                                    <label class="card-body" for="image{{$admin->id}}" id="photo{{$admin->id}}">
+                                        <div class="p-3 h-100">
+                                            <img class="w-100 border-radius-md h-100 object-fit-cover"
                                                 src="{{ url($admin->image ? $admin->image : 'dash/img/admin.jpg') }}">
                                         </div>
                                     </label>
@@ -31,7 +31,7 @@
                                     </form>
 
                                     <div
-                                        class="card-body blur justify-content-center text-center mx-4 mb-0 py-1 border-radius-md">
+                                        class="blur justify-content-center text-center mx-4 mb-0 py-1 border-radius-md">
 
                                         @if ($admin->sub_role == 0)
                                             <h4 class="mb-0 text-gradient text-primary">{{ $admin->name }}</h4>
@@ -52,7 +52,7 @@
                                     <div class="row w-95 mx-auto">
                                         <div class="col-md-4 ">
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn bg-gradient-success btn-block mb-0"
+                                            <button type="button" class="btn bg-gradient-success btn-block mb-0 w-100"
                                                 data-bs-toggle="modal" data-bs-target="#success{{ $admin->id }}">
                                                 المعلومات الأساسية
                                             </button>
@@ -125,7 +125,7 @@
                                         </div>
                                         <div class="col-md-4 ">
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn bg-gradient-info btn-block mb-0"
+                                            <button type="button" class="btn bg-gradient-info btn-block mb-0 w-100"
                                                 data-bs-toggle="modal" data-bs-target="#info{{ $admin->id }}">
                                                 المعلومات الإضافية
                                             </button>
@@ -204,7 +204,7 @@
                                         </div>
                                         <div class="col-md-4 ">
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn bg-gradient-secondary btn-block mb-0"
+                                            <button type="button" class="btn bg-gradient-secondary btn-block mb-0 w-100"
                                                 data-bs-toggle="modal" data-bs-target="#secondary{{ $admin->id }}">
                                                 كلمة المرور
                                             </button>
